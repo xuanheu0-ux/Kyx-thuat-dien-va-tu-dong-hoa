@@ -5,7 +5,8 @@
   "description": "Hub/runner/checker for the runnable web projects + Octave wrapper for .m scripts (no dependencies).",
   "scripts": {
     "serve": "node tools/serve.js",
-    "check": "node tools/check_web.js"
+    "check": "node tools/check_web.js",
+    "test:sim": "node tools/test_gsp_sim.js"
   },
   "engines": {
     "node": ">=14"

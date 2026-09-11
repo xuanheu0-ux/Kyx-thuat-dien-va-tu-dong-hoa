@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mô phỏng PLC hòa máy phát — theo sơ đồ SJC-E-GSP-2021</title>
+<style>
+:root{
+  --bg:#0e1120;--panel:#171b2e;--panel2:#1e2440;--ink:#e9edff;--mut:#98a2c8;
+  --line:#2b3257;--green:#22c55e;--red:#ef4444;--amber:#f59e0b;--cyan:#22d3ee;--pink:#f472b6;
+  --close:#ef4444;--open:#22c55e;
+}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(1100px 500px at 85% -10%,rgba(34,211,238,.08),transparent 60%),
+ radial-gradient(900px 500px at 0% 110%,rgba(244,114,182,.07),transparent 60%),var(--bg);
+ color:var(--ink);font-family:"Segoe UI",system-ui,sans-serif;font-size:14px}
+header{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line)}
+header h1{font-size:18px;margin:0}
+header h1 small{display:block;font-size:11px;color:var(--mut);font-weight:400}
+.spacer{flex:1}
+button,select{background:var(--panel2);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:6px 10px;font:inherit;font-size:13px;cursor:pointer}
+button:hover{border-color:var(--cyan)}
+button:active{transform:translateY(1px)}
+button.on{border-color:var(--cyan);box-shadow:0 0 0 1px var(--cyan) inset;color:var(--cyan)}
+button.danger{border-color:#7f1d1d;background:#3b1212;color:#fca5a5}
+button:disabled{opacity:.4;cursor:not-allowed}
+main{display:grid;grid-template-columns:minmax(340px,5fr) minmax(300px,4fr) minmax(280px,3.2fr);gap:12px;padding:12px 18px 26px;align-items:start}
+@media (max-width:1280px){main{grid-template-columns:1fr 1fr}}
+@media (max-width:820px){main{grid-template-columns:1fr}}
+.card{background:linear-gradient(170deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:12px}
+.card h2{margin:0 0 8px;font-size:13px;letter-spacing:.4px;color:var(--mut);text-transform:uppercase}
+.card h2 b{color:var(--ink)}
+svg{width:100%;height:auto;display:block}
+.leds{display:grid;grid-template-columns:1fr 1fr;gap:4px 14px}
+.led{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--mut);font-family:Consolas,monospace;white-space:nowrap}
+.led i{width:10px;height:10px;border-radius:50%;background:#252b49;border:1px solid var(--line);flex:none}
+.led i.g{background:var(--green);box-shadow:0 0 6px var(--green)}
+.led i.r{background:var(--red);box-shadow:0 0 6px var(--red)}
+.led i.a{background:var(--amber);box-shadow:0 0 6px var(--amber)}
+.led i.c{background:var(--cyan);box-shadow:0 0 6px var(--cyan)}
+.gauges{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.g{background:#11152a;border:1px solid var(--line);border-radius:10px;padding:6px 8px;text-align:center}
+.g .v{font:600 18px Consolas,monospace}
+.g .k{font-size:10px;color:var(--mut);letter-spacing:.3px}
+.g small{font-size:10px;color:var(--mut)}
+canvas{width:100%;height:150px;background:#0b0e1c;border:1px solid var(--line);border-radius:10px;display:block}
+.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:11px;color:var(--mut);margin-top:6px}
+.legend b{display:inline-block;width:14px;height:3px;vertical-align:middle;margin-right:4px;border-radius:2px}
+#log{height:190px;overflow-y:auto;font:11px/1.55 Consolas,monospace;background:#0b0e1c;border:1px solid var(--line);border-radius:10px;padding:6px 8px}
+#log .t{color:#5b6487;margin-right:6px}
+#log .ok{color:var(--green)} #log .warn{color:var(--amber)} #log .err{color:var(--red)} #log .info{color:var(--cyan)}
+.row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:4px 0}
+.row label{font-size:12px;color:var(--mut)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+.hint{font-size:11px;color:var(--mut);line-height:1.5}
+#tasks{list-style:none;margin:0;padding:0;font-size:12.5px}
+#tasks li{padding:4px 0;border-bottom:1px dashed #222a4d;display:flex;gap:8px;align-items:baseline}
+#tasks li b.c{color:var(--green)}
+.badge{display:inline-block;font-size:10px;border:1px solid var(--line);border-radius:999px;padding:1px 8px;color:var(--mut)}
+.sync-ok{color:var(--green)} .sync-bad{color:var(--amber)}
+input[type=checkbox]{accent-color:var(--cyan)}
+input[type=range]{accent-color:var(--cyan);width:110px}
+details{margin-top:6px}
+summary{cursor:pointer;font-size:12px;color:var(--mut)}
+.kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 5px;font:11px monospace;background:#0b0e1a}
+</style>
+</head>
+<body>
+<header>
+  <h1>⚡ Mô phỏng “PLC hóa” tủ hòa máy phát
+    <small>Mô hình giáo dục theo sơ đồ khối SJC-E-GSP-2021 (FX3U-16MT/ES · Weintek HMI · GEN PROTECTION · STEP MOTOR) — đơn vị tương đối (pu / Hz / MW định mức)</small>
+  </h1>
+  <span class="badge">⚠ Không dùng cho thiết kế thật</span>
+  <div class="spacer"></div>
+  <div class="row">
+    <button id="bP">⏸ Tạm dừng</button>
+    <button id="bS1" class="on">×1</button><button id="bS2">×2</button><button id="bS4">×4</button>
+    <button id="bReset">↺ Đặt lại</button>
+  </div>
+</header>
+
+<main>
+<!-- ================= CỘT 1: SƠ ĐỒ MIMIC + PLC I/O ================= -->
+<div>
+<div class="card">
+  <h2><b>Sơ đồ một sợi động</b> — tô màu: <span style="color:var(--red)">đỏ = ĐÓNG</span> / <span style="color:var(--green)">xanh = CẮT</span></h2>
+<svg viewBox="0 0 560 380" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace" font-size="10">
+  <defs>
+    <marker id="ar" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L8 4L0 8z" fill="#7d87b0"/></marker>
+  </defs>
+  <!-- bus -->
+  <line x1="120" y1="70" x2="450" y2="70" stroke="#e2e8f0" stroke-width="5"/>
+  <text x="460" y="66" fill="#98a2c8">THANH CÁI</text>
+  <text x="460" y="78" fill="#98a2c8">Ub=<tspan id="oUb">1.00</tspan>pu</text>
+  <!-- VT bus -->
+  <circle cx="420" cy="90" r="11" fill="none" stroke="#7d87b0"/><text x="409" y="94" fill="#c7d0f0">V</text><text x="417" y="103" fill="#c7d0f0">T</text>
+  <line x1="420" y1="70" x2="420" y2="79" stroke="#7d87b0"/>
+  <!-- analog module -->
+  <rect x="300" y="150" width="120" height="46" rx="6" fill="#141830" stroke="#2b3257"/>
+  <text x="312" y="167" fill="#98a2c8">FX3U-4AD (AI)</text>
+  <text x="312" y="181" fill="#7d87b0">Ug-U Ug-V Ub-U Ub-V</text>
+  <path d="M420 101 V128 H360" fill="none" stroke="#7d87b0" stroke-dasharray="3 3" marker-end="url(#ar)"/>
+  <!-- GCB on generator branch -->
+  <line x1="250" y1="70" x2="250" y2="128" stroke="#7d87b0"/>
+  <rect id="gcb2" x="240" y="118" width="20" height="20" fill="#0e1120" stroke="#22c55e" stroke-width="2"/>
+  <text x="266" y="132" fill="#c7d0f0">QCB =H03+=QCB</text>
+  <line x1="250" y1="138" x2="250" y2="168" stroke="#7d87b0"/>
+  <!-- PLC DO arrow to GCB -->
+  <path d="M300 253 H268 V150" fill="none" stroke="#22d3ee" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#ar)"/>
+  <text x="270" y="200" fill="#22d3ee">ĐÓNG/CẮT</text>
+  <!-- generator -->
+  <circle cx="250" cy="196" r="27" fill="#141830" stroke="#22d3ee" stroke-width="2"/>
+  <text x="242" y="190" fill="#e9edff" font-size="12">M·G</text>
+  <line id="rotor" x1="250" y1="196" x2="250" y2="174" stroke="#f59e0b" stroke-width="2.4"/>
+  <text x="150" y="196" fill="#98a2c8">GEN</text>
+  <text x="120" y="210" fill="#98a2c8">Ug=<tspan id="oUg">0.00</tspan></text>
+  <text x="120" y="222" fill="#98a2c8">f=<tspan id="oF">0.0</tspan>Hz</text>
+  <!-- VT gen -->
+  <circle cx="190" cy="168" r="11" fill="none" stroke="#7d87b0"/><text x="180" y="172" fill="#c7d0f0">V</text><text x="188" y="181" fill="#c7d0f0">T</text>
+  <line x1="190" y1="168" x2="223" y2="185" stroke="#7d87b0" stroke-dasharray="2 3"/>
+  <path d="M190 157 V128 H250" fill="none" stroke="#7d87b0" stroke-dasharray="3 3"/>
+  <path d="M183 178 L183 140 L330 140 V150" fill="none" stroke="#7d87b0" stroke-dasharray="3 3" marker-end="url(#ar)"/>
+  <!-- exciter / FCR -->
+  <line x1="277" y1="196" x2="330" y2="196" stroke="#7d87b0"/>
+  <rect id="fcr2" x="332" y="186" width="20" height="20" fill="#0e1120" stroke="#22c55e" stroke-width="2"/>
+  <text x="300" y="180" fill="#c7d0f0">FCR(</text><text x="325" y="180" fill="#c7d0f0" id="oFcr">0.00)</text>
+  <rect x="360" y="182" width="76" height="30" rx="6" fill="#141830" stroke="#2b3257"/>
+  <text x="368" y="194" fill="#98a2c8">KÍCH TỪ</text>
+  <text x="368" y="206" fill="#f59e0b" id="oIfTxt">Iƒ=0.02</text>
+  <line x1="352" y1="196" x2="360" y2="196" stroke="#7d87b0"/>
+  <rect x="360" y="222" width="76" height="22" rx="5" fill="#141830" stroke="#2b3257"/>
+  <text x="367" y="237" fill="#7d87b0">FLASH ▮<tspan id="oFlash">·</tspan></text>
+  <!-- step motor governor -->
+  <line x1="250" y1="223" x2="250" y2="252" stroke="#7d87b0"/>
+  <rect x="205" y="252" width="90" height="34" rx="6" fill="#141830" stroke="#2b3257"/>
+  <text x="211" y="266" fill="#98a2c8">STEP MOTOR</text>
+  <text x="211" y="279" fill="#c7d0f0">TAY GA <tspan id="oPos">0</tspan>%</text>
+  <rect x="297" y="246" width="60" height="26" rx="5" fill="#141830" stroke="#2b3257"/>
+  <text x="303" y="257" fill="#98a2c8">DRIVER</text>
+  <text x="303" y="268" fill="#c7d0f0" font-size="9">RS422</text>
+  <path d="M330 272 L295 259" fill="none" stroke="#7d87b0"/>
+  <path d="M300 176 H380 V206 H436 V196" fill="none" stroke="#22d3ee" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <!-- protection relay -->
+  <rect x="404" y="118" width="96" height="34" rx="6" fill="#141830" stroke="#2b3257"/>
+  <text x="412" y="132" fill="#98a2c8">GEN PROTECTION</text>
+  <text x="412" y="145" fill="#c7d0f0">=QRP <tspan id="oQrp" fill="#22c55e">OK</tspan></text>
+  <path d="M430 152 V128" fill="none" stroke="#7d87b0" stroke-dasharray="2 3"/>
+  <path d="M500 135 H516 V108 H262" fill="none" stroke="#ef4444" stroke-dasharray="3 3" marker-end="url(#ar)"/>
+  <text x="506" y="103" fill="#ef4444" font-size="9">TRIP cứng</text>
+  <!-- PLC + HMI -->
+  <rect id="plcBox" x="130" y="296" width="180" height="52" rx="7" fill="#141830" stroke="#22d3ee"/>
+  <text x="142" y="312" fill="#22d3ee">PLC FX3U-16MT/ES</text>
+  <circle id="ledRun" cx="152" cy="332" r="5" fill="#252b49" stroke="#2b3257"/>
+  <text x="163" y="336" fill="#7d87b0">RUN</text>
+  <circle id="ledNet" cx="205" cy="332" r="5" fill="#252b49" stroke="#2b3257"/>
+  <text x="216" y="336" fill="#7d87b0">NETWORK</text>
+  <circle id="ledAlm" cx="282" cy="332" r="5" fill="#252b49" stroke="#2b3257"/>
+  <text x="293" y="336" fill="#7d87b0">ALM</text>
+  <rect x="330" y="296" width="112" height="52" rx="7" fill="#141830" stroke="#2b3257"/>
+  <text x="342" y="312" fill="#98a2c8">HMI Weintek</text>
+  <text x="342" y="325" fill="#7d87b0" font-size="9">MT6071P · RS422</text>
+  <text x="342" y="338" fill="#7d87b0" font-size="9">mode:<tspan id="oMode" fill="#f472b6">REMOTE</tspan></text>
+  <path d="M330 322 H310" fill="none" stroke="#7d87b0" stroke-dasharray="4 3"/>
+  <!-- sync relay -->
+  <rect x="452" y="296" width="96" height="52" rx="7" fill="#141830" stroke="#2b3257"/>
+  <text x="459" y="311" fill="#98a2c8">RƠ-LE ĐỒNG BỘ</text>
+  <circle id="synLamp" cx="470" cy="330" r="8" fill="#3b0d0d" stroke="#2b3257"/>
+  <text x="484" y="326" font-size="9" fill="#7d87b0">ΔU=<tspan id="oDU">—</tspan></text>
+  <text x="484" y="338" font-size="9" fill="#7d87b0">Δf=<tspan id="oDF">—</tspan> Δφ=<tspan id="oDP">—</tspan></text>
+  <path d="M300 196 H345 V290 H452" fill="none" stroke="#f472b6" stroke-width="1" stroke-dasharray="2 4" opacity=".6"/>
+  <path d="M452 322 L310 330" fill="none" stroke="#f472b6" stroke-dasharray="4 3" marker-end="url(#ar)"/>
+</svg>
+</div>
+
+<div class="card">
+  <h2><b>Bảng LED I/O của PLC</b> (đúng tên tín hiệu trên bản vẽ)</h2>
+  <div class="leds">
+    <div><div class="led"><i id="Ldi1"></i>DI GCB CLOSED (10s→1s)</div>
+      <div class="led"><i id="Ldi2"></i>DI FCR CLOSED (10s→1s)</div>
+      <div class="led"><i id="Ldi3"></i>DI BUILD UP (Ug&gt;90%)</div>
+      <div class="led"><i id="Ldi4"></i>DI AVR / EXC STATUS</div>
+      <div class="led"><i id="Ldi5"></i>DI SYNC PASS (rơ-le hòa)</div>
+      <div class="led"><i id="Ldi6"></i>DI LOCAL/REMOTE = <tspan></tspan><b id="Lt6">REM</b></div>
+      <div class="led"><i id="Ldi7"></i>DI QRP TRIP (hardwire)</div>
+      <div class="led"><i id="Ldi8"></i>DI NETWORK MODE</div></div>
+    <div><div class="led"><i id="Ldo1"></i>DO FIELD FLASHING</div>
+      <div class="led"><i id="Ldo2"></i>DO BUILD UP FAILURE</div>
+      <div class="led"><i id="Ldo3"></i>DO RUNNING / STOPPING</div>
+      <div class="led"><i id="Ldo4"></i>DO INCREASE</div>
+      <div class="led"><i id="Ldo5"></i>DO DECREASE</div>
+      <div class="led"><i id="Ldo6"></i>DO TRIP FCR (DE-EXC)</div>
+      <div class="led"><i id="Ldo7"></i>DO ALARM (reset được)</div>
+      <div class="led"><i id="Ldo8"></i>DO CLOSE/TRIP GCB</div></div>
+  </div>
+</div>
+</div>
+
+<!-- ================= CỘT 2: ĐỒNG HỒ + ĐỒ THỊ + LOG ================= -->
+<div>
+<div class="card">
+  <h2><b>Đại lượng đo</b> (qua AI module)</h2>
+  <div class="gauges">
+    <div class="g"><div class="v" id="gUg">0.00</div><div class="k">Ug máy phát (pu)</div></div>
+    <div class="g"><div class="v" id="gUb">1.00</div><div class="k">Ub thanh cái (pu)</div></div>
+    <div class="g"><div class="v" id="gF">0.0</div><div class="k">fG (Hz) · danh định 50</div></div>
+    <div class="g"><div class="v" id="gP">0.00</div><div class="k">P (pu·MW)</div></div>
+    <div class="g"><div class="v" id="gQ">0.00</div><div class="k">Q (pu·MVAr)</div></div>
+    <div class="g"><div class="v" id="gIf">0.02</div><div class="k">Iƒ kích từ (pu)</div></div>
+    <div class="g"><div class="v" id="gTh">0°</div><div class="k">Δφ máy↔lưới</div></div>
+    <div class="g"><div class="v" id="gPos">0</div><div class="k">Tay ga (%)</div></div>
+    <div class="g"><div class="v" id="gSync">✘</div><div class="k">Điều kiện hòa</div></div>
+  </div>
+</div>
+<div class="card">
+  <h2><b>Số liệu thời gian thực</b></h2>
+  <canvas id="chart" width="620" height="150"></canvas>
+  <div class="legend">
+    <span><b style="background:#22d3ee"></b>Ug</span><span><b style="background:#7dd3fc"></b>Ub</span>
+    <span><b style="background:#f59e0b"></b>f (49–51Hz)</span><span><b style="background:#a78bfa"></b>Δφ/360</span>
+    <span><b style="background:#4ade80"></b>P</span><span><b style="background:#f472b6"></b>Q</span>
+    <span><b style="background:#ef4444"></b>Iƒ</span>
+  </div>
+</div>
+<div class="card">
+  <h2><b>Sự kiện PLC / bảo vệ</b></h2>
+  <div id="log"></div>
+</div>
+</div>
+
+<!-- ================= CỘT 3: ĐIỀU KHIỂN ================= -->
+<div>
+<div class="card">
+  <h2><b>Bảng thao tác tại chỗ (LOCAL)</b></h2>
+  <div class="row"><label>Nơi điều khiển:</label>
+    <button id="bLocal" class="on">LOCAL (cabinet)</button><button id="bRemote">REMOTE (HMI)</button></div>
+  <div class="grid2" id="localPanel">
+    <button id="bFlash" title="Xung phóng từ dư — nhấn khi FCR đóng để dựng áp">FIELD FLASHING</button>
+    <button id="bFcrC">FCR ĐÓNG</button>
+    <button id="bInc" title="Giữ chuột = step motor chạy tới">TĂNG TỐC +</button>
+    <button id="bDec">GIẢM TỐC −</button>
+    <button id="bFcrO" class="danger">DE-EXCITATE (mở FCR)</button>
+    <button id="bReset2">ALARM RESET</button>
+  </div>
+  <p class="hint" id="localHint"></p>
+</div>
+
+<div class="card">
+  <h2><b>HMI Weintek — chế độ REMOTE</b> <span id="hmiBadge" class="badge">đang active</span></h2>
+  <div class="grid3">
+    <button id="hNet" title="Chế độ hòa lưới: cho phép rơ-le đồng bộ kiểm soát lệnh đóng GCB">NETWORK MODE</button>
+    <button id="hGc">ĐÓNG GCB</button>
+    <button id="hGo" class="danger">CẮT GCB</button>
+  </div>
+  <div class="grid3">
+    <button id="hInc" title="Giữ = PLC xuất DO INCREASE tới step motor">TĂNG TỐC +</button>
+    <button id="hDec" title="DO DECREASE">GIẢM TỐC −</button>
+    <button id="hFlash">FIELD FLASHING</button>
+  </div>
+  <div class="row"><label><input type="checkbox" id="hAvr"> AVR tự động</label>
+    <label>U<sub>set</sub> <input type="range" id="hSet" min="90" max="105" value="99"> <span id="hSetV">0.99</span>pu</label></div>
+  <div class="row"><label><input type="checkbox" id="bypass"> <span style="color:var(--red)">VÔ HIỆU HÓA rơ-le đồng bộ</span> (demo sự cố!)</label></div>
+  <div class="row"><label><input type="checkbox" id="fNoRem"> Mất từ dư (fault)</label>
+    <label><input type="checkbox" id="fFieldLost"> Mất nguồn kích từ (AVR/máy kích)</label>
+  <label><input type="checkbox" id="fAvrStuck"> Kẹp AVR (fault)</label></div>
+</div>
+
+<div class="card">
+  <h2><b>Quy trình đề xuất</b> (tự tick ✔ khi điều kiện đạt)</h2>
+  <ol id="tasks">
+    <li><b class="c" data-k="t1">·</b> FCR ĐÓNG + xung FIELD FLASHING</li>
+    <li><b class="c" data-k="t2">·</b> Dựng áp xong, giữ nút GIẢM TỐC chỉnh về đúng <b>50.00 Hz</b> (tay ga ≈50%)</li>
+    <li><b class="c" data-k="t3">·</b> Ug dựng ≈ 0.95–1.05 pu</li>
+    <li><b class="c" data-k="t4">·</b> Bật NETWORK MODE</li>
+    <li><b class="c" data-k="t5">·</b> ĐÓNG GCB khi ΔU, Δf, Δφ đạt</li>
+    <li><b class="c" data-k="t6">·</b> Tăng tải: mỗi +2% tay ga ≈ +4%P (độ dốc tĩnh 4%)</li>
+    <li><b class="c" data-k="t7">·</b> Tách: giảm P về ≈0 (đừng để âm → NGƯỢC CÔNG SUẤT) · CẮT GCB · DE-EXC</li>
+  </ol>
+  <details><summary>Giống sơ đồ gốc chỗ nào?</summary>
+    <p class="hint">Khối và tên tín hiệu lấy nguyên từ bản vẽ P&amp;A: QRP (GEN PROTECTION), QCB, GCB/FCR CLOSED (10s — rút còn 1s cho demo),
+    BUILD UP, DE-EXCITATION, INCREASE/DECREASE, LOCAL/REMOTE, ALARM RESET, FIELD FLASHING, BUILD UP FAILURE, RUNNING/STOPPING, TRIP FCR,
+    NETWORK MODE; =GEN_VT/=BUS_VT → FX3U-4AD; PLC ↔ HMI (MT6071P) và ↔ STEP MOTOR DRIVER cùng bus RS422; trip của QRP đi bằng <b>mạch cứng</b> (không qua PLC).</p>
+  </details>
+</div>
+</main>
+
+<script>
+"use strict";
+/* ============ MÔ HÌNH VẬT LÝ (pu) ============ */
+const H=2.0, D=4.0, TMF=1.2, TFLOSH=0.9;
+const S={ t:0, paused:false, speed:1,
+  w:1.0, th:0, If:0.02, Ug:0, pos:0,
+  GCB:false, FCB:false, flashT:0, avr:false, vref:0.99,
+  local:true, net:false, bypass:false, noRem:false, avrStuck:false, fieldLost:false,
+  dGcb:0, dFcb:0, inc:false, dec:false,
+  buTimer:0, buFail:false, alarm:false, syncPend:false, syncHint:-1,
+  P:0, Q:0, shock:0, ocT:0, rpT:0, leT:0,
+  log:[], hist:[], seq:0,
+  tGcClose:-99 };
+function ev(msg,cls){S.log.push({t:S.t,msg,cls:cls||'info',id:++S.seq});if(S.log.length>400)S.log.shift();}
+function clamp0(v,a,b){return Math.max(a,Math.min(b,v));}
+function sat(If){return 1.35*If/(1+0.35*If*If);}   // bão hòa từ mạch từ
+function syncOK(){
+  const df=Math.abs(S.w*50-50), du=Math.abs(S.Ug-1);
+  let dp=((S.th%(2*Math.PI))+2*Math.PI)%(2*Math.PI), dpg=Math.min(dp,2*Math.PI-dp)*180/Math.PI;
+  return {ok:du<0.05&&df<0.1&&dpg<12, du,df,dpg};
+}
+function reset(){
+  Object.assign(S,{t:0,paused:false,w:1.0,th:0,If:0.02,Ug:0,pos:0,GCB:false,FCB:false,flashT:0,
+    buTimer:0,buFail:false,alarm:false,P:0,Q:0,shock:0,ocT:0,rpT:0,leT:0,dGcb:0,dFcb:0,inc:false,dec:false,
+    hist:[],log:[],seq:0,tGcClose:-99,
+    avr:false,vref:0.99,net:false,bypass:false,noRem:false,avrStuck:false,fieldLost:false,local:true});
+  ['hAvr','bypass','fNoRem','fAvrStuck','fFieldLost'].forEach(id=>{const e=document.getElementById(id);if(e)e.checked=false;});
+  document.getElementById('log').innerHTML='';
+  ev('Đặt lại mô hình — máy phát dừng hoàn toàn (mọi chế độ/fault về mặc định)','info');
+}
+function tripGCB(reason){
+  if(S.GCB){S.GCB=false;S.dGcb=0;ev('⛔ QRP/PLC CẮT GCB — '+reason,'err');}
+  if(S.FCB){S.FCB=false;S.dFcb=0;ev('TRIP FCR — de-excitation (an toàn)','err');}
+  S.inc=false;S.dec=false;S.alarm=true;S.pos=Math.max(0,S.pos-0.25);
+}
+function step(dt){
+  S.t+=dt;
+  const bus={V:1.0};
+  if(S.flashT>0)S.flashT-=dt;
+  /* ---- step motor governor (DRIVER→STEP MOTOR) ---- */
+  if(S.inc) S.pos+=0.2*dt;
+  if(S.dec) S.pos-=0.35*dt;
+  S.pos=clamp0(S.pos,0,1);
+  /* ---- rotor: điều tốc có đặc tĩnh 4% — f0 = 48→52Hz theo tay ga ----
+     hòa đúng 50.00Hz ứng với tay ga ~50% → non tải; lệch ga → P tự san bằng theo độ dốc ---- */
+  const wcmd=0.96+0.08*S.pos, loss=0.03;
+  if(!S.GCB){
+    S.w+=(wcmd-S.w)*Math.min(1,2.5*dt);   // quán tính nhỏ đã số hóa
+    S.th+=2*Math.PI*(S.w*50-50)*dt;       // góc tương đối so với lưới
+  } else {
+    S.w=1.0;                               // hòa vào thanh cái vô cùng lớn
+    S.th=S.th%(2*Math.PI);                 // P do độ dốc tĩnh quyết định: P = (f0−f)/δ
+  }
+  S.shock*=Math.exp(-dt/0.25);
+  /* ---- kích từ: tự kích (manual) / AVR / phóng khi hở mạch FCR ---- */
+  let dI;
+  if(S.fieldLost){
+    S.If=Math.max(0,S.If-Math.max(S.If*4,0.3)*dt);   // nguồn kích mất → If sụp
+    dI=0;
+  }else if(S.FCB){
+    if(S.avr&&!S.avrStuck){
+      dI=clamp0(4*(S.vref-S.Ug),-0.6,0.9);            // AVR giữ Ug=Uset
+    }else if(S.avr&&S.avrStuck){
+      dI=0.10;                                        // fault: AVR kẹt hướng nạp
+    }else{
+      dI=(1.03*(S.noRem?0:S.Ug)*S.w - S.If)/TMF + (S.flashT>0?1.2/TMF:0); // tự kích + flash
+    }
+    S.If=Math.max(0,Math.min(S.If+dI*dt,1.4));
+  }else{
+    S.If=Math.max(0,S.If-(S.If/0.35)*dt);             // FCR hở: If phóng về 0
+  }
+  /* ---- terminal voltage / power ---- */
+  const E=sat(S.If)*S.w;
+  if(!S.GCB){ S.Ug=E; }
+  else { S.Ug=1.0; S.P=clamp0((0.96+0.08*S.pos-1)/0.04-loss+S.shock*0.9,-0.6,1.6); S.Q=clamp0(1.6*(S.If-0.62-0.25*S.P),-0.5,0.9); }
+  if(!S.GCB){S.P=0;S.Q=0;}
+  /* ---- debounce "CLOSED (10s)" → demo dùng 1s ---- */
+  S.dGcb=S.GCB?S.dGcb+dt:0; S.dFcb=S.FCB?S.dFcb+dt:0;
+  /* ---- watchdog BUILD UP (hẹn giờ dựng áp) ---- */
+  const built=S.Ug>0.9&&S.w>0.98;
+  if(!S.GCB&&S.FCB&&S.w>0.9&&!S.buFail&&S.buTimer<1e6){
+    S.buTimer+=dt;
+    if(built){S.buTimer=1e6; if(S.buFail)S.buFail=false;}
+    else if(S.buTimer>14){
+      S.buFail=true;S.FCB=false;S.dFcb=0;S.alarm=true;
+      ev('⚠ BUILD UP FAILURE — sau 14s không dựng được điện áp (mất từ dư? chưa FLASH? tốc độ thấp). ALARM RESET để làm lại.','warn');
+    }
+  }else if(!S.FCB||S.GCB||S.w<=0.9){S.buTimer=0;}
+  if(built&&S.buFail){S.buFail=false;}
+  /* ---- protections (QRP mô phỏng) ---- */
+  const sync=syncOK();
+  if(S.syncPend&&!S.GCB&&S.net){
+    if(sync.du>0.07||sync.df>0.3){S.syncPend=false;ev('Rơ-le đồng bộ HỦY chờ (ΔU/Δf ra ngoài dải)','warn');}
+    else if(sync.du<0.07&&sync.df<0.004&&S.syncHint!==Math.round(S.t/3)){
+      S.syncHint=Math.round(S.t/3);
+      ev('Gợi ý: véctơ đang đứng ngoài điểm đóng (Δφ='+sync.dpg.toFixed(0)+'°) — nhấp nhả TĂNG TỐC cho đèn trôi đều rồi rơ-le sẽ bắt đúng Δφ≈0','warn');
+    }
+    else if(sync.ok){
+      S.syncPend=false;S.GCB=true;S.dGcb=0;S.tGcClose=S.t;S.shock=0.06;
+      ev('✔ RƠ-LE ĐỒNG BỘ tìm thấy điểm trùng pha (Δφ='+sync.dpg.toFixed(1)+'°) — xuất DO "ĐÓNG MÁY PHÁT (10s)" → GCB ĐÓNG','ok');
+    }
+  }
+  if(S.GCB){
+    const Is=Math.sqrt(S.P*S.P+S.Q*S.Q);
+    S.ocT=Is>1.08?S.ocT+dt:0; S.rpT=S.P<-0.03?S.rpT+dt:0; S.leT=S.If<0.35?S.leT+dt:0;
+    if(S.ocT>1.5){tripGCB('QUÁ DÒNG (I=' + Is.toFixed(2) + 'pu)');}
+    else if(S.rpT>1.2){tripGCB('NGƯỢC CÔNG SUẤT — máy phát lấy công suất từ lưới');}
+    else if(S.leT>0.8){tripGCB('MẤT KÍCH TỪ');}
+  } else {S.ocT=S.rpT=S.leT=0;}
+  /* ---- history ---- */
+  if(Math.round(S.t*10)!==S._hT){S._hT=Math.round(S.t*10);
+    S.hist.push({u:S.Ug,b:bus.V,f:S.w*50,th:((S.th%(2*Math.PI)+2*Math.PI)%(2*Math.PI))/(2*Math.PI),p:S.P,q:S.Q,i:S.If});
+    if(S.hist.length>240)S.hist.shift();}
+}
+/* ============ ĐIỀU KHIỂN ============ */
+function localGuard(){if(!S.local){ev('⚠ Nút tại chỗ bị khóa — PLC đang ở chế độ REMOTE (điều khiển từ HMI)','warn');return false;}return true;}
+function flash(){if(!localGuard())return;
+  if(!S.FCB){ev('FLASH bị chặn: FCR đang mở — đóng FCR trước','warn');return;}
+  S.flashT=TFLOSH;S.buTimer=0;ev('DO: FIELD FLASHING — nạp xung từ dư 1s');}
+function fcrClose(){if(!localGuard())return;
+  if(S.GCB){ev('Không đóng FCR khi GCB đang đóng? (cho phép — nhưng bình thường FCR đóng trước GCB)','warn');}
+  S.FCB=true;S.buTimer=0;ev('FCR ĐÓNG — mạch kích từ sẵn sàng (DI FCR CLOSED sau 1s debounce)');}
+function fcrOpen(){if(!localGuard())return;
+  if(S.GCB){ev('⚠ DE-EXCITATE bị PLC CHẶN: phải GIẢM TẢI về 0 và CẮT GCB trước (interlock an toàn)','err');return;}
+  S.FCB=false;S.buTimer=0;ev('DO: TRIP FCR — khử từ, Ug sụp về 0');}
+function incDown(e){if(!localGuard())return;S.inc=true;S.dec=false;}
+function incUp(){S.inc=false;}
+function decDown(){if(!localGuard())return;S.dec=true;}
+function decUp(){S.dec=false;}
+function remoteGuard(){if(S.local){ev('⚠ HMI đang bị khóa — tủ ở chế độ LOCAL (đèn LOCAL/REMOTE). Chuyển sang REMOTE để thao tác từ HMI','warn');return false;}return true;}
+function closeGCB(){
+  if(!remoteGuard())return;
+  const sync=syncOK();
+  if(S.GCB){ev('GCB đã đóng','warn');return;}
+  if(!S.FCB){ev('⚠ CHẶN: FCR đang mở — máy chưa sẵn sàng kích từ','err');return;}
+  if(!S.net&&!S.bypass){ev('⚠ ĐÓNG GCB BỊ CHẶN — chưa bật NETWORK MODE (PLC yêu cầu qua rơ-le đồng bộ)','err');return;}
+  if(!sync.ok&&!S.bypass){
+    if(S.net&&sync.du<0.07&&sync.df<0.3){S.syncPend=true;ev('RƠ-LE ĐỒNG BỘ: ΔU, Δf vào dải — ĐANG CHỜ điểm trùng pha (trượt '+sync.df.toFixed(2)+'Hz, đèn quay) rồi tự đóng…','info');return;}
+    S.syncPend=false;
+    ev('⚠ RƠ-LE ĐỒNG BỘ KHÔNG CHO ĐÓNG: ΔU='+(sync.du*100).toFixed(1)+'% Δf='+sync.df.toFixed(2)+'Hz Δφ='+sync.dpg.toFixed(0)+'°'+(sync.df>=0.3?' — trượt quá lớn, rơ-le nhả chờ':''),'err');return;}
+  if(S.bypass&&!sync.ok){
+    S.GCB=true;S.dGcb=0;S.tGcClose=S.t;
+    S.shock=4.2*Math.abs(Math.sin((((S.th%(2*Math.PI))+2*Math.PI)%(2*Math.PI))/2))*Math.max(0.35,sync.dpg/180+sync.df/1.5);
+    ev('🔥 ĐÓNG GCB KHÔNG ĐỒNG BỘ (đã bypass rơ-le)! Xung dòng = '+S.shock.toFixed(1)+'pu — bảo vệ sẽ tác động','err');
+    if(S.shock>1.5){S.ocT=1.4;} // để QRP mô phỏng cắt ngay qua ngưỡng quá dòng
+    return;
+  }
+  S.GCB=true;S.dGcb=0;S.tGcClose=S.t;S.shock=0.12;
+  ev('ĐÓNG GCB thành công — máy phát HÒA vào lưới (Δφ='+sync.dpg.toFixed(1)+'°)');
+  const pe=(0.96+0.08*S.pos-1)/0.04; if(pe<0.04)ev(pe<-0.01?'⚠ Tay ga dưới điểm không tải — vừa hòa sẽ PHÁT NGƯỢC (motor). Nâng TĂNG TỐC nhẹ':'Gợi ý: nâng TĂNG TỐC để mang tải','warn');
+}
+function openGCB(){
+  if(!remoteGuard())return;
+  if(S.GCB){S.GCB=false;S.dGcb=0;ev('CẮT GCB — máy phát tách lưới','info');}
+}
+function alarmReset(){S.alarm=false;S.buFail=false;S.buTimer=0;ev('ALARM RESET — xóa báo động','info');}
+function setLocal(v){S.local=v;ev('Chuyển chế độ điều khiển: '+(v?'LOCAL — ưu tiên nút tại tủ':'REMOTE — điều khiển từ HMI'),'info');}
+/* ============ UI ============ */
+const $=id=>document.getElementById(id);
+function bindHold(id,down,up){const el=$(id);['mousedown','touchstart'].forEach(e=>el.addEventListener(e,ev2=>{ev2.preventDefault();down();}));
+ ['mouseup','mouseleave','touchend'].forEach(e=>el.addEventListener(e,up));}
+bindHold('bInc',incDown,incUp); bindHold('bDec',decDown,decUp);
+$('bFlash').onclick=flash; $('bFcrC').onclick=fcrClose; $('bFcrO').onclick=fcrOpen;
+$('bReset2').onclick=alarmReset; $('bLocal').onclick=()=>setLocal(true); $('bRemote').onclick=()=>setLocal(false);
+$('hNet').onclick=()=>{if(!remoteGuard())return;S.net=!S.net;ev('HMI: NETWORK MODE = '+(S.net?'ON (đường hòa qua rơ-le đồng bộ)':'OFF'),'info');};
+$('hGc').onclick=closeGCB; $('hGo').onclick=openGCB;
+bindHold('hInc',()=>{if(remoteGuard()){S.inc=true;S.dec=false;}},()=>{S.inc=false;});
+bindHold('hDec',()=>{if(remoteGuard()){S.dec=true;S.inc=false;}},()=>{S.dec=false;});
+$('hFlash').onclick=()=>{if(!remoteGuard())return;if(!S.FCB){ev('FLASH bị chặn: FCR đang mở — đóng FCR trước','warn');return;}S.flashT=TFLOSH;S.buTimer=0;ev('HMI: FIELD FLASHING — nạp xung từ dư');};
+$('hAvr').onchange=e=>{S.avr=e.target.checked;ev('EXC: AVR '+(S.avr?'TỰ ĐỘNG (giữ Ug=Uset)':'BẰNG TAY — cần FLASH + tự kích'));};
+$('hSet').oninput=e=>{S.vref=e.target.value/100;$('hSetV').textContent=S.vref.toFixed(2);};
+$('bypass').onchange=e=>{S.bypass=e.target.checked;ev('⚠ VÔ HIỆU HÓA RƠ-LE ĐỒNG BỘ: '+(e.target.checked?'BẬT — mọi lệnh đóng GCB đi thẳng! (chỉ demo)':'tắt'),'warn');};
+$('fNoRem').onchange=e=>{S.noRem=e.target.checked;if(e.target.checked){S.If=0;S.Ug=0;S.buTimer=0;}ev('FAULT: '+(e.target.checked?'mất từ dư — tự kích không lên nếu không FLASH đủ sâu':'khôi phục từ dư'),'warn');};
+$('fFieldLost').onchange=e=>{S.fieldLost=e.target.checked;ev('FAULT: '+(e.target.checked?'MẤT NGUỒN KÍCH TỪ — If sụp, bảo vệ MẤT KÍCH TỪ của QRP sẽ tác động nếu đang hòa lưới':'cấp lại nguồn kích'),'warn');};
+$('fAvrStuck').onchange=e=>{S.avrStuck=e.target.checked;ev('FAULT: AVR kẹt theo hướng nạp (Iƒ tăng liên tục → có thể quá dòng stator)','warn');};
+$('bP').onclick=()=>{S.paused=!S.paused;$('bP').textContent=S.paused?'▶ Chạy tiếp':'⏸ Tạm dừng';};
+$('bS1').onclick=()=>setSpeed(1);$('bS2').onclick=()=>setSpeed(2);$('bS4').onclick=()=>setSpeed(4);
+$('bReset').onclick=reset;
+function setSpeed(x){S.speed=x;[[$('bS1'),1],[$('bS2'),2],[$('bS4'),4]].forEach(([b,v])=>b.classList.toggle('on',v===x));}
+/* ---- render ---- */
+function setLed(id,cls){const e=$(id);e.className='';if(cls)e.className=cls;}
+function fmt(v,d=2){return v.toFixed(d);}
+function render(){
+  $('gUg').textContent=fmt(S.Ug);$('gUb').textContent='1.00';$('gF').textContent=fmt(S.w*50,1);
+  $('gP').textContent=fmt(S.P);$('gQ').textContent=fmt(S.Q);$('gIf').textContent=fmt(S.If);
+  const sync=syncOK();
+  $('gTh').textContent=fmt(sync.dpg,0)+'°';
+  $('gPos').textContent=Math.round(S.pos*100);
+  $('gSync').textContent=sync.ok?'✔ ĐẠT':'✘ CHƯA';
+  $('gSync').style.color=sync.ok?'var(--green)':'var(--amber)';
+  $('oUg').textContent=fmt(S.Ug);$('oUb').textContent='1.00';$('oF').textContent=fmt(S.w*50,1);
+  $('oPos').textContent=Math.round(S.pos*100);
+  $('oIfTxt').textContent='Iƒ='+fmt(S.If);$('oFcr').textContent=fmt(S.If);
+  $('oFlash').textContent=S.flashT>0?'▮':'';
+  $('oMode').textContent=S.local?'LOCAL':'REMOTE';
+  $('oQrp').textContent=(S.ocT>0.6||S.rpT>0.6||S.leT>0.6||S.shock>1.5)?'TRIP!':'OK';
+  $('oQrp').setAttribute('fill',(S.ocT>0.6||S.rpT>0.6||S.leT>0.6||S.shock>1.5)?'#ef4444':'#22c55e');
+  $('gcb2').setAttribute('fill',S.GCB?'#ef4444':'#0e1120');$('gcb2').setAttribute('stroke',S.GCB?'#ef4444':'#22c55e');
+  $('fcr2').setAttribute('fill',S.FCB?'#ef4444':'#0e1120');$('fcr2').setAttribute('stroke',S.FCB?'#ef4444':'#22c55e');
+  $('rotor').setAttribute('transform','rotate('+(S.th*180/Math.PI)+' 250 196)');
+  // sync lamp: sáng/tối theo Δφ và Δf (đèn quay)
+  const lum=Math.abs(Math.cos(((S.th%(2*Math.PI))+2*Math.PI)%(2*Math.PI)/2*2));
+  $('synLamp').setAttribute('fill','hsl(140 '+(sync.ok?90:20)+'% '+(8+lum*55*(S.net?1:0.25))+'%)');
+  $('oDU').textContent=(sync.du*100).toFixed(1)+'%';$('oDF').textContent=sync.df.toFixed(2);$('oDP').textContent=sync.dpg.toFixed(0)+'°';
+  $('oDU').setAttribute('fill',sync.du<0.05?'#22c55e':'#f59e0b');$('oDF').setAttribute('fill',sync.df<0.1?'#22c55e':'#f59e0b');$('oDP').setAttribute('fill',sync.dpg<12?'#22c55e':'#f59e0b');
+  // LEDs
+  setLed('Ldi1',S.dGcb>1?'r':'');setLed('Ldi2',S.dFcb>1?'r':'');
+  setLed('Ldi3',S.Ug>0.9?'g':'');setLed('Ldi4',(S.avr?'c':'')+(S.avrStuck?' a':''));
+  setLed('Ldi5',sync.ok&&S.net?'g':'');$('Lt6').textContent=S.local?'LOC':'REM';setLed('Ldi6',S.local?'a':'c');
+  setLed('Ldi7',S.GCB&&(S.ocT>0.6||S.rpT>0.6||S.leT>0.6)?'r':'');setLed('Ldi8',S.net?'g':'');
+  setLed('Ldo1',S.flashT>0?'c':'');setLed('Ldo2',S.buFail?'a':'');
+  setLed('Ldo3',(S.inc||S.dec)?'g':'');setLed('Ldo4',S.inc?'a':'');setLed('Ldo5',S.dec?'a':'');
+  setLed('Ldo6',!S.FCB&&S.GCB?'r':'');setLed('Ldo7',S.alarm?'a':'');setLed('Ldo8',S.GCB?'r':'');
+  $('ledRun').setAttribute('fill',(S.inc||S.dec||S.GCB)?'#22c55e':'#252b49');
+  $('ledNet').setAttribute('fill',S.net?'#22d3ee':'#252b49');
+  $('ledAlm').setAttribute('fill',S.alarm||S.buFail?'#f59e0b':'#252b49');
+  $('localHint').textContent=S.local?'— bảng này đang cho phép thao tác':'— ĐANG BỊ KHÓA (REMOTE active)';
+  document.getElementById('localPanel').style.opacity=S.local?1:0.35;
+  document.getElementById('localPanel').style.pointerEvents=S.local?'auto':'none';
+  $('hmiBadge').textContent=S.local?'bị khóa (LOCAL)':'đang active';
+  $('hmiBadge').style.color=S.local?'var(--red)':'var(--green)';
+  $('hNet').classList.toggle('on',S.net);
+  $('bLocal').classList.toggle('on',S.local);$('bRemote').classList.toggle('on',!S.local);
+  document.querySelector('#hGc').classList.toggle('on',S.GCB);
+  // tasks
+  const T={t1:S.FCB,t2:Math.abs(S.w*50-50)<0.5,t3:S.Ug>0.95,t4:S.net,t5:S.GCB,t6:S.GCB&&S.P>0.1,t7:S.tGcClose>0&&!S.GCB};
+  document.querySelectorAll('#tasks b').forEach(b=>{b.textContent=T[b.dataset.k]?'✔':'·';b.style.color=T[b.dataset.k]?'var(--green)':'var(--mut)';});
+}
+/* ---- log panel ---- */
+let lastLogId=0;
+function renderLog(){
+  const el=$('log');
+  for(let i=S.log.length-1;i>=0;i--){const e=S.log[i];if(e.id<=lastLogId)break;}
+  el.innerHTML=S.log.slice(-120).map(e=>'<div><span class="t">'+('['+ (e.t|0) +'s]')+'</span><span class="'+e.cls+'">'+e.msg.replace(/</g,'&lt;')+'</span></div>').join('');
+  el.scrollTop=el.scrollHeight;
+}
+/* ---- chart ---- */
+const cv=$('chart'),cx=cv.getContext('2d');
+const SERIES=[['u','#22d3ee',v=>v],['b','#7dd3fc',v=>v],['f','#f59e0b',v=>(v-47.5)/5],['th','#a78bfa',v=>v],['p','#4ade80',v=>(v+0.6)/1.8],['q','#f472b6',v=>(v+0.5)/1.6],['i','#ef4444',v=>v/1.4]];
+function drawChart(){
+  const W=cv.width,Hh=cv.height,n=S.hist.length;
+  cx.fillStyle='#0b0e1c';cx.fillRect(0,0,W,Hh);
+  cx.strokeStyle='#1c2340';cx.beginPath();for(let g=1;g<4;g++){cx.moveTo(0,Hh*g/4);cx.lineTo(W,Hh*g/4);}cx.stroke();
+  cx.strokeStyle='#243055';cx.setLineDash([2,4]);cx.beginPath();cx.moveTo(0,Hh*0.45);cx.lineTo(W,Hh*0.45);cx.stroke();cx.setLineDash([]);
+  for(const [k,col,fn] of SERIES){
+    cx.strokeStyle=col;cx.lineWidth=1.4;cx.beginPath();
+    for(let i=0;i<n;i++){const y=Hh-fn(S.hist[i][k])*Hh*0.85-Hh*0.06;const x=i/(239)*W;i?cx.lineTo(x,y):cx.moveTo(x,y);}
+    cx.stroke();
+  }
+  cx.fillStyle='#5b6487';cx.font='10px monospace';cx.fillText('Ug/Ub: 0→1.05pu · f: 47.5→52.5 · Δφ: 0→1 vòng · P: −0.6→1.05 · Q± · Iƒ',6,12);
+}
+/* ---- loop ---- */
+let last=performance.now();
+function frame(now){
+  const realDt=Math.min(0.05,(now-last)/1000);last=now;
+  if(!S.paused){
+    let dt=realDt*S.speed;
+    while(dt>0){const h=Math.min(dt,0.004);step(h);dt-=h;}
+  }
+  render();renderLog();drawChart();
+  requestAnimationFrame(frame);
+}
+ev('Sẵn sàng. Quy trình: ① FCR ĐÓNG → ② FIELD FLASHING → ③ TĂNG TỐC dựng áp, rồi hạ về 50.00Hz → ④ NETWORK MODE → ⑤ ĐÓNG GCB → tăng tải','ok');
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
