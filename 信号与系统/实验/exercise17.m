@@ -1,4 +1,4 @@
-N = 4; % ÓĞÏŞĞòÁĞ³¤¶È
+N = 4; % æœ‰é™åºåˆ—é•¿åº¦
 x = [1 3 5 2];
 
 %% DFT
@@ -13,7 +13,7 @@ for k = 0:N-1
 end
 n = 0:N-1;
 w0 = 2*pi/N; 
-stem(n*w0,abs(Hkk),'linewidth',1.5); xlabel('k\Omega_0'); ylabel('|X[k]|'); title('·ù¶ÈÆ×');
+stem(n*w0,abs(Hkk),'linewidth',1.5); xlabel('k\Omega_0'); ylabel('|X[k]|'); title('å¹…åº¦è°±');
 set(gca, 'XTick',0:w0:(N-1)*w0)
 set(gca, 'XTicklabel', {'0','\Omega_0','2\Omega_0','3\Omega_0'})
 hold on

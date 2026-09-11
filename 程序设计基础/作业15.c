@@ -9,6 +9,6 @@ int main()
 		sum=sum*a;
 		a=a-1;
 	}
-	printf("%dµÄ½×³ËÊÇ%d¡£",t,sum); 
+	printf("%dçš„é˜¶ä¹˜æ˜¯%dã€‚",t,sum); 
 	return 0;
 }

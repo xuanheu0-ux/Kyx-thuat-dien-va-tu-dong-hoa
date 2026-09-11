@@ -9,12 +9,12 @@ module play(
     );
 
   reg clk_2hz;
-  reg [31:0] couter,couter2,couter4;//32Î»¼ÆÊıÆ÷
+  reg [31:0] couter,couter2,couter4;//32ä½è®¡æ•°å™¨
   reg [7:0] couter3;
   reg clk_8hz;
-  reg [7:0] yinfu;//ÓÃÀ´ÅĞ¶ÏÒô·û,Ö±½Ó¸³³õÖµ£¬±ãÓÚÊä³ö
-  reg piano_change=1'd0;//ÓÃÀ´ÇĞ»»Ä£Ê½
-  parameter zero=8'd0;//Ò»¸öÒô½×µÄÌØÕ÷Öµ
+  reg [7:0] yinfu;//ç”¨æ¥åˆ¤æ–­éŸ³ç¬¦,ç›´æ¥èµ‹åˆå€¼ï¼Œä¾¿äºè¾“å‡º
+  reg piano_change=1'd0;//ç”¨æ¥åˆ‡æ¢æ¨¡å¼
+  parameter zero=8'd0;//ä¸€ä¸ªéŸ³é˜¶çš„ç‰¹å¾å€¼
   parameter d21=8'd16;
   parameter d22=8'd18;
   parameter d23=8'd20;
@@ -74,21 +74,21 @@ module play(
   parameter h27=8'd75;
   
   
-  //always @ (posedge clk)//¼üÅÌ´¦ÀíÄ£¿é
+  //always @ (posedge clk)//é”®ç›˜å¤„ç†æ¨¡å—
   //begin
    //   if (keydata==8'h5A)
    //   piano_change<=~piano_change;
  //end  
  
-   always @ (posedge clk) begin  //²úÉú8HZÊ±ÖÓ£¬16·ÖÒô·ûÊ±³¤
+   always @ (posedge clk) begin  //äº§ç”Ÿ8HZæ—¶é’Ÿï¼Œ16åˆ†éŸ³ç¬¦æ—¶é•¿
   if(couter4>=15625000) begin
-  clk_2hz<=~clk_2hz;//reg¶¨ÒåÏÂ¿ÉÒÔÕâÑùÊ¹ÓÃ
+  clk_2hz<=~clk_2hz;//regå®šä¹‰ä¸‹å¯ä»¥è¿™æ ·ä½¿ç”¨
   couter4<=0;
   end else
   couter4<=couter4+1;
   end
   
-  always @ (posedge clk)  //½ÓÊÜ¼üÅÌĞÅÏ¢£¬´¦Àípiano_change
+  always @ (posedge clk)  //æ¥å—é”®ç›˜ä¿¡æ¯ï¼Œå¤„ç†piano_change
   begin
   if(keydata==8'h5A)
   piano_change<=1;
@@ -97,9 +97,9 @@ module play(
   end
   end
   
-  always @ (posedge clk)//¼üÅÌ´¦ÀíÄ£¿é,Í¨¹ıkeydataÉú³É
+  always @ (posedge clk)//é”®ç›˜å¤„ç†æ¨¡å—,é€šè¿‡keydataç”Ÿæˆ
       begin
-      if (piano_change==1) begin//ÕâÀïÔö¼ÓÁËÄ£Ê½¿ØÖÆ°´Å¥£¨²»ÖªµÀĞĞ²»ĞĞ£¬ĞèÒª²âÊÔÒ»ÏÂ£©
+      if (piano_change==1) begin//è¿™é‡Œå¢åŠ äº†æ¨¡å¼æ§åˆ¶æŒ‰é’®ï¼ˆä¸çŸ¥é“è¡Œä¸è¡Œï¼Œéœ€è¦æµ‹è¯•ä¸€ä¸‹ï¼‰
         case(keydata)
         //8'h015:begin light1<=1'b1;yinfu<=d11;end//Q
         //8'h01D:begin light2<=1'b1;yinfu<=d12;end//W
@@ -283,7 +283,7 @@ module play(
        
   m01:
       begin
-      if(couter>=238891) begin  //238891*2´Î·ÖÆµ£¬261HZ
+      if(couter>=238891) begin  //238891*2æ¬¡åˆ†é¢‘ï¼Œ261HZ
       piano<=~piano;
       couter<=0;
       end else 
@@ -454,7 +454,7 @@ module play(
      
       m51:
             begin
-            if(couter>=225483) begin  //238891*2´Î·ÖÆµ£¬261HZ
+            if(couter>=225483) begin  //238891*2æ¬¡åˆ†é¢‘ï¼Œ261HZ
             piano<=~piano;
             couter<=0;
             end else 
@@ -495,7 +495,7 @@ module play(
             
     d51:
                         begin
-                        if(couter>=450967) begin  //238891*2´Î·ÖÆµ£¬261HZ
+                        if(couter>=450967) begin  //238891*2æ¬¡åˆ†é¢‘ï¼Œ261HZ
                         piano<=~piano;
                         couter<=0;
                         end else 
@@ -536,7 +536,7 @@ module play(
   
                            h51:
                                     begin
-                                    if(couter>=112742) begin  //238891*2´Î·ÖÆµ£¬261HZ
+                                    if(couter>=112742) begin  //238891*2æ¬¡åˆ†é¢‘ï¼Œ261HZ
                                     piano<=~piano;
                                     couter<=0;
                                     end else 
@@ -583,9 +583,9 @@ module play(
   endcase
   end
   
-  always @ (posedge clk) begin  //²úÉú8HZÊ±ÖÓ£¬16·ÖÒô·ûÊ±³¤
+  always @ (posedge clk) begin  //äº§ç”Ÿ8HZæ—¶é’Ÿï¼Œ16åˆ†éŸ³ç¬¦æ—¶é•¿
   if(couter2>=7812500) begin
-  clk_8hz<=~clk_8hz;//reg¶¨ÒåÏÂ¿ÉÒÔÕâÑùÊ¹ÓÃ
+  clk_8hz<=~clk_8hz;//regå®šä¹‰ä¸‹å¯ä»¥è¿™æ ·ä½¿ç”¨
   couter2<=0;
   end else
   couter2<=couter2+1;

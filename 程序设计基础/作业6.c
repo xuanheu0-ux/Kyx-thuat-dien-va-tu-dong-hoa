@@ -3,6 +3,6 @@ int main()
 {
 	char character;
 	scanf("%c",&character);
-	printf("%cµÄASCII±àÂëÊÇ%d¡£",character,character);
+	printf("%cçš„ASCIIç¼–ç æ˜¯%dã€‚",character,character);
 	return 0;
 }

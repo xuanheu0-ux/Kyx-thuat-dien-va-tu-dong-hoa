@@ -9,9 +9,9 @@ function [fitresult, gof] = createFit2(power2, t2)
 %      fitresult : a fit object representing the fit.
 %      gof : structure with goodness-of fit info.
 %
-%  ÁíÇë²ÎÔÄ FIT, CFIT, SFIT.
+%  å¦è¯·å‚é˜… FIT, CFIT, SFIT.
 
-%  ÓÉ MATLAB ÓÚ 02-Nov-2020 14:37:11 ×Ô¶¯Éú³É
+%  ç”± MATLAB äº 02-Nov-2020 14:37:11 è‡ªåŠ¨ç”Ÿæˆ
 
 
 %% Fit: 'untitled fit 1'.
@@ -26,11 +26,11 @@ ft = fittype( 'poly1' );
 % Plot fit with data.
 figure( 'Name', 'untitled fit 1' );
 h = plot( fitresult, xData, yData );
-legend('ÊµÑéËù²âÊä³ö×ª¾Ø½á¹û', 'ÄâºÏ½á¹û' );
+legend('å®éªŒæ‰€æµ‹è¾“å‡ºè½¬çŸ©ç»“æœ', 'æ‹Ÿåˆç»“æœ' );
 % Label axes
 xlabel( '\itP_{2}(W)');
 ylabel( '\itT_{2}(N*m)');
-title('ËûÀøÖ±Á÷µç¶¯»ú\itT_{2}=f(P_{2})')
+title('ä»–åŠ±ç›´æµç”µåŠ¨æœº\itT_{2}=f(P_{2})')
 grid on
 
 

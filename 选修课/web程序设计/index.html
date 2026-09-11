@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Web 程序设计 — Game Hub</title>
+<style>
+  :root{
+    --bg:#0f1220; --panel:#181c30; --panel2:#1f2440; --ink:#e8ecff;
+    --mut:#9aa3c7; --acc:#5eead4; --acc2:#f472b6; --gold:#fbbf24; --line:#2b3157;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:"Segoe UI",system-ui,"Microsoft YaHei",sans-serif;
+    background:
+      radial-gradient(1200px 500px at 80% -10%, rgba(94,234,212,.10), transparent 60%),
+      radial-gradient(900px 420px at 10% 110%, rgba(244,114,182,.10), transparent 60%),
+      var(--bg);
+    color:var(--ink); min-height:100vh; padding:48px 20px 64px;
+  }
+  .wrap{max-width:1060px;margin:0 auto}
+  header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+  h1{font-size:30px;letter-spacing:.5px}
+  h1 .zh{color:var(--acc);font-weight:600}
+  .sub{color:var(--mut);font-size:14px;margin-bottom:28px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}
+  a.card{
+    display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit;
+    background:linear-gradient(160deg,var(--panel),var(--panel2));
+    border:1px solid var(--line);border-radius:16px;padding:20px 18px 16px;
+    transition:transform .15s ease,border-color .15s ease,box-shadow .15s ease;
+    position:relative;overflow:hidden;
+  }
+  a.card:hover{transform:translateY(-4px);border-color:var(--acc);box-shadow:0 12px 30px rgba(0,0,0,.35)}
+  a.card::after{content:"→";position:absolute;right:14px;bottom:10px;color:var(--mut);font-size:18px}
+  a.card:hover::after{color:var(--acc)}
+  .em{font-size:38px;line-height:1}
+  .name{font-size:17px;font-weight:700}
+  .name small{display:block;color:var(--mut);font-weight:400;font-size:12px;margin-top:2px}
+  .tag{align-self:flex-start;font-size:11px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--mut)}
+  .keys{font-size:12px;color:var(--mut)}
+  .keys kbd{background:#0b0e1a;border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:1px 5px;font:11px monospace;color:var(--ink)}
+  section.list{margin-top:34px}
+  section.list h2{font-size:15px;color:var(--mut);font-weight:600;letter-spacing:.4px;text-transform:uppercase;margin-bottom:10px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chips a{
+    color:var(--ink);text-decoration:none;font-size:13px;background:var(--panel);
+    border:1px solid var(--line);border-radius:999px;padding:6px 14px;transition:border-color .15s;
+  }
+  .chips a:hover{border-color:var(--acc2);color:var(--acc2)}
+  footer{margin-top:40px;color:var(--mut);font-size:12px;line-height:1.7;border-top:1px solid var(--line);padding-top:14px}
+  code{background:#0b0e1a;padding:1px 6px;border-radius:5px;font-size:12px;color:var(--gold)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🕹️ <span class="zh">Web 程序设计</span> · Game Hub</h1>
+  </header>
+  <p class="sub">Kho tài liệu 西安交通大学 ·电气自动化 — trang này gom 4 web project chạy được ngay trong trình duyệt (Antigravity preview / <code>npm run serve</code>).</p>
+
+  <div class="grid">
+    <a class="card" href="大作业/Tank-master/">
+      <div class="em">🪖</div>
+      <div class="name">坦克大战 <small>Tank Battle — DOM game</small></div>
+      <div class="tag">Canvas-free, thuần DOM</div>
+      <div class="keys"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> di chuyển · <kbd>Space</kbd> bắn</div>
+    </a>
+
+    <a class="card" href="大作业/植物大战僵尸/">
+      <div class="em">🌻</div>
+      <div class="name">植物大战僵尸 JS版 <small>JSPVZ by LonelyStar</small></div>
+      <div class="tag">13 màn + mini-game</div>
+      <div class="keys">🖱️ chuột — trồng cây, thu nắng, giữ sân</div>
+    </a>
+
+    <a class="card" href="大作业/小游戏/自制小游戏.html">
+      <div class="em">⚡</div>
+      <div class="name">反应力小游戏 <small>Reaction trainer</small></div>
+      <div class="tag">JS + CSS tự viết</div>
+      <div class="keys">🖱️ chọn số theo luật chẵn/lẻ trong 20s</div>
+    </a>
+
+    <a class="card" href="大作业/贪吃蛇.html">
+      <div class="em">🐍</div>
+      <div class="name">贪吃蛇 <small>Snake — Canvas重构版</small></div>
+      <div class="tag">1 file .html duy nhất</div>
+      <div class="keys"><kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd> đổi hướng</div>
+    </a>
+  </div>
+
+  <section class="list">
+    <h2>实验程序 (bài tập trong lab)</h2>
+    <div class="chips">
+      <a href="实验/实验程序/">📂 Tất cả实验程序…</a>
+      <a href="实验/实验程序/1.1.html">1.1</a>
+      <a href="实验/实验程序/1.2.html">1.2</a>
+      <a href="实验/实验程序/a/2.1.html">2.1 嵌套页面</a>
+      <a href="实验/实验程序/5.2.html">5.2</a>
+      <a href="实验/实验程序/7.3.html">7.3</a>
+    </div>
+  </section>
+
+  <footer>
+    Gõ lỗi? Chạy <code>npm run check</code> để tự kiểm tra cú pháp JS + liên kết 404 + charset.<br>
+    Serve lại bằng <code>npm run serve</code> (Node.js, không cần cài package). Các môn MATLAB/Verilog xem AGENTS.md.
+  </footer>
+</div>
+</body>
+</html>

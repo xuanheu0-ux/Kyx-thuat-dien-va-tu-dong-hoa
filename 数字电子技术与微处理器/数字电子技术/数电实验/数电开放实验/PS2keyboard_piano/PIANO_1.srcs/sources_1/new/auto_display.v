@@ -1,26 +1,26 @@
 `timescale 1ns / 1ps
-//×Ô¶¯·ÅÒôÄ£¿é
+//è‡ªåŠ¨æ”¾éŸ³æ¨¡å—
 module auto_display(
-  input clk_16,//½ÚÅÄÊ±ÖÓ
-  input en,//1ÎªÊ¹ÄÜ
-  input [2:0] songs_num,//¸èÇúÑ¡Ôñ
-  output reg [4:0] tone//¼üÖµÊä³ö
+  input clk_16,//èŠ‚æ‹æ—¶é’Ÿ
+  input en,//1ä¸ºä½¿èƒ½
+  input [2:0] songs_num,//æ­Œæ›²é€‰æ‹©
+  output reg [4:0] tone//é”®å€¼è¾“å‡º
     );
     
-  reg [19:0] count;//Ê±¼ä¼ÆÊıÆ÷
-  //¼Ä´æÆ÷ÀàĞÍ±äÁ¿³õÊ¼»¯
+  reg [19:0] count;//æ—¶é—´è®¡æ•°å™¨
+  //å¯„å­˜å™¨ç±»å‹å˜é‡åˆå§‹åŒ–
   initial 
     begin
-      tone<=5'd22;//³õÊ¼»¯ÎªÎŞĞ§¼üÖµ
+      tone<=5'd22;//åˆå§‹åŒ–ä¸ºæ— æ•ˆé”®å€¼
       count<=1'b0;
     end
-  //ÄÚÖÃÇúÆ×²¢°´½ÚÅÄ¶ÁÈ¡Êä³ö  
+  //å†…ç½®æ›²è°±å¹¶æŒ‰èŠ‚æ‹è¯»å–è¾“å‡º  
   always @(posedge clk_16)
     begin
       if(en==1'b1)
         begin         
           case(songs_num)
-            3'b100://Ç§±¾Ó£
+            3'b100://åƒæœ¬æ¨±
               begin
                 if(count>=192)
                   begin
@@ -342,7 +342,7 @@ module auto_display(
                   20'd192:tone<=5'd15;
                 endcase
               end
-          3'b010://Ìì¿ÕÖ®³Ç
+          3'b010://å¤©ç©ºä¹‹åŸ
             begin
               if(count>=195)
                 begin

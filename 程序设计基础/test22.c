@@ -3,107 +3,107 @@
 #include <stdlib.h>
  
  
-//¶¨Òå½á¹¹ÌåÀàĞÍ
+//å®šä¹‰ç»“æ„ä½“ç±»å‹
 typedef struct Node{
-    float xishu;				//¶¨ÒåÏµÊıÎª¸¡µãÊı
-    int zhishu;					//¶¨ÒåÖ¸ÊıÎªÕûĞÍ
+    float xishu;				//å®šä¹‰ç³»æ•°ä¸ºæµ®ç‚¹æ•°
+    int zhishu;					//å®šä¹‰æŒ‡æ•°ä¸ºæ•´å‹
     struct Node *Next;
 }Node;
  
  
-typedef struct Node* PNode;	//¶¨ÒåÖ¸ÕëÀàĞÍ
+typedef struct Node* PNode;	//å®šä¹‰æŒ‡é’ˆç±»å‹
  
  
-//¶àÏîÊ½°´ÕÕÖ¸Êı´óĞ¡ÅÅĞò
+//å¤šé¡¹å¼æŒ‰ç…§æŒ‡æ•°å¤§å°æ’åº
 void insertNewPoint_link(PNode head,PNode qNode)
 {
-	PNode p=head;				//ÏòheadÎªÊ×µÄÁ´±íÖĞ²åÈëqnode½áµã£¬ÓÉp´Óhead´¦¿ªÊ¼±éÀú
+	PNode p=head;				//å‘headä¸ºé¦–çš„é“¾è¡¨ä¸­æ’å…¥qnodeç»“ç‚¹ï¼Œç”±pä»headå¤„å¼€å§‹éå†
 	PNode h=head;
-	PNode q;					//ÓÃÓÚÏú»Ù½Úµã
-    while (p->Next!=NULL)		//ÈôÒÑÊäÈë¶àÏîÊ½²»Ö¹Ò»Ïî
+	PNode q;					//ç”¨äºé”€æ¯èŠ‚ç‚¹
+    while (p->Next!=NULL)		//è‹¥å·²è¾“å…¥å¤šé¡¹å¼ä¸æ­¢ä¸€é¡¹
     {
-		//ÈôĞÂÏîµÄÖ¸Êı±ÈÄ³Ò»Ïîp´óÔò½«ĞÂÏî²åÔÚ¸ÃÏîÇ°Ãæ
+		//è‹¥æ–°é¡¹çš„æŒ‡æ•°æ¯”æŸä¸€é¡¹på¤§åˆ™å°†æ–°é¡¹æ’åœ¨è¯¥é¡¹å‰é¢
         if (p->Next->zhishu < qNode->zhishu)
         {
             qNode->Next = p->Next;
             p->Next = qNode;
-            break;				//²åÍêÖ®ºó¼´¿ÉÍË³ö
+            break;				//æ’å®Œä¹‹åå³å¯é€€å‡º
         }
 		else if(p->Next->zhishu == qNode->zhishu)
 		{
-			float sum = p->Next->xishu + qNode->xishu;//¼ÆËãºÏ²¢ºóµÄÏµÊı
-			if(sum!=0)		//ÈôºÏ²¢ºóÏµÊı²»ÎªÁã
+			float sum = p->Next->xishu + qNode->xishu;//è®¡ç®—åˆå¹¶åçš„ç³»æ•°
+			if(sum!=0)		//è‹¥åˆå¹¶åç³»æ•°ä¸ä¸ºé›¶
 				{
-					p->Next->xishu = sum;//ÖØĞÂ¸³ÓèpÏîĞÂµÄÏµÊı
+					p->Next->xishu = sum;//é‡æ–°èµ‹äºˆpé¡¹æ–°çš„ç³»æ•°
 				}
-				else		//·ñÔòÉ¾È¥ÒÑÓĞÁ´±íÖĞµÄµÚÒ»Ïî
+				else		//å¦åˆ™åˆ å»å·²æœ‰é“¾è¡¨ä¸­çš„ç¬¬ä¸€é¡¹
 				{
 					q=p->Next;
 					p->Next= p->Next->Next;
-					free(q);//Ïú»Ù½áµã
+					free(q);//é”€æ¯ç»“ç‚¹
 					q=NULL;
 				}
 				break;
 		}
-        p = p->Next;			//ÈôĞÂÏîÖ¸ÊıĞ¡ÓÚpµ±Ç°Ö¸ÏòµÄÏîÔòpÒÆÖÁÏÂÒ»ÏîÓëÏÂÒ»Ïî½øĞĞ±È½Ï
+        p = p->Next;			//è‹¥æ–°é¡¹æŒ‡æ•°å°äºpå½“å‰æŒ‡å‘çš„é¡¹åˆ™pç§»è‡³ä¸‹ä¸€é¡¹ä¸ä¸‹ä¸€é¡¹è¿›è¡Œæ¯”è¾ƒ
 	}
-	if (p->Next == NULL)		//Èô¶àÏîÊ½Ö»ÓĞÒ»ÏîÔòÎŞĞèÅÅĞò
+	if (p->Next == NULL)		//è‹¥å¤šé¡¹å¼åªæœ‰ä¸€é¡¹åˆ™æ— éœ€æ’åº
     {
         p->Next = qNode;
     }
 }
  
  
-//Êä³ö¶àÏîÊ½
+//è¾“å‡ºå¤šé¡¹å¼
 void printLinkeLink(PNode head)
 {
-    PNode temp = head->Next;					//½¨Á¢ÁÙÊ±Ö¸ÕëÓÃÓÚ±éÀúÁ´±í
-	printf("%fX^%d",temp->xishu,temp->zhishu);	//ÏÈÊä³öµÚÒ»Ïî£¨²»ÓÃÇ°ÖÃ·ûºÅ£©
-	temp=temp->Next;			//tempÖ¸ÕëÖ¸ÏòÏÂÒ»Ïî
-    while (temp != NULL)		//Ñ­»·Êä³öºóĞøÏî
+    PNode temp = head->Next;					//å»ºç«‹ä¸´æ—¶æŒ‡é’ˆç”¨äºéå†é“¾è¡¨
+	printf("%fX^%d",temp->xishu,temp->zhishu);	//å…ˆè¾“å‡ºç¬¬ä¸€é¡¹ï¼ˆä¸ç”¨å‰ç½®ç¬¦å·ï¼‰
+	temp=temp->Next;			//tempæŒ‡é’ˆæŒ‡å‘ä¸‹ä¸€é¡¹
+    while (temp != NULL)		//å¾ªç¯è¾“å‡ºåç»­é¡¹
     {
-        if (temp->xishu > 0)		//ÈôÎªÕıÏµÊı
+        if (temp->xishu > 0)		//è‹¥ä¸ºæ­£ç³»æ•°
 			printf(" +%fX^%d",temp->xishu,temp->zhishu);
-        else if (temp->xishu < 0)	//ÈôÎª¸ºÏµÊı
+        else if (temp->xishu < 0)	//è‹¥ä¸ºè´Ÿç³»æ•°
 			printf("%fX^%d",temp->xishu,temp->zhishu);
         temp=temp->Next;
     }
 }
  
  
-//¶àÏîÊ½µÄ¼Ó·¨¼ÆËã
-void add_poly(Node *pa,Node *pb)//pa,pb·Ö±ğÎª¶àÏîÊ½Ò»ºÍ¶àÏîÊ½¶şµÄÍ·Ö¸Õë
+//å¤šé¡¹å¼çš„åŠ æ³•è®¡ç®—
+void add_poly(Node *pa,Node *pb)//pa,pbåˆ†åˆ«ä¸ºå¤šé¡¹å¼ä¸€å’Œå¤šé¡¹å¼äºŒçš„å¤´æŒ‡é’ˆ
 {
-	Node *p=pa->Next;		//pÎª±éÀúÖ¸Õë£¬´ËÊ±Ö¸Ïò¶àÏîÊ½Ò»µÄµÚÒ»Ïî
-    Node *q=pb->Next;		//qÎª±éÀúÖ¸Õë£¬´ËÊ±Ö¸Ïò¶àÏîÊ½¶şµÄµÚÒ»Ïî
-    Node *pre=pa;			//pre´Ë¿ÌÖ¸Ïò¶àÏîÊ½Ò»µÄÍ·Ö¸Õë£¬ºóĞø×÷ÎªÖĞ¼äÔØÌå
-    Node *u;				//uÖ¸Õë×öÁÙÊ±Ö¸Õë£¬ÓÃÓÚÊÍ·Å½Úµã
-    while (p!=NULL&&q!=NULL)//ÈôÖ¸ÕëÖ¸ÏòµÄÄÚÈİ¶¼²»Îª¿Õ
+	Node *p=pa->Next;		//pä¸ºéå†æŒ‡é’ˆï¼Œæ­¤æ—¶æŒ‡å‘å¤šé¡¹å¼ä¸€çš„ç¬¬ä¸€é¡¹
+    Node *q=pb->Next;		//qä¸ºéå†æŒ‡é’ˆï¼Œæ­¤æ—¶æŒ‡å‘å¤šé¡¹å¼äºŒçš„ç¬¬ä¸€é¡¹
+    Node *pre=pa;			//preæ­¤åˆ»æŒ‡å‘å¤šé¡¹å¼ä¸€çš„å¤´æŒ‡é’ˆï¼Œåç»­ä½œä¸ºä¸­é—´è½½ä½“
+    Node *u;				//uæŒ‡é’ˆåšä¸´æ—¶æŒ‡é’ˆï¼Œç”¨äºé‡Šæ”¾èŠ‚ç‚¹
+    while (p!=NULL&&q!=NULL)//è‹¥æŒ‡é’ˆæŒ‡å‘çš„å†…å®¹éƒ½ä¸ä¸ºç©º
     {
-        if (p->zhishu > q->zhishu)//Èô¶àÏîÊ½Ò»ÖĞµÄÏîÏµÊı´óÓÚ¶ÔÓ¦¶àÏîÊ½¶şÖĞµÄÏî
+        if (p->zhishu > q->zhishu)//è‹¥å¤šé¡¹å¼ä¸€ä¸­çš„é¡¹ç³»æ•°å¤§äºå¯¹åº”å¤šé¡¹å¼äºŒä¸­çš„é¡¹
         {
             pre = p ; 
 			p = p->Next;
         }
-        else if(p->zhishu == q->zhishu)//ÈôÁ½ÏîÏµÊıÏàµÈÔòºÏ²¢Í¬ÀàÏî
+        else if(p->zhishu == q->zhishu)//è‹¥ä¸¤é¡¹ç³»æ•°ç›¸ç­‰åˆ™åˆå¹¶åŒç±»é¡¹
         {
-            float x = p->xishu + q->xishu;//xÎªºÏ²¢ºóµÄÏµÊı
-            if (x != 0)				//ÈôºÏ²¢ºóÏµÊı²»ÎªÁã
+            float x = p->xishu + q->xishu;//xä¸ºåˆå¹¶åçš„ç³»æ•°
+            if (x != 0)				//è‹¥åˆå¹¶åç³»æ•°ä¸ä¸ºé›¶
             {
-                p->xishu = x;		//½«ºÏ²¢ºóµÄÏµÊı¸³¸ø¶àÏîÊ½Ò»ÖĞ¶ÔÓ¦µÄÏî
-                pre=p;				//preÖ¸Ïòp½áµã
+                p->xishu = x;		//å°†åˆå¹¶åçš„ç³»æ•°èµ‹ç»™å¤šé¡¹å¼ä¸€ä¸­å¯¹åº”çš„é¡¹
+                pre=p;				//preæŒ‡å‘pç»“ç‚¹
             }
-            else					//ÈôºÏ²¢ºóÏµÊıÎªÁã
+            else					//è‹¥åˆå¹¶åç³»æ•°ä¸ºé›¶
             {
-                pre->Next = p->Next;//Ö¸ÏòÏÂÒ»¸ö½áµã
-                free(p);			//ÊÍ·ÅpÏú»Ù½áµã
+                pre->Next = p->Next;//æŒ‡å‘ä¸‹ä¸€ä¸ªç»“ç‚¹
+                free(p);			//é‡Šæ”¾pé”€æ¯ç»“ç‚¹
             }
             p = pre->Next;
             u = q;
             q = q->Next;
             free(u);
         }
-        else				//Èô¶àÏîÊ½Ò»ÖĞµÄÏîÏµÊıĞ¡ÓÚ¶ÔÓ¦¶àÏîÊ½¶şÖĞµÄÏî
+        else				//è‹¥å¤šé¡¹å¼ä¸€ä¸­çš„é¡¹ç³»æ•°å°äºå¯¹åº”å¤šé¡¹å¼äºŒä¸­çš„é¡¹
 		{
             u = q->Next;
             q->Next = p;
@@ -120,35 +120,35 @@ void add_poly(Node *pa,Node *pb)//pa,pb·Ö±ğÎª¶àÏîÊ½Ò»ºÍ¶àÏîÊ½¶şµÄÍ·Ö¸Õë
 }
  
  
-//ÊµÏÖÖ÷º¯Êı
+//å®ç°ä¸»å‡½æ•°
 void main( )
 {
-    float xishu;		//¶¨Òå±äÁ¿  ÏµÊıºÍÖ¸Êı
+    float xishu;		//å®šä¹‰å˜é‡  ç³»æ•°å’ŒæŒ‡æ•°
 	int zhishu;
     PNode head1 = (PNode)malloc(sizeof(struct Node));
     PNode head2 = (PNode)malloc(sizeof(struct Node));
     PNode tem=NULL;
     head1->Next=NULL;
     head2->Next=NULL;
-    //ÊäÈë¶àÏîÊ½Ò»¸÷Ïî
-    printf("ÊäÈëÁ´±íÒ»µÄÏµÊıºÍÖ¸Êı£¬Èç£º3,2 (ÒÔ0,0½áÊøÊäÈë)£º\n");
+    //è¾“å…¥å¤šé¡¹å¼ä¸€å„é¡¹
+    printf("è¾“å…¥é“¾è¡¨ä¸€çš„ç³»æ•°å’ŒæŒ‡æ•°ï¼Œå¦‚ï¼š3,2 (ä»¥0,0ç»“æŸè¾“å…¥)ï¼š\n");
     scanf("%f,%d",&xishu,&zhishu);
-    while (xishu!=0)	//µ±ÏµÊıÎªÁãÊ±Í£Ö¹ÊäÈë
+    while (xishu!=0)	//å½“ç³»æ•°ä¸ºé›¶æ—¶åœæ­¢è¾“å…¥
     {
-        tem=(PNode)malloc(sizeof(struct Node));	//ÍùÁ´±íÖĞ²åÈëĞÂµÄÏî
+        tem=(PNode)malloc(sizeof(struct Node));	//å¾€é“¾è¡¨ä¸­æ’å…¥æ–°çš„é¡¹
         tem->xishu = xishu;
         tem->zhishu = zhishu;
         tem->Next = NULL;
-		insertNewPoint_link(head1,tem);			//²åÈëĞÂ½áµã
-        scanf("%f,%d",&xishu,&zhishu);			//ÊäÈëÏÂÒ»Ïî
+		insertNewPoint_link(head1,tem);			//æ’å…¥æ–°ç»“ç‚¹
+        scanf("%f,%d",&xishu,&zhishu);			//è¾“å…¥ä¸‹ä¸€é¡¹
     }
-    printf("¶àÏîÊ½Ò»Îª£º\n");					
-    printLinkeLink(head1);						//Êä³ö¶àÏîÊ½Ò»
+    printf("å¤šé¡¹å¼ä¸€ä¸ºï¼š\n");					
+    printLinkeLink(head1);						//è¾“å‡ºå¤šé¡¹å¼ä¸€
     printf("\n");
-    //ÊäÈë¶àÏîÊ½¶ş¸÷Ïî
-    printf("\nÊäÈëÁ´±í¶şµÄÏµÊıºÍÖ¸Êı£¬Èç£º3,2 (ÒÔ0,0½áÊøÊäÈë)£º\n");
+    //è¾“å…¥å¤šé¡¹å¼äºŒå„é¡¹
+    printf("\nè¾“å…¥é“¾è¡¨äºŒçš„ç³»æ•°å’ŒæŒ‡æ•°ï¼Œå¦‚ï¼š3,2 (ä»¥0,0ç»“æŸè¾“å…¥)ï¼š\n");
     scanf("%f,%d",&xishu,&zhishu);
-    while (xishu!=0)	//µ±ÏµÊıÎªÁãÊ±Í£Ö¹ÊäÈë
+    while (xishu!=0)	//å½“ç³»æ•°ä¸ºé›¶æ—¶åœæ­¢è¾“å…¥
     {
         tem=(PNode)malloc(sizeof(struct Node));
         tem->xishu=xishu;
@@ -157,12 +157,12 @@ void main( )
 	    insertNewPoint_link(head2,tem);
         scanf("%f,%d",&xishu,&zhishu);
     }
-    printf("¶àÏîÊ½¶şÎª£º\n");
+    printf("å¤šé¡¹å¼äºŒä¸ºï¼š\n");
     printLinkeLink(head2);
     printf("\n");
-    //Êä³ö¶àÏîÊ½Ïà¼ÓµÄ½á¹û
+    //è¾“å‡ºå¤šé¡¹å¼ç›¸åŠ çš„ç»“æœ
     add_poly(head1,head2);
-    printf("\n¶àÏîÊ½Ïà¼ÓºóµÄ½á¹ûÎª£º\n");
+    printf("\nå¤šé¡¹å¼ç›¸åŠ åçš„ç»“æœä¸ºï¼š\n");
     printLinkeLink(head1);
 	printf("\n\n");
 }

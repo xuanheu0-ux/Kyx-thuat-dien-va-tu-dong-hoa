@@ -4,11 +4,11 @@
 # IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
 # Start of session at: Wed Dec  2 16:21:27 2020
 # Process ID: 7888
-# Current directory: F:/桌面/fanqiezhong_30_involvestar
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent11680 F:\桌面\fanqiezhong_30_involvestar\AD_DA.xpr
-# Log file: F:/桌面/fanqiezhong_30_involvestar/vivado.log
-# Journal file: F:/桌面/fanqiezhong_30_involvestar\vivado.jou
+# Current directory: F:/妗岄潰/fanqiezhong_30_involvestar
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent11680 F:\妗岄潰\fanqiezhong_30_involvestar\AD_DA.xpr
+# Log file: F:/妗岄潰/fanqiezhong_30_involvestar/vivado.log
+# Journal file: F:/妗岄潰/fanqiezhong_30_involvestar\vivado.jou
 #-----------------------------------------------------------
 start_gui
-open_project F:/桌面/fanqiezhong_30_involvestar/AD_DA.xpr
+open_project F:/妗岄潰/fanqiezhong_30_involvestar/AD_DA.xpr
 update_compile_order -fileset sources_1

@@ -219,7 +219,7 @@ void DMA1_Channel1_IRQHandler(void)
 extern short *epmd;
 void TIM3_IRQHandler(void)
 {
-  /* USER CODE BEGIN TIM3_IRQn 0  该部分内容可自由修改 */
+  /* USER CODE BEGIN TIM3_IRQn 0  璇ラ儴鍒嗗唴瀹瑰彲鑷敱淇敼 */
 static unsigned short LEDpwm;
 	LEDpwm++;	LEDpwm%=9800;
 	if(LEDpwm<4900)	TIM3->CCR2=			LEDpwm/2+88;
@@ -229,11 +229,11 @@ static unsigned short LEDpwm;
 
 	if(!(GPIOE->IDR&0x08))															//PE2(down Key) push
 	{	if(LEDpwm%8>3)	GPIOB->BSRR|=1<<5;	else 	GPIOB->BRR|=1<<5;	}	//Beep
-//ISR 自行扩展Begin
+//ISR 鑷鎵╁睍Begin
 		
 		
 		
-//ISR 自行扩展END
+//ISR 鑷鎵╁睍END
 	/* USER CODE END TIM3_IRQn 0 */
   HAL_TIM_IRQHandler(&htim3);
   /* USER CODE BEGIN TIM3_IRQn 1 */

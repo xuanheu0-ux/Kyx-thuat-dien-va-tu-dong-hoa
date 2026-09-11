@@ -9,9 +9,9 @@ function [fitresult, gof] = createFit3(D, delta_iL, delta_iL_cal)
 %      fitresult : a fit object representing the fit.
 %      gof : structure with goodness-of fit info.
 %
-%  ÁíÇë²ÎÔÄ FIT, CFIT, SFIT.
+%  å¦è¯·å‚é˜… FIT, CFIT, SFIT.
 
-%  ÓÉ MATLAB ÓÚ 22-Nov-2020 17:26:59 ×Ô¶¯Éú³É
+%  ç”± MATLAB äº 22-Nov-2020 17:26:59 è‡ªåŠ¨ç”Ÿæˆ
 
 
 %% Fit: 'untitled fit 1'.

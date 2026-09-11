@@ -9,9 +9,9 @@ function [fitresult, gof] = createFit_21(U2, I2)
 %      fitresult : a fit object representing the fit.
 %      gof : structure with goodness-of fit info.
 %
-%  ÁíÇë²ÎÔÄ FIT, CFIT, SFIT.
+%  å¦è¯·å‚é˜… FIT, CFIT, SFIT.
 
-%  ÓÉ MATLAB ÓÚ 14-Dec-2020 21:01:37 ×Ô¶¯Éú³É
+%  ç”± MATLAB äº 14-Dec-2020 21:01:37 è‡ªåŠ¨ç”Ÿæˆ
 
 
 %% Fit: 'untitled fit 1'.
@@ -26,12 +26,12 @@ ft = fittype( 'poly3' );
 % Plot fit with data.
 figure( 'Name', 'untitled fit 1' );
 plot( fitresult, xData, yData );
-xlabel('ÈıÏàÏßµçÑ¹Æ½¾ùÖµ \it\fontname{Times new roman}U_{0} (V)')
-ylabel('ÈıÏàµçÁ÷Æ½¾ùÖµ \it\fontname{Times new roman}I_{0} (A)')
-legend('Êµ²âÖµ', 'ÄâºÏÖµ');
-title('¿ÕÔØÌØĞÔ\it\fontname{Times new roman}I_{0}=f(U_{0})');
+xlabel('ä¸‰ç›¸çº¿ç”µå‹å¹³å‡å€¼ \it\fontname{Times new roman}U_{0} (V)')
+ylabel('ä¸‰ç›¸ç”µæµå¹³å‡å€¼ \it\fontname{Times new roman}I_{0} (A)')
+legend('å®æµ‹å€¼', 'æ‹Ÿåˆå€¼');
+title('ç©ºè½½ç‰¹æ€§\it\fontname{Times new roman}I_{0}=f(U_{0})');
 set(findobj('Type','line'),'LineWidth',1.5);
-set(gca,'FontName','Times New Roman','FontName','ËÎÌå');
+set(gca,'FontName','Times New Roman','FontName','å®‹ä½“');
 grid on
 
 

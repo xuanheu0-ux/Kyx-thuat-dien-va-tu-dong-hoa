@@ -5,7 +5,7 @@ int main()
 	scanf("%c",&a);
 	if((a>=65&&a<=90)||(a>=97&&a<=122))
 	{
-		printf("×ÖÄ¸±í\n");
+		printf("å­—æ¯è¡¨\n");
 		if(a>=65&&a<=90)
 		a=a+32;
 		else

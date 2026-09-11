@@ -4,11 +4,11 @@
 # IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
 # Start of session at: Mon Nov 16 15:55:20 2020
 # Process ID: 11164
-# Current directory: D:/EGO1/anjiankongzhidaojishi - 副本
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent1256 D:\EGO1\anjiankongzhidaojishi - 副本\anjiankongzhidaojishi.xpr
-# Log file: D:/EGO1/anjiankongzhidaojishi - 副本/vivado.log
-# Journal file: D:/EGO1/anjiankongzhidaojishi - 副本\vivado.jou
+# Current directory: D:/EGO1/anjiankongzhidaojishi - 鍓湰
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent1256 D:\EGO1\anjiankongzhidaojishi - 鍓湰\anjiankongzhidaojishi.xpr
+# Log file: D:/EGO1/anjiankongzhidaojishi - 鍓湰/vivado.log
+# Journal file: D:/EGO1/anjiankongzhidaojishi - 鍓湰\vivado.jou
 #-----------------------------------------------------------
 start_gui
-open_project {D:/EGO1/anjiankongzhidaojishi - 副本/anjiankongzhidaojishi.xpr}
+open_project {D:/EGO1/anjiankongzhidaojishi - 鍓湰/anjiankongzhidaojishi.xpr}
 update_compile_order -fileset sources_1

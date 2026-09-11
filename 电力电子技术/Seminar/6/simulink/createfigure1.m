@@ -3,33 +3,33 @@ function createfigure(xvector1, yvector1)
 %  XVECTOR1:  bar xvector
 %  YVECTOR1:  bar yvector
 
-%  ÓÉ MATLAB ÓÚ 12-Dec-2020 16:24:57 ×Ô¶¯Éú³É
+%  ç”± MATLAB äº 12-Dec-2020 16:24:57 è‡ªåŠ¨ç”Ÿæˆ
 
-% ´´½¨ figure
+% åˆ›å»º figure
 figure1 = figure('Name','FFT Analysis Results');
 
-% ´´½¨ axes
+% åˆ›å»º axes
 axes1 = axes('Parent',figure1,...
     'Position',[0.117216117216117 0.11530064072437 0.815018315018315 0.805896805896806]);
 hold(axes1,'on');
 
-% ´´½¨ bar
+% åˆ›å»º bar
 bar(xvector1,yvector1,'EdgeColor','none','BarWidth',0.5);
 
-% ´´½¨ ylabel
+% åˆ›å»º ylabel
 ylabel('Mag (% of Fundamental)');
 
-% ´´½¨ xlabel
+% åˆ›å»º xlabel
 xlabel('Frequency (Hz)');
 
-% ´´½¨ title
+% åˆ›å»º title
 title('Fundamental (50Hz) = 47.58 , THD= 368.69%');
 
-% È¡ÏûÒÔÏÂĞĞµÄ×¢ÊÍÒÔ±£Áô×ø±êÇøµÄ X ·¶Î§
+% å–æ¶ˆä»¥ä¸‹è¡Œçš„æ³¨é‡Šä»¥ä¿ç•™åæ ‡åŒºçš„ X èŒƒå›´
 % xlim(axes1,[-3750 75000]);
-% È¡ÏûÒÔÏÂĞĞµÄ×¢ÊÍÒÔ±£Áô×ø±êÇøµÄ Y ·¶Î§
+% å–æ¶ˆä»¥ä¸‹è¡Œçš„æ³¨é‡Šä»¥ä¿ç•™åæ ‡åŒºçš„ Y èŒƒå›´
 % ylim(axes1,[0 109.791910175718]);
 box(axes1,'on');
 grid(axes1,'on');
-% ÉèÖÃÆäÓà×ø±êÇøÊôĞÔ
+% è®¾ç½®å…¶ä½™åæ ‡åŒºå±æ€§
 set(axes1,'XMinorGrid','on','YMinorGrid','on','ZMinorGrid','on');

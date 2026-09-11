@@ -68,12 +68,12 @@ set rc [catch {
   create_project -in_memory -part xc7a35tcsg324-1
   set_property design_mode GateLvl [current_fileset]
   set_param project.singleFileAddWarning.threshold 0
-  set_property webtalk.parent_dir F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/ÊıµçÊµÑé/´ó×÷Òµ/chronopro/smg.cache/wt [current_project]
-  set_property parent.project_path F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/ÊıµçÊµÑé/´ó×÷Òµ/chronopro/smg.xpr [current_project]
-  set_property ip_output_repo F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/ÊıµçÊµÑé/´ó×÷Òµ/chronopro/smg.cache/ip [current_project]
+  set_property webtalk.parent_dir F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/å¤§ä½œä¸š/chronopro/smg.cache/wt [current_project]
+  set_property parent.project_path F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/å¤§ä½œä¸š/chronopro/smg.xpr [current_project]
+  set_property ip_output_repo F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/å¤§ä½œä¸š/chronopro/smg.cache/ip [current_project]
   set_property ip_cache_permissions {read write} [current_project]
-  add_files -quiet F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/ÊıµçÊµÑé/´ó×÷Òµ/chronopro/smg.runs/synth_1/top.dcp
-  read_xdc F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/ÊıµçÊµÑé/´ó×÷Òµ/chronopro/smg.srcs/constrs_1/new/con_smg1.xdc
+  add_files -quiet F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/å¤§ä½œä¸š/chronopro/smg.runs/synth_1/top.dcp
+  read_xdc F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/å¤§ä½œä¸š/chronopro/smg.srcs/constrs_1/new/con_smg1.xdc
   link_design -top top -part xc7a35tcsg324-1
   close_msg_db -file init_design.pb
 } RESULT]

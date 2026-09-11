@@ -313,3 +313,12 @@ draft*.pdf
 *.fls
 *.fdb_latexmk
 *.out
+
+# ==== Agent maintenance: OS/Office/EDA 临时文件，禁止提交 (temp files never to commit) ====
+Thumbs.db
+Desktop.ini
+~$*
+~WRL*
+*.tmp
+_vti_cnf/
+信号与系统/实验/figs/

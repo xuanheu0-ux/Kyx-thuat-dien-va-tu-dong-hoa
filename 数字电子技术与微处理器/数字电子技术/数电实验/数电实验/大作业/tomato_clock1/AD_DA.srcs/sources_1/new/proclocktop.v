@@ -16,8 +16,8 @@ module top(
     wire [15:0] customtime;
     wire secadjout,minadjout,secadjmid,minadjmid,timerstmid,timerstout,xiaodoumaichong;
 
-//创意功能模块
-//通过AD转换调节显示亮度    
+//鍒涙剰鍔熻兘妯″潡
+//閫氳繃AD杞崲璋冭妭鏄剧ず浜害    
 XADC_channel_1(
     .dclk_in(dclk_in),
     .reset_in(1),

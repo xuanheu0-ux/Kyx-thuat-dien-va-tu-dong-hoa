@@ -9,9 +9,9 @@ function [fitresult, gof] = createFit(t, n)
 %      fitresult : a fit object representing the fit.
 %      gof : structure with goodness-of fit info.
 %
-%  ÁíÇë²ÎÔÄ FIT, CFIT, SFIT.
+%  å¦è¯·å‚é˜… FIT, CFIT, SFIT.
 
-%  ÓÉ MATLAB ÓÚ 05-Jan-2021 19:16:12 ×Ô¶¯Éú³É
+%  ç”± MATLAB äº 05-Jan-2021 19:16:12 è‡ªåŠ¨ç”Ÿæˆ
 
 
 %% Fit: 'untitled fit 1'.
@@ -31,7 +31,7 @@ ylabel('\it\fontname{Times new roman}n (r/min)')
 
 title('\it\fontname{Times new roman}Working characteristic analysis n=f(T)');
 set(findobj('Type','line'),'LineWidth',1.5);
-set(gca,'FontName','Times New Roman','FontName','ËÎÌå');
+set(gca,'FontName','Times New Roman','FontName','å®‹ä½“');
 grid on
 
 

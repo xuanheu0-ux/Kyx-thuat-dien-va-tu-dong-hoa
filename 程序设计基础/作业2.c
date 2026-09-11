@@ -2,9 +2,9 @@
 int main()
 {
 int number=20;
-printf("ÇëÊäÈëÒ»¸öÕûÊı£º");
+printf("è¯·è¾“å…¥ä¸€ä¸ªæ•´æ•°ï¼š");
 scanf("%d",&number);
 number=number+10;
-printf("¸ÃÕûÊı¼ÓÉÏ10µÄ½á¹ûÊÇ:%d\n",number);
+printf("è¯¥æ•´æ•°åŠ ä¸Š10çš„ç»“æœæ˜¯:%d\n",number);
 return 0;
 }

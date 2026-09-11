@@ -9,9 +9,9 @@ function [fitresult, gof] = createFit6(IK, lamda2)
 %      fitresult : a fit object representing the fit.
 %      gof : structure with goodness-of fit info.
 %
-%  ÁíÇë²ÎÔÄ FIT, CFIT, SFIT.
+%  å¦è¯·å‚é˜… FIT, CFIT, SFIT.
 
-%  ÓÉ MATLAB ÓÚ 16-Nov-2020 21:51:38 ×Ô¶¯Éú³É
+%  ç”± MATLAB äº 16-Nov-2020 21:51:38 è‡ªåŠ¨ç”Ÿæˆ
 
 
 %% Fit: 'untitled fit 1'.
@@ -28,10 +28,10 @@ opts.SmoothingParam = 0.999607275026491;
 % Plot fit with data.
 figure( 'Name', 'untitled fit 6' );
 plot( fitresult, xData, yData );
-legend('Êµ²âÖµ', 'ÄâºÏÖµ');
-title('¶ÌÂ·ÌØĞÔ\it\fontname{Times new roman}cos\phi_{K }=f(U_{K })')
-xlabel('ÈıÏàÏßµçÁ÷Æ½¾ùÖµ\it\fontname{Times new roman}I_{K }(A)');
-ylabel('¹¦ÂÊÒòÊı\it\fontname{Times new roman}cos\phi_{K }');
+legend('å®æµ‹å€¼', 'æ‹Ÿåˆå€¼');
+title('çŸ­è·¯ç‰¹æ€§\it\fontname{Times new roman}cos\phi_{K }=f(U_{K })')
+xlabel('ä¸‰ç›¸çº¿ç”µæµå¹³å‡å€¼\it\fontname{Times new roman}I_{K }(A)');
+ylabel('åŠŸç‡å› æ•°\it\fontname{Times new roman}cos\phi_{K }');
 axis([-inf,inf,0,1])
 grid on;
 

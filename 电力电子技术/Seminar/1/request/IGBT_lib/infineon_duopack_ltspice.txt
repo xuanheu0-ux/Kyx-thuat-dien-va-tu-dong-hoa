@@ -64,7 +64,7 @@
 * 								*
 * the model is based on the publication:			*
 * 								*
-* R.Kraus, P.Türkes, J.Sigg					*
+* R.Kraus, P.Té»µkes, J.Sigg					*
 * Physics-based Models Of Power Semiconductor Devices 		*
 * For The Circuit Simulator Spice				*
 * 								*

@@ -1,40 +1,40 @@
 `timescale 1ns / 1ps
-//¶¥²ãÄ£¿é
+//é¡¶å±‚æ¨¡å—
 module TOP(
   input sys_clk,//100MHZ
-  input rst,//¸´Î»¼ü
-  input keyboard_select,//¼üÅÌÑ¡Ôñ¾ØÕó¼üÅÌorPS2¼üÅÌ
-  input ps2_clk,//ps2¼üÅÌÊ±ÖÓ
-  input ps2_data, //ps2¼üÅÌÊı¾İÏß
-  input [3:0] col,//¾ØÕó¼üÅÌÁĞÊäÈë
-  input auto_en,//×Ô¶¯·ÅÒôÊ¹ÄÜ
-  input [2:0] song_num,//¸èÇúÑ¡Ôñ
-  input SD,//µÍÍ¨ÂË²¨Æ÷Ê¹ÄÜ
-  output sd,//µÍÍ¨ÂË²¨Æ÷Ê¹ÄÜ
-  output audio_out,//ÒôÆµÊä³ö
-  output [3:0] scan,//¾ØÕó¼üÅÌĞĞÉ¨Ãè
-  output reg [15:0] led,//LEDÊä³ö
-  output [1:0] digital_en,//ÊıÂë¹ÜÆ¬Ñ¡
-  output [7:0] digital_data//ÊıÂë¹Ü¶ÎÑ¡
+  input rst,//å¤ä½é”®
+  input keyboard_select,//é”®ç›˜é€‰æ‹©çŸ©é˜µé”®ç›˜orPS2é”®ç›˜
+  input ps2_clk,//ps2é”®ç›˜æ—¶é’Ÿ
+  input ps2_data, //ps2é”®ç›˜æ•°æ®çº¿
+  input [3:0] col,//çŸ©é˜µé”®ç›˜åˆ—è¾“å…¥
+  input auto_en,//è‡ªåŠ¨æ”¾éŸ³ä½¿èƒ½
+  input [2:0] song_num,//æ­Œæ›²é€‰æ‹©
+  input SD,//ä½é€šæ»¤æ³¢å™¨ä½¿èƒ½
+  output sd,//ä½é€šæ»¤æ³¢å™¨ä½¿èƒ½
+  output audio_out,//éŸ³é¢‘è¾“å‡º
+  output [3:0] scan,//çŸ©é˜µé”®ç›˜è¡Œæ‰«æ
+  output reg [15:0] led,//LEDè¾“å‡º
+  output [1:0] digital_en,//æ•°ç ç®¡ç‰‡é€‰
+  output [7:0] digital_data//æ•°ç ç®¡æ®µé€‰
     );
   
   wire clk_100;//100HZ
-  wire clk_sel;//½ÚÅÄÊ±ÖÓ
-  wire [4:0] value1;//×îÖÕ¼üÅÌ¼üÖµ
-  wire [4:0] value2;//ÇúÆ×Éú³ÉÄ£¿éÊä³ö¼üÖµ
-  wire [4:0] value;//×îÖÕÊä³ö¼üÖµ
-  wire [4:0] key1;//¾ØÕó¼üÅÌ¼üÖµ
-  wire [4:0] key2;//ps2¼üÅÌ¼üÖµ
-  assign value1=keyboard_select?key2:key1;//¼üÅÌÊ¹ÄÜ¿ØÖÆ
-  assign value=auto_en?value2:value1;//ÈË¹¤or×Ô¶¯Ä£Ê½¿ØÖÆ
-  //ÊµÀı»¯
+  wire clk_sel;//èŠ‚æ‹æ—¶é’Ÿ
+  wire [4:0] value1;//æœ€ç»ˆé”®ç›˜é”®å€¼
+  wire [4:0] value2;//æ›²è°±ç”Ÿæˆæ¨¡å—è¾“å‡ºé”®å€¼
+  wire [4:0] value;//æœ€ç»ˆè¾“å‡ºé”®å€¼
+  wire [4:0] key1;//çŸ©é˜µé”®ç›˜é”®å€¼
+  wire [4:0] key2;//ps2é”®ç›˜é”®å€¼
+  assign value1=keyboard_select?key2:key1;//é”®ç›˜ä½¿èƒ½æ§åˆ¶
+  assign value=auto_en?value2:value1;//äººå·¥orè‡ªåŠ¨æ¨¡å¼æ§åˆ¶
+  //å®ä¾‹åŒ–
   clk_control clk1(sys_clk,song_num,clk_100,clk_sel);
   keyboard k1(clk_100,col,scan,key1);
   ps2_keyboard ps2_1(rst,ps2_clk,ps2_data,sys_clk,key2);
   audio_port a1(sys_clk,SD,value,sd,audio_out);
   auto_display auto1(clk_sel,auto_en,song_num,value2);
   scan_led_hex_disp d1(sys_clk,rst,value,digital_en,digital_data);
-  //LED¿ØÖÆ
+  //LEDæ§åˆ¶
   always @(value)
     begin
       case(value)

@@ -4,11 +4,11 @@
 # IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
 # Start of session at: Wed Dec 30 16:30:01 2020
 # Process ID: 7920
-# Current directory: F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/Êıµç¿ª·ÅÊµÑé/PS2keyboard_piano
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent8744 F:\×ÀÃæ\Î÷°²½»Í¨´óÑ§\Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷\Êı×Öµç×Ó¼¼Êõ\ÊıµçÊµÑé\Êıµç¿ª·ÅÊµÑé\PS2keyboard_piano\PIANO_1.xpr
-# Log file: F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/Êıµç¿ª·ÅÊµÑé/PS2keyboard_piano/vivado.log
-# Journal file: F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/Êıµç¿ª·ÅÊµÑé/PS2keyboard_piano\vivado.jou
+# Current directory: F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå¼€æ”¾å®éªŒ/PS2keyboard_piano
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent8744 F:\æ¡Œé¢\è¥¿å®‰äº¤é€šå¤§å­¦\æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨\æ•°å­—ç”µå­æŠ€æœ¯\æ•°ç”µå®éªŒ\æ•°ç”µå¼€æ”¾å®éªŒ\PS2keyboard_piano\PIANO_1.xpr
+# Log file: F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå¼€æ”¾å®éªŒ/PS2keyboard_piano/vivado.log
+# Journal file: F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå¼€æ”¾å®éªŒ/PS2keyboard_piano\vivado.jou
 #-----------------------------------------------------------
 start_gui
-open_project F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/Êıµç¿ª·ÅÊµÑé/PS2keyboard_piano/PIANO_1.xpr
+open_project F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå¼€æ”¾å®éªŒ/PS2keyboard_piano/PIANO_1.xpr
 update_compile_order -fileset sources_1

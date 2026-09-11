@@ -4,9 +4,9 @@
 # IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
 # Start of session at: Mon Nov 30 21:04:55 2020
 # Process ID: 12000
-# Current directory: F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/ÊıµçÊµÑé/´ó×÷Òµ/chronopro/smg.runs/synth_1
+# Current directory: F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/å¤§ä½œä¸š/chronopro/smg.runs/synth_1
 # Command line: vivado.exe -log top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source top.tcl
-# Log file: F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/ÊıµçÊµÑé/´ó×÷Òµ/chronopro/smg.runs/synth_1/top.vds
-# Journal file: F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/ÊıµçÊµÑé/´ó×÷Òµ/chronopro/smg.runs/synth_1\vivado.jou
+# Log file: F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/å¤§ä½œä¸š/chronopro/smg.runs/synth_1/top.vds
+# Journal file: F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/å¤§ä½œä¸š/chronopro/smg.runs/synth_1\vivado.jou
 #-----------------------------------------------------------
 source top.tcl -notrace

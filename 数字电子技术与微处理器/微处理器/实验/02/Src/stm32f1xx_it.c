@@ -219,7 +219,7 @@ void DMA1_Channel1_IRQHandler(void)
 extern short *epmd;
 void TIM3_IRQHandler(void)
 {
-  /* USER CODE BEGIN TIM3_IRQn 0  ¸Ã²¿·ÖÄÚÈİ¿É×ÔÓÉĞŞ¸Ä */
+  /* USER CODE BEGIN TIM3_IRQn 0  è¯¥éƒ¨åˆ†å†…å®¹å¯è‡ªç”±ä¿®æ”¹ */
 static unsigned short LEDpwm;
 	LEDpwm++;	LEDpwm%=9800;
 	if(LEDpwm<4900)	TIM3->CCR2=			LEDpwm/2+88;
@@ -229,8 +229,8 @@ static unsigned short LEDpwm;
 
 	if(!(GPIOE->IDR&0x08))															//PE2(down Key) push
 	{	if(LEDpwm%8>3)	GPIOB->BSRR|=1<<5;	else 	GPIOB->BRR|=1<<5;	}	//Beep
-//ISR ×ÔĞĞÀ©Õ¹Begin
-	//ÖĞ¶ÏÊ±¼ä£¬(2499+6) / (64 / 8) = 313.125us
+//ISR è‡ªè¡Œæ‰©å±•Begin
+	//ä¸­æ–­æ—¶é—´ï¼Œ(2499+6) / (64 / 8) = 313.125us
 	static uint16_t cnt_1Hz, cnt_10Hz, Cnt1, Cnt2;
 	cnt_1Hz++;
 	cnt_10Hz++;
@@ -247,7 +247,7 @@ static unsigned short LEDpwm;
     Cnt2++;
   }
 		
-//ISR ×ÔĞĞÀ©Õ¹END
+//ISR è‡ªè¡Œæ‰©å±•END
 	/* USER CODE END TIM3_IRQn 0 */
   HAL_TIM_IRQHandler(&htim3);
   /* USER CODE BEGIN TIM3_IRQn 1 */

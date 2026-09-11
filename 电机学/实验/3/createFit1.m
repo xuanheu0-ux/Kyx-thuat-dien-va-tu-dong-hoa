@@ -9,9 +9,9 @@ function [fitresult, gof] = createFit1(I0p, U0p)
 %      fitresult : a fit object representing the fit.
 %      gof : structure with goodness-of fit info.
 %
-%  ÁíÇë²ÎÔÄ FIT, CFIT, SFIT.
+%  å¦è¯·å‚é˜… FIT, CFIT, SFIT.
 
-%  ÓÉ MATLAB ÓÚ 16-Nov-2020 21:00:36 ×Ô¶¯Éú³É
+%  ç”± MATLAB äº 16-Nov-2020 21:00:36 è‡ªåŠ¨ç”Ÿæˆ
 
 
 %% Fit: 'untitled fit 1'.
@@ -29,10 +29,10 @@ opts.StartPoint = [0.95108439789539 0.22875131743043 -0.722820513009501 -4.36117
 % Plot fit with data.
 figure( 'Name', 'untitled fit 1' );
 plot( fitresult, xData, yData );
-legend('Êµ²âÖµ', 'ÄâºÏÖµ');
-title('¿ÕÔØÌØĞÔ\it\fontname{Times new roman}U_{0 }^{*}=f(I_{0 }^{*})')
-xlabel('±êçÛÖµ\it\fontname{Times new roman}I_{0 }^{*}');
-ylabel('±êçÛÖµ\it\fontname{Times new roman}U_{0 }^{*}');
+legend('å®æµ‹å€¼', 'æ‹Ÿåˆå€¼');
+title('ç©ºè½½ç‰¹æ€§\it\fontname{Times new roman}U_{0 }^{*}=f(I_{0 }^{*})')
+xlabel('æ ‡å¹ºå€¼\it\fontname{Times new roman}I_{0 }^{*}');
+ylabel('æ ‡å¹ºå€¼\it\fontname{Times new roman}U_{0 }^{*}');
 grid on;
 
 

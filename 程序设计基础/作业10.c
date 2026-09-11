@@ -4,10 +4,10 @@ int main()
 	int a_number;
 	scanf("%d",&a_number);
 	if(a_number>0)
-		printf("ÕâÊÇÒ»¸öÕıÊı¡£\n");
+		printf("è¿™æ˜¯ä¸€ä¸ªæ­£æ•°ã€‚\n");
 	else if(a_number<0)
-		printf("ÕâÊÇÒ»¸ö¸ºÊı¡£\n");
+		printf("è¿™æ˜¯ä¸€ä¸ªè´Ÿæ•°ã€‚\n");
 	else if(a_number==0)
-		printf("Õâ¸öÊıÊÇ0¡£");
+		printf("è¿™ä¸ªæ•°æ˜¯0ã€‚");
 	return 0;
 }

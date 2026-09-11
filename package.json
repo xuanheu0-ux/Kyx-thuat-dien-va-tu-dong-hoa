@@ -1,0 +1,13 @@
+{
+  "name": "xjtuee-course-materials-tools",
+  "private": true,
+  "version": "1.1.0",
+  "description": "Hub/runner/checker for the runnable web projects + Octave wrapper for .m scripts (no dependencies).",
+  "scripts": {
+    "serve": "node tools/serve.js",
+    "check": "node tools/check_web.js"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}

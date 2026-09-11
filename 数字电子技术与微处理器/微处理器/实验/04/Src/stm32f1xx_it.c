@@ -221,7 +221,7 @@ extern void adc_dma_tim_isr(void);
 
 void TIM3_IRQHandler(void)
 {
-  /* USER CODE BEGIN TIM3_IRQn 0  ╦ц╡©╥ждзхщ©ивтсипч╦д */
+  /* USER CODE BEGIN TIM3_IRQn 0  Х╞╔И┐╗Е┬├Е├┘Е╝╧Е▐╞Х┤╙Г■╠Д©╝Ф■╧ */
 static unsigned short LEDpwm;
 	LEDpwm++;	LEDpwm%=9800;
 	if(LEDpwm<4900)	TIM3->CCR2=			LEDpwm/2+88;
@@ -231,8 +231,8 @@ static unsigned short LEDpwm;
 
 	if(!(GPIOE->IDR&0x08))															//PE2(down Key) push
 	{	if(LEDpwm%8>3)	GPIOB->BSRR|=1<<5;	else 	GPIOB->BRR|=1<<5;	}	//Beep
-//ISR втппю╘у╧Begin
-	//жп╤ой╠╪Дё╛(2499+6) / (64 / 8) = 313.125us
+//ISR Х┤╙Х║▄Ф┴╘Е╠∙Begin
+	//Д╦╜Ф√╜Ф≈╤И≈╢О╪▄(2499+6) / (64 / 8) = 313.125us
 	adc_dma_tim_isr();
 	static uint16_t cnt_1Hz, cnt_10Hz, Cnt1, Cnt2;
 	cnt_1Hz++;
@@ -250,7 +250,7 @@ static unsigned short LEDpwm;
     Cnt2++;
   }
 		
-//ISR втппю╘у╧END
+//ISR Х┤╙Х║▄Ф┴╘Е╠∙END
 	/* USER CODE END TIM3_IRQn 0 */
   HAL_TIM_IRQHandler(&htim3);
   /* USER CODE BEGIN TIM3_IRQn 1 */

@@ -6,7 +6,7 @@ int main()
     scanf("%d",&a_number);
     while(time<=a_number)
     {
-        printf("ÇëÊäÈëµÚ%d¸öÊý£º",time);
+        printf("è¯·è¾“å…¥ç¬¬%dä¸ªæ•°ï¼š",time);
         scanf("%d",&number);
         if(number>=0)
         {
@@ -17,7 +17,7 @@ int main()
         {
             while(number<=0)
             {
-                printf("ÇëÖØÐÂÊäÈëµÚ%d¸öÊý£º",time);
+                printf("è¯·é‡æ–°è¾“å…¥ç¬¬%dä¸ªæ•°ï¼š",time);
                 scanf("%d",&number);
             }
             sum=sum+number;
@@ -26,7 +26,7 @@ int main()
     }
     SUM=sum;
     average=SUM/a_number;
-    printf("Õâ%d¸öÊýµÄºÍÊÇ%d£¬Æ½¾ùÖµÊÇ%.2f¡£",a_number,sum,average);
+    printf("è¿™%dä¸ªæ•°çš„å’Œæ˜¯%dï¼Œå¹³å‡å€¼æ˜¯%.2fã€‚",a_number,sum,average);
     return 0;
 }
 

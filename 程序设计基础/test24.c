@@ -1,14 +1,14 @@
 #include<stdio.h>
 int main()
 {
-//1.0³õÊ¼»¯½á¹û±äÁ¿n,m
+//1.0åˆå§‹åŒ–ç»“æœå˜é‡n,m
 	int n,m,result=0;
 	int j;
 	scanf("%d %d",&n,&m);
 	//printf("m:%d\n",m);
 	int prime=2;
 	int num=1;
-//2.0»ñµÃµÚ£î¸öËØÊıµÄÖµ
+//2.0è·å¾—ç¬¬ï½ä¸ªç´ æ•°çš„å€¼
 	while(num<n)
 	{
 		prime++;
@@ -23,7 +23,7 @@ int main()
 			}
 		}
 	}
-//3.0»ñµÚ£îµ½£í¸öËØÊıÖµµÄºÍ
+//3.0è·ç¬¬ï½åˆ°ï½ä¸ªç´ æ•°å€¼çš„å’Œ
 	int sum_prime = prime;
 	while(n<m)
 	{
@@ -40,7 +40,7 @@ int main()
 			}
 		}
 	}
-//4.0Êä³ö½á¹û
+//4.0è¾“å‡ºç»“æœ
 	printf("%d",sum_prime);
 	return 0;
 }

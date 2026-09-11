@@ -13,10 +13,10 @@ hold on
 plot(alpha,uoui,'k.-','linewidth',1.5);
 plot(a,the,'r.-','linewidth',1.5);
 hold off
-xlabel('Õ¼¿Õ±È\it\fontname{times new roman}\alpha\rm(%)')
-ylabel('Êä³öµçÑ¹ÊäÈëÓëÊäÈëµçÑ¹Ö®±È \it\fontname{times new roman}U_{i}/U_{o} ')
-legend('ÊµÑé²âÁ¿½á¹û','ÀíÂÛÖµ');
-title('Õ¼¿Õ±ÈÓëÊäÈëÊä³öµçÑ¹Ö®±ÈµÄ¹ØÏµ')
+xlabel('å ç©ºæ¯”\it\fontname{times new roman}\alpha\rm(%)')
+ylabel('è¾“å‡ºç”µå‹è¾“å…¥ä¸è¾“å…¥ç”µå‹ä¹‹æ¯” \it\fontname{times new roman}U_{i}/U_{o} ')
+legend('å®éªŒæµ‹é‡ç»“æœ','ç†è®ºå€¼');
+title('å ç©ºæ¯”ä¸è¾“å…¥è¾“å‡ºç”µå‹ä¹‹æ¯”çš„å…³ç³»')
 grid on
 
 fs = [5,10,20];
@@ -24,8 +24,8 @@ iopp = [0.217,0.151,0.107];
 
 figure(2)
 plot(fs,iopp,'k.-','linewidth',1.5);
-xlabel('ÆµÂÊ\it\fontname{times new roman}f_{s} (\rmkHz)')
-ylabel('µçÁ÷·å·åÖµ \it\fontname{times new roman}i_{o(p-p)} \rm(A) ')
-legend('ÊµÑé²âÁ¿½á¹û');
-title('ÆµÂÊÓëµçÁ÷·å·åÖµÖ®¼äµÄ¹ØÏµ')
+xlabel('é¢‘ç‡\it\fontname{times new roman}f_{s} (\rmkHz)')
+ylabel('ç”µæµå³°å³°å€¼ \it\fontname{times new roman}i_{o(p-p)} \rm(A) ')
+legend('å®éªŒæµ‹é‡ç»“æœ');
+title('é¢‘ç‡ä¸ç”µæµå³°å³°å€¼ä¹‹é—´çš„å…³ç³»')
 grid on

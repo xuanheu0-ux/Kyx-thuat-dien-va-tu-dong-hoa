@@ -22,27 +22,27 @@ create_project -in_memory -part xc7a35tcsg324-1
 set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
-set_property webtalk.parent_dir F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/ÊıµçÊµÑé/´ó×÷Òµ/chronopro/smg.cache/wt [current_project]
-set_property parent.project_path F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/ÊıµçÊµÑé/´ó×÷Òµ/chronopro/smg.xpr [current_project]
+set_property webtalk.parent_dir F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/å¤§ä½œä¸š/chronopro/smg.cache/wt [current_project]
+set_property parent.project_path F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/å¤§ä½œä¸š/chronopro/smg.xpr [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
-set_property ip_output_repo f:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/ÊıµçÊµÑé/´ó×÷Òµ/chronopro/smg.cache/ip [current_project]
+set_property ip_output_repo f:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/å¤§ä½œä¸š/chronopro/smg.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 read_verilog -library xil_defaultlib {
-  F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/ÊıµçÊµÑé/´ó×÷Òµ/chronopro/smg.srcs/sources_1/new/cyclecounter.v
-  F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/ÊıµçÊµÑé/´ó×÷Òµ/chronopro/smg.srcs/sources_1/new/dejittertop.v
-  F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/ÊıµçÊµÑé/´ó×÷Òµ/chronopro/smg.srcs/sources_1/new/differenciator.v
-  F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/ÊıµçÊµÑé/´ó×÷Òµ/chronopro/smg.srcs/sources_1/new/fsm.v
-  F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/ÊıµçÊµÑé/´ó×÷Òµ/chronopro/smg.srcs/sources_1/new/idlehandler.v
-  F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/ÊıµçÊµÑé/´ó×÷Òµ/chronopro/smg.srcs/sources_1/new/m60_counter.v
-  F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/ÊıµçÊµÑé/´ó×÷Òµ/chronopro/smg.srcs/sources_1/new/muldisp.v
-  F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/ÊıµçÊµÑé/´ó×÷Òµ/chronopro/smg.srcs/sources_1/new/rstreg.v
-  F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/ÊıµçÊµÑé/´ó×÷Òµ/chronopro/smg.srcs/sources_1/new/sec.v
-  F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/ÊıµçÊµÑé/´ó×÷Òµ/chronopro/smg.srcs/sources_1/new/smg.v
-  F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/ÊıµçÊµÑé/´ó×÷Òµ/chronopro/smg.srcs/sources_1/new/statectrl.v
-  F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/ÊıµçÊµÑé/´ó×÷Òµ/chronopro/smg.srcs/sources_1/new/timectrl.v
-  F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/ÊıµçÊµÑé/´ó×÷Òµ/chronopro/smg.srcs/sources_1/new/timereverse.v
-  F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/ÊıµçÊµÑé/´ó×÷Òµ/chronopro/smg.srcs/sources_1/new/top.v
+  F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/å¤§ä½œä¸š/chronopro/smg.srcs/sources_1/new/cyclecounter.v
+  F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/å¤§ä½œä¸š/chronopro/smg.srcs/sources_1/new/dejittertop.v
+  F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/å¤§ä½œä¸š/chronopro/smg.srcs/sources_1/new/differenciator.v
+  F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/å¤§ä½œä¸š/chronopro/smg.srcs/sources_1/new/fsm.v
+  F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/å¤§ä½œä¸š/chronopro/smg.srcs/sources_1/new/idlehandler.v
+  F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/å¤§ä½œä¸š/chronopro/smg.srcs/sources_1/new/m60_counter.v
+  F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/å¤§ä½œä¸š/chronopro/smg.srcs/sources_1/new/muldisp.v
+  F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/å¤§ä½œä¸š/chronopro/smg.srcs/sources_1/new/rstreg.v
+  F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/å¤§ä½œä¸š/chronopro/smg.srcs/sources_1/new/sec.v
+  F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/å¤§ä½œä¸š/chronopro/smg.srcs/sources_1/new/smg.v
+  F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/å¤§ä½œä¸š/chronopro/smg.srcs/sources_1/new/statectrl.v
+  F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/å¤§ä½œä¸š/chronopro/smg.srcs/sources_1/new/timectrl.v
+  F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/å¤§ä½œä¸š/chronopro/smg.srcs/sources_1/new/timereverse.v
+  F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/å¤§ä½œä¸š/chronopro/smg.srcs/sources_1/new/top.v
 }
 # Mark all dcp files as not used in implementation to prevent them from being
 # stitched into the results of this synthesis run. Any black boxes in the
@@ -52,8 +52,8 @@ read_verilog -library xil_defaultlib {
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/ÊıµçÊµÑé/´ó×÷Òµ/chronopro/smg.srcs/constrs_1/new/con_smg1.xdc
-set_property used_in_implementation false [get_files F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/Êı×Öµç×Ó¼¼Êõ/ÊıµçÊµÑé/ÊıµçÊµÑé/´ó×÷Òµ/chronopro/smg.srcs/constrs_1/new/con_smg1.xdc]
+read_xdc F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/å¤§ä½œä¸š/chronopro/smg.srcs/constrs_1/new/con_smg1.xdc
+set_property used_in_implementation false [get_files F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°å­—ç”µå­æŠ€æœ¯/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/å¤§ä½œä¸š/chronopro/smg.srcs/constrs_1/new/con_smg1.xdc]
 
 set_param ips.enableIPCacheLiteLoad 1
 close [open __synthesis_is_running__ w]

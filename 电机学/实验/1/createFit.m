@@ -9,9 +9,9 @@ function [fitresult, gof] = createFit(if1, u0)
 %      fitresult : a fit object representing the fit.
 %      gof : structure with goodness-of fit info.
 %
-%  ÁíÇë²ÎÔÄ FIT, CFIT, SFIT.
+%  å¦è¯·å‚é˜… FIT, CFIT, SFIT.
 
-%  ÓÉ MATLAB ÓÚ 19-Oct-2020 23:12:35 ×Ô¶¯Éú³É
+%  ç”± MATLAB äº 19-Oct-2020 23:12:35 è‡ªåŠ¨ç”Ÿæˆ
 
 
 %% Fit: 'untitled fit 1'.
@@ -36,11 +36,11 @@ hold off;
 text(1,205,'A');
 text(58.5,205,'C');
 text(75.87,205,'B');
-legend(  'ÊµÑéËùµÃÊı¾İ', 'ÄâºÏÇúÏß' );
+legend(  'å®éªŒæ‰€å¾—æ•°æ®', 'æ‹Ÿåˆæ›²çº¿' );
 % Label axes
 xlabel( '\itI_{f}(mA)' );
 ylabel( '\itU_{0}(V)' );
-title('ËûÀø¿ÕÔØÌØĞÔÇúÏß');
+title('ä»–åŠ±ç©ºè½½ç‰¹æ€§æ›²çº¿');
 grid on
 
 

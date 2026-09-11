@@ -117,39 +117,3 @@ function snakeMove(){
  head.style.left=newLeft+"px";
  head.style.top=newTop=newTop+"px";
 }
-*{
- padding:0;
- margin:0;
-}
-html,body{
- width:100%;
- height:100%;
-}
-body{
- position:relative;
-}
-div#container{
- position:absolute;
- top:0;
- bottom:0;
- left:0;
- right:0;
- margin:auto;
- width:800px;
- height:500px;
- border:1px solid black;
- font-size:0px;
-}
-span{
- display:inline-block;
- border:1px solid black;
- box-sizing:border-box;
-}
-span.snake{
- position:absolute;
- background-color:red;
-}
-span.food{
- position:absolute;
- background-color:blue;
-}
