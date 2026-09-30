@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-// °´¼üÏû¶¶Ä£¿é
+// æŒ‰é”®æ¶ˆæŠ–æ¨¡å—
 module ButtonEdgeDetect#(parameter DEBUG = 0) 
 (
     input clk,

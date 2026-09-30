@@ -2,10 +2,10 @@
 int main()
 {
 	int a_number;
-	printf ("请输入一个数字：\n");
+	printf ("璇疯緭鍏ヤ竴涓暟瀛楋細\n");
 	scanf ("a_number");
 	a_number=a_number+10;
-	printf ("结果是：\n");
+	printf ("缁撴灉鏄細\n");
 	printf ("%d\n",a_number);
 	return 0;
 }

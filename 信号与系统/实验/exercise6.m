@@ -5,11 +5,11 @@ xe = (x+x1)/2;
 xo = (x-x1)/2;
 subplot(2,1,1)
 fplot(xe,[-2,2]); 
-title('Å¼·ÖÁ¿'); 
+title('å¶åˆ†é‡'); 
 xlabel('t');
 ylabel('xe(t)')
 subplot(2,1,2)
 fplot(xo,[-2,2])
-title('Ææ·ÖÁ¿')
+title('å¥‡åˆ†é‡')
 xlabel('t');
 ylabel('xo(t)')

@@ -9,9 +9,9 @@ function [fitresult, gof] = createFit_rms3(angle, rms3)
 %      fitresult : a fit object representing the fit.
 %      gof : structure with goodness-of fit info.
 %
-%  ÁíÇë²ÎÔÄ FIT, CFIT, SFIT.
+%  å¦è¯·å‚é˜… FIT, CFIT, SFIT.
 
-%  ÓÉ MATLAB ÓÚ 07-Nov-2020 19:18:25 ×Ô¶¯Éú³É
+%  ç”± MATLAB äº 07-Nov-2020 19:18:25 è‡ªåŠ¨ç”Ÿæˆ
 
 
 %% Fit: 'untitled fit 1'.

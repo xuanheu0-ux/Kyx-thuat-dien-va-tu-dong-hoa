@@ -24,7 +24,7 @@ int main()
         break;
     }
     printf("0.");
-    if(m!=0)//Ñ­»·Ğ¡Êı 
+    if(m!=0)//å¾ªç¯å°æ•° 
     {
         p=k;
         for(i=0;i<p;i++)
@@ -35,7 +35,7 @@ int main()
         printf("T");
          
     }
-    else//·ÇÑ­»·Ğ¡Êı 
+    else//éå¾ªç¯å°æ•° 
     	for(i=0;i<200;i++)
     		printf("%d",l[i]);
     return 0;

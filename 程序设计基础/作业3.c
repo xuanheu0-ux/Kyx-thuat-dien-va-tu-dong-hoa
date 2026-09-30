@@ -8,6 +8,6 @@ int main()
 	scanf("%d",&minute2);
 	minute3=((hour2*60+minute2)-(hour1*60+minute1))%60;
 	hour3=((hour2*60+minute2)-(hour1*60+minute1))/60;
-	printf("%dµã%d·ÖºÍ%dµã%d·ÖÏà²î%dĞ¡Ê±%d·ÖÖÓ",hour1,minute1,hour2,minute2,hour3,minute3);
+	printf("%dç‚¹%dåˆ†å’Œ%dç‚¹%dåˆ†ç›¸å·®%då°æ—¶%dåˆ†é’Ÿ",hour1,minute1,hour2,minute2,hour3,minute3);
 	return 0;
 }

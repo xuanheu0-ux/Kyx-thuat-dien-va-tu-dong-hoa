@@ -6,11 +6,11 @@ int main()
 	if(a_number>0)
 	{
 		if(a_number%2==0)
-			printf("%dÊÇÅ¼Êı¡£",a_number);
+			printf("%dæ˜¯å¶æ•°ã€‚",a_number);
 		else
-			printf("%dÊÇÆæÊı¡£",a_number);
+			printf("%dæ˜¯å¥‡æ•°ã€‚",a_number);
 	}
 	else
-		printf("Õâ²»ÊÇÕıÊı¡£");
+		printf("è¿™ä¸æ˜¯æ­£æ•°ã€‚");
 	return 0;
 }

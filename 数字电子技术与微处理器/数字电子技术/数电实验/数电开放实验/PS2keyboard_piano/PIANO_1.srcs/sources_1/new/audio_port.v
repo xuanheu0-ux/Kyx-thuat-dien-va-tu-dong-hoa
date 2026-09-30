@@ -1,17 +1,17 @@
 `timescale 1ns / 1ps
-//·ÅÒôÄ£¿é
+//æ”¾éŸ³æ¨¡å—
 module audio_port(
-    input clk,//100MHZÊ±ÖÓ
-    input SD,//µÍÍ¨ÂË²¨Æ÷Ê¹ÄÜ
-    input [4:0] tone,//Òôµ÷Ö¸Áî½ÓÊÕ
-    output sd,//µÍÍ¨ÂË²¨Æ÷Ê¹ÄÜ    
-    output reg audio_out//Òôµ÷Êä³ö
+    input clk,//100MHZæ—¶é’Ÿ
+    input SD,//ä½Žé€šæ»¤æ³¢å™¨ä½¿èƒ½
+    input [4:0] tone,//éŸ³è°ƒæŒ‡ä»¤æŽ¥æ”¶
+    output sd,//ä½Žé€šæ»¤æ³¢å™¨ä½¿èƒ½    
+    output reg audio_out//éŸ³è°ƒè¾“å‡º
     );
  
-    reg [20:0] count,COUNT;//·ÖÆµ¼ÆÊýÆ÷ºÍÔ¤ÖÃÊý±äÁ¿
-    reg [20:0] buffer[20:0];//±£´æÏàÓ¦ÆµÂÊµÄÔ¤ÖÃÊý
+    reg [20:0] count,COUNT;//åˆ†é¢‘è®¡æ•°å™¨å’Œé¢„ç½®æ•°å˜é‡
+    reg [20:0] buffer[20:0];//ä¿å­˜ç›¸åº”é¢‘çŽ‡çš„é¢„ç½®æ•°
     assign sd=SD;
-    //¼Ä´æÆ÷ÀàÐÍ±äÁ¿³õÊ¼»¯
+    //å¯„å­˜å™¨ç±»åž‹å˜é‡åˆå§‹åŒ–
     initial
       begin 
         buffer[0]=21'd191110;
@@ -36,7 +36,7 @@ module audio_port(
         buffer[19]=21'd28409;
         buffer[20]=21'd25310;
       end
-    //·ÖÆµÊä³ö    
+    //åˆ†é¢‘è¾“å‡º    
     always @ (posedge clk)          
           begin
             if(count>=COUNT&&COUNT!=1)
@@ -49,7 +49,7 @@ module audio_port(
             else
                 count<=count+1'b1;
           end
-    //Òôµ÷Ö¸Áî½ÓÊÕ£¬Ô¤ÖÃÊý±ä»¯      
+    //éŸ³è°ƒæŒ‡ä»¤æŽ¥æ”¶ï¼Œé¢„ç½®æ•°å˜åŒ–      
     always @(tone)
       if(tone>=0&&tone<=20)
          COUNT=buffer[tone];

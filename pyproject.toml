@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kyx-webdev"
+version = "1.0.0"
+description = "Chạy + kiểm tra các project web (Tank, PvZ, 贪吃蛇, mô phỏng PLC hòa máy phát) của repo tài liệu XJTU — Python stdlib thuần, không dependency."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "CC-BY-SA-4.0" }
+authors = [{ name = "Kyx-thuat-dien-va-tu-dong-hoa" }]
+keywords = ["static-server", "course-materials", "plc", "simulation"]
+dependencies = []          # cố ý rỗng: không cần gói ngoài nào
+
+[project.optional-dependencies]
+# Chỉ nếu muốn export ảnh figure từ Octave (tuỳ chọn, repo chạy được mà không có nó)
+figures = ["matplotlib>=3.5"]
+
+[project.scripts]
+kyx = "kyxwebdev.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "python" }
+
+[tool.setuptools.packages.find]
+where = ["python"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"

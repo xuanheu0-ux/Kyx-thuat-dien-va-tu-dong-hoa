@@ -6,9 +6,9 @@
 int main()
 {
 	float gaspayc,gaspaye;
-	printf("请输入每加仑英里数：");
+	printf("璇疯緭鍏ユ瘡鍔犱粦鑻遍噷鏁帮細");
 	scanf("%f",&gaspaye);
 	gaspayc=gaspaye*(KILO/GAS);
-	printf("每公里升数：%.1f",gaspayc);
+	printf("姣忓叕閲屽崌鏁帮細%.1f",gaspayc);
 	return 0;
 }

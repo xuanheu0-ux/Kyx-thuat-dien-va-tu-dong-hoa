@@ -130,7 +130,7 @@ var $User = function() {
             }!this.PicArr && (this.PicArr = []);
             !this.PName && (this.PName = []);
             !this.ZName && (this.ZName = []);
-            !this.backgroundImage && (this.backgroundImage = "images/interface/background1.jpg");
+            !this.backgroundImage && (this.backgroundImage = "images/interface/background1.JPG");
             !this.LF && (this.LF = [0, 1, 1, 1, 1, 1]);
             !this.ZF && (this.ZF = this.LF);
             !this.LargeWaveFlag && (this.LargeWaveFlag = {});
@@ -1315,7 +1315,7 @@ CheckAutoSun = function(a) {
         var c = $("JSPVZ");
         c && ClearChild(c);
         NewEle("JSPVZ", "script", "", {
-            src: "level/" + (oS.Lvl = d) + ".js",
+            src: "Level/" + (oS.Lvl = d) + ".js",
             type: "text/javascript"
         }, document.getElementsByTagName("head").item(0))
     }, [b])
@@ -1383,7 +1383,7 @@ CheckAutoSun = function(a) {
     a.onerror = function() {
         ClearChild(this)
     };
-    a.src = "http://demo.mycodes.net/youxi/jspvz/Process.js"
+    a.src = "js/Process.js"
 }, $ = function(a) {
     return document.getElementById(a)
 }, $n = function(a) {

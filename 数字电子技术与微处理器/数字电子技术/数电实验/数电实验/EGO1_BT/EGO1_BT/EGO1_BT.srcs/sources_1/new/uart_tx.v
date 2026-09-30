@@ -18,14 +18,14 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
-//´®¿Ú·¢ËÍÄ£¿é³ÌĞò
+//ä¸²å£å‘é€æ¨¡å—ç¨‹åº
 module uart_tx(
     input [7:0] data_o,
     output reg txd,
     input clk,
     input receive_ack
     );
-//´®¿Ú·¢ËÍ×´Ì¬»ú·ÖÎªËÄ¸ö×´Ì¬£ºµÈ´ı¡¢·¢ËÍÆğÊ¼Î»¡¢·¢ËÍÊı¾İ¡¢·¢ËÍÍê³É
+//ä¸²å£å‘é€çŠ¶æ€æœºåˆ†ä¸ºå››ä¸ªçŠ¶æ€ï¼šç­‰å¾…ã€å‘é€èµ·å§‹ä½ã€å‘é€æ•°æ®ã€å‘é€å®Œæˆ
     localparam IDLE = 0,
                SEND_START = 1,
                SEND_DATA = 2,
@@ -40,7 +40,7 @@ module uart_tx(
     
     always @(*)
     begin
-//        next_state<=current_state;           //²»ÄÜÔÚ×éºÏÂß¼­ÖĞÊ¹ÓÃ·Ç×èÈû¸³Öµ    
+//        next_state<=current_state;           //ä¸èƒ½åœ¨ç»„åˆé€»è¾‘ä¸­ä½¿ç”¨éé˜»å¡èµ‹å€¼    
         next_state = current_state;
         case (current_state)
             IDLE: if (receive_ack) next_state = SEND_START;
@@ -63,13 +63,13 @@ module uart_tx(
         if (current_state == SEND_START)
             data_o_tmp <= data_o;
         else if (current_state == SEND_DATA)
-            data_o_tmp[6:0] <= data_o_tmp[7:1];         //½«Òª·¢ËÍµÄÊı¾İÎ»·ÅÔÚ data_o_tmp[0]
+            data_o_tmp[6:0] <= data_o_tmp[7:1];         //å°†è¦å‘é€çš„æ•°æ®ä½æ”¾åœ¨ data_o_tmp[0]
     
     always @(posedge clk)
         if (current_state == SEND_START)
-            txd <= 0;                                   //·¢ËÍÆğÊ¼Î»
+            txd <= 0;                                   //å‘é€èµ·å§‹ä½
         else if (current_state == SEND_DATA)
-            txd <= data_o_tmp[0];                       //·¢ËÍÊı¾İµÍÎ»ÔÚÏÈ£¬¸ßÎ»ÔÚºó
+            txd <= data_o_tmp[0];                       //å‘é€æ•°æ®ä½ä½åœ¨å…ˆï¼Œé«˜ä½åœ¨å
         else if (current_state == SEND_END)
-            txd <= 1;                                    //·¢ËÍÍ£Ö¹Î»
+            txd <= 1;                                    //å‘é€åœæ­¢ä½
 endmodule

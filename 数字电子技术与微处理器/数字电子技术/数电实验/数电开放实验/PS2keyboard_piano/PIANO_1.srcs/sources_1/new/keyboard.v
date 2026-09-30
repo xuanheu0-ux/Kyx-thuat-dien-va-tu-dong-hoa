@@ -1,33 +1,33 @@
 `timescale 1ns / 1ps
-//¾ØÕó¼üÅÌÄ£¿é
+//çŸ©é˜µé”®ç›˜æ¨¡å—
 module keyboard(
-  input clk_100,//¼üÅÌÊ±ÖÓ100HZ
-  input [3:0] col,//ÁĞĞÅºÅ
-  output reg [3:0] row_scan,//ĞĞÉ¨ÃèĞÅºÅ
-  output reg [4:0] key_value//¼üÖµÊä³öÏŞºÅ
+  input clk_100,//é”®ç›˜æ—¶é’Ÿ100HZ
+  input [3:0] col,//åˆ—ä¿¡å·
+  output reg [3:0] row_scan,//è¡Œæ‰«æä¿¡å·
+  output reg [4:0] key_value//é”®å€¼è¾“å‡ºé™å·
     );
    
  
-  wire key_pressed;//0ÎªÓĞ¼ü°´ÏÂ
-  wire [7:0] data;//¼üÅÌĞĞÁĞ×´Ì¬±àÂë
-  reg [3:0] col_filter;//È¥¶¶ºóµÄÁĞĞÅºÅ
+  wire key_pressed;//0ä¸ºæœ‰é”®æŒ‰ä¸‹
+  wire [7:0] data;//é”®ç›˜è¡Œåˆ—çŠ¶æ€ç¼–ç 
+  reg [3:0] col_filter;//å»æŠ–åçš„åˆ—ä¿¡å·
   assign data={row_scan[3:0],col_filter[3:0]};
-  assign key_pressed=col_filter[3]&col_filter[2]&col_filter[1]&col_filter[0];//ÁĞĞÅºÅµÄ¹éÓë
-  //¼Ä´æÆ÷±äÁ¿µÄ³õÊ¼»¯
+  assign key_pressed=col_filter[3]&col_filter[2]&col_filter[1]&col_filter[0];//åˆ—ä¿¡å·çš„å½’ä¸
+  //å¯„å­˜å™¨å˜é‡çš„åˆå§‹åŒ–
   initial
     begin
-      col_filter<=4'b1111;//³õÊ¼»¯ÎªÎŞ¼ü°´ÏÂ
-      row_scan<=4'b1111;//³õÊ¼»¯²»É¨Ãè
-      key_value<=5'd22;//³õÊ¼»¯ÎªÎŞĞ§¼üÖµ     
+      col_filter<=4'b1111;//åˆå§‹åŒ–ä¸ºæ— é”®æŒ‰ä¸‹
+      row_scan<=4'b1111;//åˆå§‹åŒ–ä¸æ‰«æ
+      key_value<=5'd22;//åˆå§‹åŒ–ä¸ºæ— æ•ˆé”®å€¼     
     end
       
-  //¼üÅÌÉ¨ÃèÄ£¿é(È¥¶¶)
-  //ÁĞĞÅºÅÈ¥¶¶
+  //é”®ç›˜æ‰«ææ¨¡å—(å»æŠ–)
+  //åˆ—ä¿¡å·å»æŠ–
   always @(posedge clk_100)
     begin
       col_filter<=col;    
     end
-  //ĞĞÉ¨Ãè  
+  //è¡Œæ‰«æ  
   always @(negedge clk_100)
     begin
       if(key_pressed)
@@ -42,7 +42,7 @@ module keyboard(
         end
     end
     
-  //¼üÖµÒëÂëÄ£¿é
+  //é”®å€¼è¯‘ç æ¨¡å—
   always @(posedge clk_100)
     begin
       case(data)

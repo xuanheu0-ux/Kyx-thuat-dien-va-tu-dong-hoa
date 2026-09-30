@@ -6,13 +6,13 @@ module sound(
     output reg [7:0] musickey
     );
   
-  reg [31:0] couter,couter2,couter4;//32Î»¼ÆÊýÆ÷
+  reg [31:0] couter,couter2,couter4;//32ä½è®¡æ•°å™¨
   reg [7:0] couter3,couter5,couter7;
   reg clk_8hz;
-  reg [7:0] yinfu;//ÓÃÀ´ÅÐ¶ÏÒô·û,Ö±½Ó¸³³õÖµ£¬±ãÓÚÊä³ö
-  reg [2:0] sound_change=3'b000;//ÓÃÀ´ÇÐ»»Ä£Ê½
-  reg [3:0] num;//¸èÇúÐòºÅ
-  parameter zero=8'd0;//Ò»¸öÒô½×µÄÌØÕ÷Öµ
+  reg [7:0] yinfu;//ç”¨æ¥åˆ¤æ–­éŸ³ç¬¦,ç›´æŽ¥èµ‹åˆå€¼ï¼Œä¾¿äºŽè¾“å‡º
+  reg [2:0] sound_change=3'b000;//ç”¨æ¥åˆ‡æ¢æ¨¡å¼
+  reg [3:0] num;//æ­Œæ›²åºå·
+  parameter zero=8'd0;//ä¸€ä¸ªéŸ³é˜¶çš„ç‰¹å¾å€¼
   parameter d21=8'd16;
   parameter d22=8'd18;
   parameter d23=8'd20;
@@ -176,7 +176,7 @@ module sound(
        
   m01:
       begin
-      if(couter>=238891) begin  //238891*2´Î·ÖÆµ£¬261HZ
+      if(couter>=238891) begin  //238891*2æ¬¡åˆ†é¢‘ï¼Œ261HZ
       piano<=~piano;
       couter<=0;
       end else 
@@ -239,7 +239,7 @@ module sound(
       end else 
       couter<=couter+1;
       end
-   h12://¸ß1¸ö°Ë¶ÈµÄÒô·û1
+   h12://é«˜1ä¸ªå…«åº¦çš„éŸ³ç¬¦1
       begin
       if(couter>=106414) begin  
       piano<=~piano;
@@ -353,15 +353,15 @@ module sound(
   endcase
   end
   
-  always @ (posedge clk) begin  //²úÉú8HZÊ±ÖÓ£¬16·ÖÒô·ûÊ±³¤
+  always @ (posedge clk) begin  //äº§ç”Ÿ8HZæ—¶é’Ÿï¼Œ16åˆ†éŸ³ç¬¦æ—¶é•¿
   if(couter2>=7812500) begin
-  clk_8hz<=~clk_8hz;//reg¶¨ÒåÏÂ¿ÉÒÔÕâÑùÊ¹ÓÃ
+  clk_8hz<=~clk_8hz;//regå®šä¹‰ä¸‹å¯ä»¥è¿™æ ·ä½¿ç”¨
   couter2<=0;
   end else
   couter2<=couter2+1;
   end
  
-  always @ (posedge clk)  //½ÓÊÜ¼üÅÌÐÅÏ¢£¬´¦Àísound_change
+  always @ (posedge clk)  //æŽ¥å—é”®ç›˜ä¿¡æ¯ï¼Œå¤„ç†sound_change
   begin
      case (keydata)
      8'h5A:sound_change<=3'b000;
@@ -375,7 +375,7 @@ module sound(
      endcase
  end
   
-  always @ (posedge clk_8hz) begin //²¥·ÅÄÚÖÃ¸èÇú
+  always @ (posedge clk_8hz) begin //æ’­æ”¾å†…ç½®æ­Œæ›²
   case(sound_change)
   
   3'b000:
@@ -396,7 +396,7 @@ module sound(
   musickey<=0;
   end
   
-  3'b010://Ìì¿ÕÖ®³Ç¿ªÊ¼
+  3'b010://å¤©ç©ºä¹‹åŸŽå¼€å§‹
    begin
    couter5<=0;
    couter7<=0;
@@ -468,7 +468,7 @@ module sound(
      53:begin yinfu<=m07;musickey<=8'h3B; end
      54:begin yinfu<=m07;musickey<=8'h3B; end
      55:begin yinfu<=m07;musickey<=8'h3B; end
-     52:begin yinfu<=m04;musickey<=8'h2B; end//(8·ÖÒô·û4Ç°ÃæÓÐ#)
+     52:begin yinfu<=m04;musickey<=8'h2B; end//(8åˆ†éŸ³ç¬¦4å‰é¢æœ‰#)
      53:begin yinfu<=m04;musickey<=8'h2B; end
      54:begin yinfu<=m04;musickey<=8'h2B; end
      55:begin yinfu<=m07;musickey<=8'h3B; end
@@ -545,8 +545,8 @@ module sound(
      112:begin yinfu<=m06;musickey<=8'h33; end
      113:begin yinfu<=m07;musickey<=8'h3B; end
      114:begin yinfu<=m07;musickey<=8'h3B; end
-     115:begin yinfu<=m05;musickey<=8'h34; end//(4·ÖÒô·û5Ç°ÃæÓÐ#)
-     116:begin yinfu<=m05;musickey<=8'h34; end//(4·ÖÒô·û5Ç°ÃæÓÐ#,ÕâÁ©ºÏÆðÀ´ÊÇÒ»¸öËÄ·ÖÒô·û »ù´¡µ¥ÔªÊÇ°Ë·ÖÒô·û)
+     115:begin yinfu<=m05;musickey<=8'h34; end//(4åˆ†éŸ³ç¬¦5å‰é¢æœ‰#)
+     116:begin yinfu<=m05;musickey<=8'h34; end//(4åˆ†éŸ³ç¬¦5å‰é¢æœ‰#,è¿™ä¿©åˆèµ·æ¥æ˜¯ä¸€ä¸ªå››åˆ†éŸ³ç¬¦ åŸºç¡€å•å…ƒæ˜¯å…«åˆ†éŸ³ç¬¦)
     
      117:begin yinfu<=m06;musickey<=8'h33; end
      118:begin yinfu<=m06;musickey<=8'h33; end
@@ -705,9 +705,9 @@ module sound(
      250:begin yinfu<=zero;musickey<=8'h00; end
    default:begin yinfu<=zero;musickey<=8'h00; end
    endcase
-   end//Ìì¿ÕÖ®³Ç½áÊø
+   end//å¤©ç©ºä¹‹åŸŽç»“æŸ
    
-   3'b011://Á½Ö»ÀÏ»¢¿ªÊ¼
+   3'b011://ä¸¤åªè€è™Žå¼€å§‹
    begin
        couter3<=0;
        couter7<=0;
@@ -789,9 +789,9 @@ module sound(
          63:yinfu<=zero; 
        default:yinfu<=zero;
        endcase
-       end//Á½Ö»ÀÏ»¢½áÊø
+       end//ä¸¤åªè€è™Žç»“æŸ
    
-       3'b100://Öí°Ë½ä¿ªÊ¼
+       3'b100://çŒªå…«æˆ’å¼€å§‹
           begin
               couter3<=0;
               couter5<=0;
@@ -872,17 +872,17 @@ module sound(
                 62:begin yinfu<=h15;musickey<=8'h32; end
                 63:begin yinfu<=h15;musickey<=8'h32; end
                
-                64:begin yinfu<=h15;musickey<=8'h32; end//(5Ç°ÃæÓÐ¸ö¶«Î÷)
+                64:begin yinfu<=h15;musickey<=8'h32; end//(5å‰é¢æœ‰ä¸ªä¸œè¥¿)
                 65:begin yinfu<=h15;musickey<=8'h32; end
                 66:begin yinfu<=m06;musickey<=8'h33; end
                 67:begin yinfu<=m06;musickey<=8'h33; end
-                68:begin yinfu<=h15;musickey<=8'h32; end//(5Ç°ÃæÓÐ¸ö¶«Î÷)
+                68:begin yinfu<=h15;musickey<=8'h32; end//(5å‰é¢æœ‰ä¸ªä¸œè¥¿)
                 69:begin yinfu<=h15;musickey<=8'h32; end
                 70:begin yinfu<=m06;musickey<=8'h33; end
                 71:begin yinfu<=m06;musickey<=8'h33; end
                
                 72:begin yinfu<=h13;musickey<=8'h21; end
-                73:begin yinfu<=h13;musickey<=8'h21; end// (°Ë·ÖÒô·û3ºóÃæÓÐÒ»¸ö#)
+                73:begin yinfu<=h13;musickey<=8'h21; end// (å…«åˆ†éŸ³ç¬¦3åŽé¢æœ‰ä¸€ä¸ª#)
                 74:begin yinfu<=h12;musickey<=8'h22; end
                 75:begin yinfu<=h12;musickey<=8'h22; end
                 76:begin yinfu<=h13;musickey<=8'h21; end
@@ -937,7 +937,7 @@ module sound(
                 120:begin yinfu<=h23;end
                 121:begin yinfu<=h23;end
                
-                122:begin yinfu<=h13;musickey<=8'h21; end//(°Ë·ÖÒô·û3ºóÃæÓÐÒ»¸ö#)
+                122:begin yinfu<=h13;musickey<=8'h21; end//(å…«åˆ†éŸ³ç¬¦3åŽé¢æœ‰ä¸€ä¸ª#)
                 123:begin yinfu<=h13;musickey<=8'h21; end
                 124:begin yinfu<=h12;musickey<=8'h22; end
                 125:begin yinfu<=h12;musickey<=8'h22; end
@@ -972,7 +972,7 @@ module sound(
                 151:begin yinfu<=h16;  musickey<=8'h31; end
               default:begin yinfu<=zero;musickey<=8'h00; end
               endcase
-              end//Á½Ö»ÀÏ»¢½áÊø
+              end//ä¸¤åªè€è™Žç»“æŸ
    
    default:yinfu<=zero;
    

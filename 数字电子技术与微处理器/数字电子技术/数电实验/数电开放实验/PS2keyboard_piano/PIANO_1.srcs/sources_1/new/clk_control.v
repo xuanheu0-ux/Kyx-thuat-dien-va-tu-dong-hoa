@@ -1,16 +1,16 @@
 `timescale 1ns / 1ps
-//Ê±ÖÓ·ÖÆµÄ£¿é
+//æ—¶é’Ÿåˆ†é¢‘æ¨¡å—
 module clk_control(
   input sys_clk,//100MHZ
-  input [2:0] sel,//¸èÇúÑ¡Ôñ
-  output reg clk_100,//¾ØÕó¼üÅÌÊ±ÖÓ100HZ
-  output reg clk_select//½ÚÅÄÊ±ÖÓ£¬²»Í¬¸èÇú¿ÉÄÜ²»Í¬
+  input [2:0] sel,//æ­Œæ›²é€‰æ‹©
+  output reg clk_100,//çŸ©é˜µé”®ç›˜æ—¶é’Ÿ100HZ
+  output reg clk_select//èŠ‚æ‹æ—¶é’Ÿï¼Œä¸åŒæ­Œæ›²å¯èƒ½ä¸åŒ
     );
     
-  reg [19:0] count1;//¼üÅÌÊ±ÖÓ·ÖÆµ¼ÆÊı±äÁ¿
-  reg [25:0] count2;//½ÚÅÄÊ±ÖÓ·ÖÆµ¼ÆÊı±äÁ¿
-  reg [25:0] COUNT;//½ÚÅÄ·ÖÆµÔ¤ÖÃÊı±äÁ¿
-  //¼Ä´æÆ÷ÀàĞÍ±äÁ¿³õÊ¼»¯
+  reg [19:0] count1;//é”®ç›˜æ—¶é’Ÿåˆ†é¢‘è®¡æ•°å˜é‡
+  reg [25:0] count2;//èŠ‚æ‹æ—¶é’Ÿåˆ†é¢‘è®¡æ•°å˜é‡
+  reg [25:0] COUNT;//èŠ‚æ‹åˆ†é¢‘é¢„ç½®æ•°å˜é‡
+  //å¯„å­˜å™¨ç±»å‹å˜é‡åˆå§‹åŒ–
   initial 
     begin
       clk_100<=1'b0;
@@ -19,7 +19,7 @@ module clk_control(
       count2<=1'b0;
       COUNT<=1'b0;
     end
-  //100HZÊ±ÖÓ·ÖÆµ
+  //100HZæ—¶é’Ÿåˆ†é¢‘
   always @(posedge sys_clk)
     begin
       if(count1>=20'd500000)
@@ -32,7 +32,7 @@ module clk_control(
           count1<=count1+1'b1;
         end
     end
-  //¸èÇú½ÚÅÄÑ¡Ôñ
+  //æ­Œæ›²èŠ‚æ‹é€‰æ‹©
   always @(sel)
     begin
       case(sel)
@@ -41,7 +41,7 @@ module clk_control(
         default:COUNT<=26'd12500000;
       endcase
     end
-  //½ÚÅÄÊ±ÖÓ·ÖÆµ  
+  //èŠ‚æ‹æ—¶é’Ÿåˆ†é¢‘  
   always @(posedge sys_clk)
     begin
       if(count2>=COUNT)

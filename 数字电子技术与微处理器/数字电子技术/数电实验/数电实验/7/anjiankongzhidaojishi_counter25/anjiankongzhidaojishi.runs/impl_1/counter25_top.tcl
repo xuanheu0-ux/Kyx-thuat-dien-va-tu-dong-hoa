@@ -66,7 +66,7 @@ set ACTIVE_STEP write_bitstream
 set rc [catch {
   create_msg_db write_bitstream.pb
   open_checkpoint counter25_top_routed.dcp
-  set_property webtalk.parent_dir F:/◊¿√Ê/anjiankongzhidaojishi_counter25/anjiankongzhidaojishi.cache/wt [current_project]
+  set_property webtalk.parent_dir F:/Ê°åÈù¢/anjiankongzhidaojishi_counter25/anjiankongzhidaojishi.cache/wt [current_project]
   catch { write_mem_info -force counter25_top.mmi }
   write_bitstream -force counter25_top.bit 
   catch {write_debug_probes -quiet -force counter25_top}

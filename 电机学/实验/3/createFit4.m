@@ -9,9 +9,9 @@ function [fitresult, gof] = createFit4(IK, UK)
 %      fitresult : a fit object representing the fit.
 %      gof : structure with goodness-of fit info.
 %
-%  ÁíÇë²ÎÔÄ FIT, CFIT, SFIT.
+%  å¦è¯·å‚é˜… FIT, CFIT, SFIT.
 
-%  ÓÉ MATLAB ÓÚ 16-Nov-2020 21:36:15 ×Ô¶¯Éú³É
+%  ç”± MATLAB äº 16-Nov-2020 21:36:15 è‡ªåŠ¨ç”Ÿæˆ
 
 
 %% Fit: 'untitled fit 1'.
@@ -26,9 +26,9 @@ ft = fittype( 'poly1' );
 % Plot fit with data.
 figure( 'Name', 'untitled fit 4' );
 plot( fitresult, xData, yData );
-legend('Êµ²âÖµ', 'ÄâºÏÖµ');
-title('¶ÌÂ·ÌØĞÔ\it\fontname{Times new roman}U_{K }=f(I_{K })')
-xlabel('ÈıÏàÏßµçÁ÷Æ½¾ùÖµ\it\fontname{Times new roman}I_{K }(A)');
-ylabel('ÈıÏàÏßµçÑ¹Æ½¾ùÖµ\it\fontname{Times new roman}U_{K }(V)');
+legend('å®æµ‹å€¼', 'æ‹Ÿåˆå€¼');
+title('çŸ­è·¯ç‰¹æ€§\it\fontname{Times new roman}U_{K }=f(I_{K })')
+xlabel('ä¸‰ç›¸çº¿ç”µæµå¹³å‡å€¼\it\fontname{Times new roman}I_{K }(A)');
+ylabel('ä¸‰ç›¸çº¿ç”µå‹å¹³å‡å€¼\it\fontname{Times new roman}U_{K }(V)');
 grid on;
 

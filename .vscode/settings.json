@@ -1,0 +1,30 @@
+{
+  "files.autoGuessEncoding": true,
+  "search.exclude": {
+    "**/*.runs/**": true,
+    "**/*.sim/**": true,
+    "**/*.hw/**": true,
+    "**/xsim.dir/**": true,
+    "**/*.aedtresults/**": true,
+    "**/slprj/**": true,
+    "**/_vti_cnf/**": true,
+    "**/figs/**": true,
+    "**/*.pdf": true,
+    "**/*.ppt": true,
+    "**/*.pptx": true,
+    "**/*.doc": true,
+    "**/*.docx": true,
+    "**/*.xls": true,
+    "**/*.xlsx": true,
+    "**/*.exe": true,
+    "**/*.mp4": true,
+    "**/*.flv": true
+  },
+  "files.watcherExclude": {
+    "**/*.runs/**": true,
+    "**/*.sim/**": true,
+    "**/*.aedtresults/**": true,
+    "**/slprj/**": true
+  },
+  "git.ignoreLimitWarning": true
+}

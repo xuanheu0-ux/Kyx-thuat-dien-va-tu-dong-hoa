@@ -3,7 +3,7 @@ clc
 close all
 L=40;
 M=20;
-%LΪ�ֵĶ���
+%L为分的段数
 for i=2:L+1
     for j=1:M+1
         d1(i,j)=0;

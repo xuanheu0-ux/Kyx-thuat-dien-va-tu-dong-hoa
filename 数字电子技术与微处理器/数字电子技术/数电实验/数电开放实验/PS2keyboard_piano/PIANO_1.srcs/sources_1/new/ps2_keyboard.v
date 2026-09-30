@@ -1,28 +1,28 @@
 `timescale 1ns / 1ps
-//ps2¼üÅÌ
+//ps2é”®ç›˜
 module ps2_keyboard(
-    input rst,//¸´Î»¼ü
-    input ps2_clk,//¼üÅÌÊ±ÖÓÏß
-    input ps2_data,//¼üÅÌÊı¾İÏß
-    input sys_clk,//FPGAÊ±ÖÓ
-    output reg[4:0] key_out//¼üÖµÊä³ö
+    input rst,//å¤ä½é”®
+    input ps2_clk,//é”®ç›˜æ—¶é’Ÿçº¿
+    input ps2_data,//é”®ç›˜æ•°æ®çº¿
+    input sys_clk,//FPGAæ—¶é’Ÿ
+    output reg[4:0] key_out//é”®å€¼è¾“å‡º
     );
     
-    reg [1:0] key_loosen;//1¡¢2±íÊ¾´ı°´¼üËÉ¿ª£¬0±íÊ¾´ı°´ÏÂ
-    reg PS2CF,PS2DF;//ÂË²¨ºóµÄ¼üÅÌÊ±ÖÓºÍÊı¾İ
-    reg [7:0] ps2c_filter,ps2d_filter;//¼üÅÌÊ±ÖÓºÍÊı¾İÂË²¨Æ÷
-    reg [7:0] data_temp;//µ±Ç°½ÓÊÜµÄÊı¾İ
-    reg [3:0] num;//ÒÆÎ»¿ØÖÆ
-    reg [7:0] key_value;//ÓĞĞ§¼üÖµ   
-    reg [1:0] error;//1¡¢2¡¢3Îª¼üÅÌ·¢ËÍÊı¾İÂÒÂë
-    wire flag;//1Îª¼üÅÌÊ±ÖÓÉÏÉıÑØ±ê¼Ç
+    reg [1:0] key_loosen;//1ã€2è¡¨ç¤ºå¾…æŒ‰é”®æ¾å¼€ï¼Œ0è¡¨ç¤ºå¾…æŒ‰ä¸‹
+    reg PS2CF,PS2DF;//æ»¤æ³¢åçš„é”®ç›˜æ—¶é’Ÿå’Œæ•°æ®
+    reg [7:0] ps2c_filter,ps2d_filter;//é”®ç›˜æ—¶é’Ÿå’Œæ•°æ®æ»¤æ³¢å™¨
+    reg [7:0] data_temp;//å½“å‰æ¥å—çš„æ•°æ®
+    reg [3:0] num;//ç§»ä½æ§åˆ¶
+    reg [7:0] key_value;//æœ‰æ•ˆé”®å€¼   
+    reg [1:0] error;//1ã€2ã€3ä¸ºé”®ç›˜å‘é€æ•°æ®ä¹±ç 
+    wire flag;//1ä¸ºé”®ç›˜æ—¶é’Ÿä¸Šå‡æ²¿æ ‡è®°
     
     assign flag=(ps2c_filter[1])&(~ps2c_filter[0]);
-    //¼Ä´æÆ÷ÀàĞÍ±äÁ¿³õÊ¼»¯
+    //å¯„å­˜å™¨ç±»å‹å˜é‡åˆå§‹åŒ–
     initial
       begin
-        key_out<=5'd22;//³õÊ¼»¯ÎªÎŞĞ§¼üÖµ
-        key_loosen<=1'b0;//³õÊ¼»¯Îª´ı¼ü°´ÏÂ
+        key_out<=5'd22;//åˆå§‹åŒ–ä¸ºæ— æ•ˆé”®å€¼
+        key_loosen<=1'b0;//åˆå§‹åŒ–ä¸ºå¾…é”®æŒ‰ä¸‹
         PS2CF<=1'b1;
         PS2DF<=1'b1;
         ps2c_filter<=8'b11111111;
@@ -30,10 +30,10 @@ module ps2_keyboard(
         data_temp<=8'b00000000;     
         num<=4'b0;
         key_value<=5'd0;
-        error<=1'b0;//³õÊ¼»¯ÎªÎŞÊı¾İ´íÎó      
+        error<=1'b0;//åˆå§‹åŒ–ä¸ºæ— æ•°æ®é”™è¯¯      
       end
       
-   //¼üÅÌÊ±ÖÓºÍÊı¾İÂË²¨
+   //é”®ç›˜æ—¶é’Ÿå’Œæ•°æ®æ»¤æ³¢
     always @(posedge sys_clk or posedge rst)
       begin
         if(rst==0)
@@ -51,7 +51,7 @@ module ps2_keyboard(
             ps2d_filter[6:0]<=ps2d_filter[7:1];
             if(ps2c_filter==8'b11111111)
               begin
-                PS2CF<=1;//È¥Ê±ÖÓÃ«´Ì
+                PS2CF<=1;//å»æ—¶é’Ÿæ¯›åˆº
               end
             else if(ps2c_filter==8'b00000000)
               begin
@@ -59,7 +59,7 @@ module ps2_keyboard(
               end
             if(ps2d_filter==8'b11111111)
               begin
-                PS2DF<=1;//È¥Êı¾İÃ«´Ì
+                PS2DF<=1;//å»æ•°æ®æ¯›åˆº
               end
             else if(ps2d_filter==8'b00000000)
               begin
@@ -67,7 +67,7 @@ module ps2_keyboard(
               end
           end
       end
-    //Êı¾İ½ÓÊÕ  
+    //æ•°æ®æ¥æ”¶  
     always @(negedge PS2CF or posedge rst)
       begin
         if(rst==0)
@@ -79,33 +79,33 @@ module ps2_keyboard(
           begin
             if(num==0) 
               begin
-                num<=num+1'b1;//Ìø¹ıÆğÊ¼Î»
+                num<=num+1'b1;//è·³è¿‡èµ·å§‹ä½
               end         
-            else if(num<=8)//Êı¾İÎ»¸³Öµ
+            else if(num<=8)//æ•°æ®ä½èµ‹å€¼
               begin
                 data_temp[num-1]<=PS2DF;
                 num<=num+1'b1;   
               end
             else if(num==9)
               begin
-                num<=num+1'b1;//Ìø¹ıĞ£ÑéÎ»
+                num<=num+1'b1;//è·³è¿‡æ ¡éªŒä½
               end
             else 
               begin
-                num<=4'd0;  //Í£Ö¹Î»ÇåÁã         
+                num<=4'd0;  //åœæ­¢ä½æ¸…é›¶         
               end
           end
       end
-    //°´¼ü´¦Àí£¨°´ÏÂ£¬ËÉ¿ª£©£¬¼üÖµÊä³ö  
+    //æŒ‰é”®å¤„ç†ï¼ˆæŒ‰ä¸‹ï¼Œæ¾å¼€ï¼‰ï¼Œé”®å€¼è¾“å‡º  
     always @(posedge sys_clk or posedge rst)
       begin
         if(rst==0) 
           begin
             key_loosen<=2'b0;
           end
-        else if(num==4'd10)//Ã¿½ÓÊÜµ½ÍêÕûµÄÊı¾İ°ü
+        else if(num==4'd10)//æ¯æ¥å—åˆ°å®Œæ•´çš„æ•°æ®åŒ…
           begin
-            if(data_temp==8'hF0)//ÅĞ¶ÏÊÇ·ñÎª¶ÏÂë
+            if(data_temp==8'hF0)//åˆ¤æ–­æ˜¯å¦ä¸ºæ–­ç 
               begin
                 if(error==1)
                   begin
@@ -117,12 +117,12 @@ module ps2_keyboard(
                   end
                 else
                   begin
-                    key_loosen<=2'b1;//¶ÏÂë±êÊ¶·û
+                    key_loosen<=2'b1;//æ–­ç æ ‡è¯†ç¬¦
                   end
               end
             else
               begin
-                if(key_loosen==2'b1)//ÅĞ¶ÏÊÇ·ñËÉ¿ªÏìÓ¦°´¼ü
+                if(key_loosen==2'b1)//åˆ¤æ–­æ˜¯å¦æ¾å¼€å“åº”æŒ‰é”®
                   begin
                     if(data_temp==key_value&&flag==1)
                       begin
@@ -132,7 +132,7 @@ module ps2_keyboard(
                   end
                else if(key_loosen==2'b0&&flag==1&&(error==2'b00||error==2'b11))
                  begin
-                   case(data_temp)//ÅĞ¶ÏÊÇ·ñÓĞĞ§¼üÖµ
+                   case(data_temp)//åˆ¤æ–­æ˜¯å¦æœ‰æ•ˆé”®å€¼
                      8'h15:error=0;
                      8'h1D:error=0;
                      8'h24:error=0;
@@ -156,7 +156,7 @@ module ps2_keyboard(
                      8'h3A:error=0;
                      default:error=2'b01;
                    endcase
-                   if(error==0)//ÓĞĞ§¼üÖµ×ª»»Êä³ö
+                   if(error==0)//æœ‰æ•ˆé”®å€¼è½¬æ¢è¾“å‡º
                      begin
                        key_value=data_temp;             
                        case(key_value)

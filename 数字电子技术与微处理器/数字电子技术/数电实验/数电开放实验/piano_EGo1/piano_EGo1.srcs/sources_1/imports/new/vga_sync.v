@@ -19,8 +19,8 @@ module vga_sync(pclk, reset, hsync, vsync, valid, h_cnt, v_cnt);
    parameter    v_backporch = 515;
    parameter    v_total = 525;
    
-   reg [9:0]    x_cnt;//ÐÐ¼ÆÊý
-   reg [9:0]    y_cnt;//ÁÐ¼ÆÊý
+   reg [9:0]    x_cnt;//è¡Œè®¡æ•°
+   reg [9:0]    y_cnt;//åˆ—è®¡æ•°
    
    wire         h_valid;
    wire         v_valid;

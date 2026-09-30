@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-¡¤module vga_draw(
+Â·module vga_draw(
                     input   wire            sys_clk,
                     input   wire            sys_rst_n,
                     input  wire  [7:0]     keydata,
@@ -8,7 +8,7 @@
                     output  wire            [11:0]   rgb,
                     output wire             video_en
                 );
-//ºì_ÂÌ_ÉB
+//çº¢_ç»¿_è‘¿
 parameter	BLACK   = 12'b0000_0000_0000;     //24'b00000000_00000000_00000000;  
 parameter	BLUE    = 12'b0000_0000_1111;     //24'b00000000_00000000_11111111;
 parameter	GREEN   = 12'b0000_1111_0000;     //24'b00000000_11111111_00000000;
@@ -163,7 +163,7 @@ always @ (posedge sys_clk )
                                                 rgb_reg=(keydata==8'h00)?DIAN:GREEN;
                                  else if(pixel_y>40&&pixel_y<60&&pixel_x>130&&pixel_x<150)
                                        rgb_reg=(keydata==8'h00)? YELLOW:RED;
-                                            else if(pixel_y>50&&pixel_y<55 )     //ÎåÏßÆ×
+                                            else if(pixel_y>50&&pixel_y<55 )     //äº”çº¿è°±
                                                        rgb_reg=RED;
                                              else if(pixel_y>80&&pixel_y<85 )
                                                        rgb_reg=RED;
@@ -180,7 +180,7 @@ always @ (posedge sys_clk )
 
 
 
-//ÏÔÊ¾¾²Ì¬Í¼Ïñ640*480
+//æ˜¾ç¤ºé™æ€å›¾åƒ640*480
 assign rgb = (video_en == 1'b1) ? rgb_reg:BLACK;
 
 //////////////////////////////////////////////////////////////		

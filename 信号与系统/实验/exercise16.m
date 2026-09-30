@@ -16,10 +16,10 @@ wk = n*w0;
 wk = wk(1,1:N/2);  
 subplot(2,1,1); 
 stem(n*w0,abs(Xk)/N,'linewidth',1); 
-xlabel('\omega'); ylabel('|c_k|'); title('·ù¶ÈÆµÆ×'); 
+xlabel('\omega'); ylabel('|c_k|'); title('å¹…åº¦é¢‘è°±'); 
 hold on
 plot(wk,abs(ck),'*') 
 legend('DFS','FS') 
 subplot(2,1,2); 
 stem(n*w0,angle(Xk),'linewidth',1); 
-xlabel('\Omega'); ylabel('\phi_k'); title('ÏàÎ»ÆµÆ×'); 
+xlabel('\Omega'); ylabel('\phi_k'); title('ç›¸ä½é¢‘è°±'); 

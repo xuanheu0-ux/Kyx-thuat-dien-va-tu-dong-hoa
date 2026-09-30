@@ -4,11 +4,11 @@
 # IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
 # Start of session at: Tue Nov 17 15:33:00 2020
 # Process ID: 11532
-# Current directory: F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/ÊıµçÊµÑé/ÊıµçÊµÑé/6/dejitter
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent7584 F:\×ÀÃæ\Î÷°²½»Í¨´óÑ§\Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷\ÊıµçÊµÑé\ÊıµçÊµÑé\6\dejitter\fsm.xpr
-# Log file: F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/ÊıµçÊµÑé/ÊıµçÊµÑé/6/dejitter/vivado.log
-# Journal file: F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/ÊıµçÊµÑé/ÊıµçÊµÑé/6/dejitter\vivado.jou
+# Current directory: F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/6/dejitter
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent7584 F:\æ¡Œé¢\è¥¿å®‰äº¤é€šå¤§å­¦\æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨\æ•°ç”µå®éªŒ\æ•°ç”µå®éªŒ\6\dejitter\fsm.xpr
+# Log file: F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/6/dejitter/vivado.log
+# Journal file: F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/6/dejitter\vivado.jou
 #-----------------------------------------------------------
 start_gui
-open_project F:/×ÀÃæ/Î÷°²½»Í¨´óÑ§/Êı×Öµç×Ó¼¼ÊõÓëÎ¢´¦ÀíÆ÷/ÊıµçÊµÑé/ÊıµçÊµÑé/6/dejitter/fsm.xpr
+open_project F:/æ¡Œé¢/è¥¿å®‰äº¤é€šå¤§å­¦/æ•°å­—ç”µå­æŠ€æœ¯ä¸å¾®å¤„ç†å™¨/æ•°ç”µå®éªŒ/æ•°ç”µå®éªŒ/6/dejitter/fsm.xpr
 update_compile_order -fileset sources_1

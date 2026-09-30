@@ -63,14 +63,14 @@ static void MX_TIM3_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_RTC_Init(void);
 /* USER CODE BEGIN PFP */
-//---´Ë³ÌĞò½ö¹©²Î¿¼£¬²»Ìá¹©¸ü¶à½âÊÍ¡£ÓĞÒÉÎÊÇë²éÔÄ×ÊÁÏ¡£½øÒ»²½ÄÚÈİ¼°Éè¼ÆĞè×ÔĞĞ½â¾ö¡£
+//---æ­¤ç¨‹åºä»…ä¾›å‚è€ƒï¼Œä¸æä¾›æ›´å¤šè§£é‡Šã€‚æœ‰ç–‘é—®è¯·æŸ¥é˜…èµ„æ–™ã€‚è¿›ä¸€æ­¥å†…å®¹åŠè®¾è®¡éœ€è‡ªè¡Œè§£å†³ã€‚
 struct  staCOMPONENT
 {	short		sBUF[16],ADdat[16],	UART_rBUF[8],	mDMA[8],
-				mRTC,		Cnt00,		Cnt01,			Cnt02;}md;	//¸ÃÊı¾İ×ö³ÌĞò´¦Àí¡¢¹Û²ìµÄÖ÷Òª·½Ãæ
+				mRTC,		Cnt00,		Cnt01,			Cnt02;}md;	//è¯¥æ•°æ®åšç¨‹åºå¤„ç†ã€è§‚å¯Ÿçš„ä¸»è¦æ–¹é¢
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
-/* USER CODE BEGIN 0       ¸Ã²¿·ÖÄÚÈİ¿É×ÔÓÉĞŞ¸Ä*/
+/* USER CODE BEGIN 0       è¯¥éƒ¨åˆ†å†…å®¹å¯è‡ªç”±ä¿®æ”¹*/
 const char LEDcd[10]={0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90};
 short xuehao[10]={2,1,8,6,1,1,3,5,6,4};
 short i=0,x=3,*epmd;
@@ -83,11 +83,11 @@ void Delay(unsigned tDly)
 			     md.mDMA[6]&=~0x10;		md.mDMA[5]++;	
 																	//can do some works, but no stay here more time
 		}
-//×ÔĞĞÀ©Õ¹Begin......u can do something
+//è‡ªè¡Œæ‰©å±•Begin......u can do something
 		md.mRTC=RTC->CNTL;
 		
 		
-//×ÔĞĞÀ©Õ¹END  ......u can do something		
+//è‡ªè¡Œæ‰©å±•END  ......u can do something		
 	};
 }
 //---------????---------------------------------------------------
@@ -147,7 +147,7 @@ int main(void)
   MX_TIM3_Init();			
   MX_USART1_UART_Init();
   MX_RTC_Init();
-  /* USER CODE BEGIN 2 ¸Ã²¿·ÖÄÚÈİ²»×ö¸ü¶à½âÊÍ*/
+  /* USER CODE BEGIN 2 è¯¥éƒ¨åˆ†å†…å®¹ä¸åšæ›´å¤šè§£é‡Š*/
 	TIM3->CCER|=1<<4;	HAL_TIM_Base_Start_IT(&htim3);					//TIM3->CR1|=1;	TIM3->DIER|=4;
 	HAL_ADCEx_Calibration_Start(&hadc1);									//step1		
 	HAL_ADC_Start_DMA(&hadc1,(unsigned int *)md.mDMA,2);				//step1
@@ -159,20 +159,20 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE ¸Ã²¿·ÖÄÚÈİ¿É×ÔÓÉĞŞ¸Ä*/
+    /* USER CODE END WHILE è¯¥éƒ¨åˆ†å†…å®¹å¯è‡ªç”±ä¿®æ”¹*/
 		if(!(GPIOA->IDR&1))	i++; 	else 								
-		{	i+=9;						}											//T1_5:	ÓĞUP¼ü°´ÏÂ(PA0 is 1)
-		GPIOC->BSRR|=LEDcd[xuehao[i%=10]]&0xff;									//T1_1:	LEDÏÔÊ¾(PC7-0)
-		Delay(500+i*23);			GPIOC->BRR|=0xff;						//T1_2:	ÑÓ³Ù£¬ 0.5s+Ñ§ºÅ¸öÎ»Êı*0.1s
+		{	i+=9;						}											//T1_5:	æœ‰UPé”®æŒ‰ä¸‹(PA0 is 1)
+		GPIOC->BSRR|=LEDcd[xuehao[i%=10]]&0xff;									//T1_1:	LEDæ˜¾ç¤º(PC7-0)
+		Delay(500+i*23);			GPIOC->BRR|=0xff;						//T1_2:	å»¶è¿Ÿï¼Œ 0.5s+å­¦å·ä¸ªä½æ•°*0.1s
 //------------------------------------			
-		md.sBUF[i]=xuehao[i];														//T1_3:	Ìî³äÑ§ºÅ¸÷Î»ÖÁsBUF[0--x]
+		md.sBUF[i]=xuehao[i];														//T1_3:	å¡«å……å­¦å·å„ä½è‡³sBUF[0--x]
 		if(i==0)	{	md.sBUF[14]=md.sBUF[15];	md.sBUF[15]=0;}						
-		md.sBUF[15]+=md.sBUF[i];											//T1_4:	ÀÛ¼ÓsBUF[x]£¬×îÖÕÀÛ¼ÓºÍ´æÖÁsBUF[14]
-//×ÔĞĞÀ©Õ¹Begin
+		md.sBUF[15]+=md.sBUF[i];											//T1_4:	ç´¯åŠ sBUF[x]ï¼Œæœ€ç»ˆç´¯åŠ å’Œå­˜è‡³sBUF[14]
+//è‡ªè¡Œæ‰©å±•Begin
 		
 		
 		
-//×ÔĞĞÀ©Õ¹END
+//è‡ªè¡Œæ‰©å±•END
   }
 }
 
@@ -326,7 +326,7 @@ static void MX_TIM3_Init(void)
   htim3.Instance = TIM3;
   htim3.Init.Prescaler = 7;
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim3.Init.Period = 2499+6;									//Ñ§ºÅ¸öÎ»
+  htim3.Init.Period = 2499+6;									//å­¦å·ä¸ªä½
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
   if (HAL_TIM_Base_Init(&htim3) != HAL_OK)

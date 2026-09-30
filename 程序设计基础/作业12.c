@@ -4,8 +4,8 @@ int main()
 	int a,b;
 	scanf("%d%d",&a,&b);
 	if(a==b)
-		printf("ÕâÁ½¸öÊıÏàµÈ¡£");
+		printf("è¿™ä¸¤ä¸ªæ•°ç›¸ç­‰ã€‚");
 	else
-		printf("ÕâÁ½¸öÊı²»ÏàµÈ¡£");
+		printf("è¿™ä¸¤ä¸ªæ•°ä¸ç›¸ç­‰ã€‚");
 	return 0; 
 }

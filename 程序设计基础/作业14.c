@@ -8,15 +8,15 @@ int main()
 	d=getchar();
 	e=getchar();
 	if(a!=0)
-	printf("%c%c%c%c%cÊÇ5Î»Êı¡£\n",a,b,c,d,e);
+	printf("%c%c%c%c%cæ˜¯5ä½æ•°ã€‚\n",a,b,c,d,e);
 	else if(a==0&&b!=0)
-	printf("%c%c%c%c%cÊÇ4Î»Êı¡£\n",a,b,c,d,e);
+	printf("%c%c%c%c%cæ˜¯4ä½æ•°ã€‚\n",a,b,c,d,e);
 	else if(a==0&&b==0&&c!=0)
-	printf("%c%c%c%c%cÊÇ3Î»Êı¡£\n",a,b,c,d,e);
+	printf("%c%c%c%c%cæ˜¯3ä½æ•°ã€‚\n",a,b,c,d,e);
 	else if(a==0&&b==0&&c==0&&d!=0)
-	printf("%c%c%c%c%cÊÇ2Î»Êı¡£\n",a,b,c,d,e);
+	printf("%c%c%c%c%cæ˜¯2ä½æ•°ã€‚\n",a,b,c,d,e);
 	else
-	printf("%c%c%c%c%cÊÇ1Î»Êı¡£\n",a,b,c,d,e);
+	printf("%c%c%c%c%cæ˜¯1ä½æ•°ã€‚\n",a,b,c,d,e);
 	printf("%c*%c*%c*%c*%c\n",a,b,c,d,e);
 	printf("%c*%c*%c*%c*%c\n",e,d,c,b,a);
 	return 0;

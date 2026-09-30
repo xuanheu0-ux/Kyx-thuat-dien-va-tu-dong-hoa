@@ -2,9 +2,9 @@ clc;
 clear all;
 close all;
 
-data1 = xlsread('µç»úÑ§ÊµÑéÊı¾İ3.xlsx','Sheet1');
-data2 = xlsread('µç»úÑ§ÊµÑéÊı¾İ3.xlsx','Sheet2');
-data3 = xlsread('µç»úÑ§ÊµÑéÊı¾İ3.xlsx','Sheet3');
+data1 = xlsread('ç”µæœºå­¦å®éªŒæ•°æ®3.xlsx','Sheet1');
+data2 = xlsread('ç”µæœºå­¦å®éªŒæ•°æ®3.xlsx','Sheet2');
+data3 = xlsread('ç”µæœºå­¦å®éªŒæ•°æ®3.xlsx','Sheet3');
 
 UN = 220;
 IN = 3.94;

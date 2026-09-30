@@ -12,7 +12,7 @@ int main()
 			else if(i==2&&(j==0||j==2))
 				continue;
 			else
-				printf("%cÓë%c±ÈÈü\n",x[i],y[j]);
+				printf("%cä¸%cæ¯”èµ›\n",x[i],y[j]);
 		}
 	}
 	return 0;

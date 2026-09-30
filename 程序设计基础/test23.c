@@ -3,11 +3,11 @@
 #include <stdlib.h>
 #include <math.h>
 #define MAX_LEN 200
-int nume; //numerator·Ö×Ó
-int deno; //denominator·ÖÄ¸
-int quot[MAX_LEN]={-1}; //quotientÉÌ
-int rem[MAX_LEN]={-1}; //remainderÓàÊı
-//´æÈ¡ÉÌºÍÓàÊı
+int nume; //numeratoråˆ†å­
+int deno; //denominatoråˆ†æ¯
+int quot[MAX_LEN]={-1}; //quotientå•†
+int rem[MAX_LEN]={-1}; //remainderä½™æ•°
+//å­˜å–å•†å’Œä½™æ•°
 void save_quot_rem() 
 {
 	int i;
@@ -20,7 +20,7 @@ void save_quot_rem()
 			break;
 	} //for
 }
-//ÅĞ¶ÏÊÇ·ñÊÇÑ­»·Ğ¡Êı,ÈôÊÇÔò±£´æÑ­»·½ÚÆğÊ¼ºÍ½áÊøÎ»ÖÃ
+//åˆ¤æ–­æ˜¯å¦æ˜¯å¾ªç¯å°æ•°,è‹¥æ˜¯åˆ™ä¿å­˜å¾ªç¯èŠ‚èµ·å§‹å’Œç»“æŸä½ç½®
 int is_circu(int *start, int *end)
 {
 	int i,j;
@@ -43,31 +43,31 @@ int is_circu(int *start, int *end)
 	} //for
 	return 0;
 }
-void show_circu(int start, int end) //ÏÔÊ¾Ñ­»·Ğ¡Êı
+void show_circu(int start, int end) //æ˜¾ç¤ºå¾ªç¯å°æ•°
 {
 	int i;
-	printf("%d.", quot[0]); //ÕûÊı²¿·Ö
-	for(i=1;i<=start; i++) //Ğ¡Êı·ÇÑ­»·½Ú²¿·Ö
+	printf("%d.", quot[0]); //æ•´æ•°éƒ¨åˆ†
+	for(i=1;i<=start; i++) //å°æ•°éå¾ªç¯èŠ‚éƒ¨åˆ†
 	{
 		printf("%d",quot[i]);
 	}
 	printf("T");
-	for(i=start+1; i<=end; i++) //Ğ¡ÊıÑ­»·½Ú²¿·Ö
+	for(i=start+1; i<=end; i++) //å°æ•°å¾ªç¯èŠ‚éƒ¨åˆ†
 	{
 		printf("%d",quot[i]);
 	}
 	printf("T");
 	}
-void show_not_circu() //ÏÔÊ¾·ÇÑ­»·Ğ¡Êı
+void show_not_circu() //æ˜¾ç¤ºéå¾ªç¯å°æ•°
 {
 	int i;
-	if(quot[1]==-1) //ÎŞĞ¡Êı²¿·Ö
+	if(quot[1]==-1) //æ— å°æ•°éƒ¨åˆ†
 	{
 		printf("%d",quot[0]);
 		return;
 	}
 	printf("%d.", quot[0]);
-	for(i=1; (i < MAX_LEN) && (-1 != quot[i]); i++) //Ğ¡Êı²¿·Ö
+	for(i=1; (i < MAX_LEN) && (-1 != quot[i]); i++) //å°æ•°éƒ¨åˆ†
 	{
 		printf("%d",quot[i]);
 	}

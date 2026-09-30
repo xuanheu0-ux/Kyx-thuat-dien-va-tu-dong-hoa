@@ -12,7 +12,7 @@ close all;
 %f7=zeros(1,61);
 %phase_delay1 = [0:3:180];
 %disp('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
-%disp('topic 1 simulation begin£º')
+%disp('topic 1 simulation beginï¼š')
 % run the simulation of topic 1
 %for i = 0:3:180
     % change the phase dalay of trigger signal
@@ -48,7 +48,7 @@ ff41=zeros(1,61);
 ff59=zeros(1,61);
 ff61=zeros(1,61);
 disp('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
-disp('topic 2 simulation begin£º')
+disp('topic 2 simulation beginï¼š')
 % run the simulation of topic 1
 for i = 1:1:99
     % change the phase dalay of trigger signal

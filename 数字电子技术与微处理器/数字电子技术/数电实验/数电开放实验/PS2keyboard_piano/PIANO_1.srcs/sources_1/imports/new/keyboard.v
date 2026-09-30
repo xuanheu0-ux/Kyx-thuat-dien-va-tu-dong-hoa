@@ -27,12 +27,12 @@ module keyboard(
     input sys_clk,
     output reg[4:0] key_out
     );
-    reg [1:0] key_loosen;//1¡¢2±íÊ¾´ı°´¼üËÉ¿ª£¬0±íÊ¾´ı°´ÏÂ
+    reg [1:0] key_loosen;//1ã€2è¡¨ç¤ºå¾…æŒ‰é”®æ¾å¼€ï¼Œ0è¡¨ç¤ºå¾…æŒ‰ä¸‹
     reg PS2CF,PS2DF;
     reg [7:0] ps2c_filter,ps2d_filter;
-    reg [7:0] data_temp;//µ±Ç°½ÓÊÜµÄÊı¾İ
-    reg [3:0] num;//ÒÆÎ»¿ØÖÆ
-    reg [7:0] key_value;//ÓĞĞ§¼üÖµ
+    reg [7:0] data_temp;//å½“å‰æ¥å—çš„æ•°æ®
+    reg [3:0] num;//ç§»ä½æ§åˆ¶
+    reg [7:0] key_value;//æœ‰æ•ˆé”®å€¼
     reg [1:0]count;
     reg clk;
     wire flag;
@@ -66,7 +66,7 @@ module keyboard(
             count<=count+1'b1;
           end
       end 
-    always @(posedge clk or posedge rst)//ÂË²¨Æ÷
+    always @(posedge clk or posedge rst)//æ»¤æ³¢å™¨
       begin
         if(rst==0)
           begin
@@ -85,7 +85,7 @@ module keyboard(
             ps2d_filter[6:0]<=ps2d_filter[7:1];
             if(ps2c_filter==8'b11111111)
               begin
-                PS2CF<=1;//È¥Ê±ÖÓÃ«´Ì
+                PS2CF<=1;//å»æ—¶é’Ÿæ¯›åˆº
               end
             else if(ps2c_filter==8'b00000000)
               begin
@@ -93,7 +93,7 @@ module keyboard(
               end
             if(ps2d_filter==8'b11111111)
               begin
-                PS2DF<=1;//È¥Êı¾İÃ«´Ì
+                PS2DF<=1;//å»æ•°æ®æ¯›åˆº
               end
             else if(ps2d_filter==8'b00000000)
               begin
@@ -101,7 +101,7 @@ module keyboard(
               end
           end
       end
-    always @(negedge PS2CF or posedge rst)//½ÓÊÕÊı¾İ
+    always @(negedge PS2CF or posedge rst)//æ¥æ”¶æ•°æ®
       begin
         if(rst==0)
           begin
@@ -112,20 +112,20 @@ module keyboard(
           begin
             if(num==0) 
               begin
-                num<=num+1'b1;//Ìø¹ıÆğÊ¼Î»
+                num<=num+1'b1;//è·³è¿‡èµ·å§‹ä½
               end         
-            else if(num<=8)//Êı¾İÎ»¸³Öµ
+            else if(num<=8)//æ•°æ®ä½èµ‹å€¼
               begin
                 data_temp[num-1]<=PS2DF;
                 num<=num+1'b1;   
               end
             else if(num==9)
               begin
-                num<=num+1'b1;//Ìø¹ıĞ£ÑéÎ»
+                num<=num+1'b1;//è·³è¿‡æ ¡éªŒä½
               end
             else 
               begin
-                num<=4'd0;  //Í£Ö¹Î»ÇåÁã         
+                num<=4'd0;  //åœæ­¢ä½æ¸…é›¶         
               end
           end
       end
@@ -139,11 +139,11 @@ module keyboard(
           begin
             if(data_temp==8'hF0) 
               begin
-                key_loosen<=2'b1;//¶ÏÂë±êÊ¶·û
+                key_loosen<=2'b1;//æ–­ç æ ‡è¯†ç¬¦
               end
             else
               begin
-                if(key_loosen==2'b1)//ÅĞ¶ÏÊÇ·ñËÉ¿ªÏìÓ¦°´¼ü
+                if(key_loosen==2'b1)//åˆ¤æ–­æ˜¯å¦æ¾å¼€å“åº”æŒ‰é”®
                   begin
                     if(data_temp==key_value&&flag==1)
                       begin

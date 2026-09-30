@@ -7,11 +7,11 @@ fe=(f1+f2).*(1/2);
 fo=(f1-f2).*(1/2);
 subplot(1,3,2);
 plot(t,fe);
-title('Å¼·ÖÁ¿');
+title('å¶åˆ†é‡');
 xlabel('t')
 ylabel('x(t)')
 subplot(1,3,3);
 plot(t,fo);
-title('Ææ·ÖÁ¿');
+title('å¥‡åˆ†é‡');
 xlabel('t')
 ylabel('x(t)')

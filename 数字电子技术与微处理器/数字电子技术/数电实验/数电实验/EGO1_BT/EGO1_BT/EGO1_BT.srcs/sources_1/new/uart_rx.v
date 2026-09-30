@@ -18,19 +18,19 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
-//´®¿Ú½ÓÊÕÄ£¿é³ÌĞò
+//ä¸²å£æ¥æ”¶æ¨¡å—ç¨‹åº
 module uart_rx(
     input rxd,
     input clk,
     output receive_ack,
     output reg[7:0] data_i
     );
-    //´®¿Ú½ÓÊÕ×´Ì¬»ú·ÖÎªÈı¸ö×´Ì¬£ºµÈ´ı¡¢½ÓÊÕ¡¢½ÓÊÕÍê³É
+    //ä¸²å£æ¥æ”¶çŠ¶æ€æœºåˆ†ä¸ºä¸‰ä¸ªçŠ¶æ€ï¼šç­‰å¾…ã€æ¥æ”¶ã€æ¥æ”¶å®Œæˆ
     localparam IDLE = 0,
                RECEIVE = 1,
                RECEIVE_END = 2;
     
-    reg[3:0] current_state, next_state;  // ×´Ì¬»ú±äÁ¿
+    reg[3:0] current_state, next_state;  // çŠ¶æ€æœºå˜é‡
     reg[4:0] count;
     
     always @(posedge clk)
@@ -38,12 +38,12 @@ module uart_rx(
     
     always @(*) 
     begin
-//        next_state<=current_state;           //²»ÄÜÔÚ×éºÏÂß¼­ÖĞÊ¹ÓÃ·Ç×èÈû¸³Öµ    
+//        next_state<=current_state;           //ä¸èƒ½åœ¨ç»„åˆé€»è¾‘ä¸­ä½¿ç”¨éé˜»å¡èµ‹å€¼    
         next_state = current_state;
         case(current_state)
             IDLE: if (!rxd) next_state = RECEIVE;
             RECEIVE: if (count == 7) next_state = RECEIVE_END;
-//            RECEIVE_END:if(receive_ack)next_state=IDLE;       //²»ÄÜ¶ÔÊä³öĞÅºÅ×öÅĞ¶Ï£¬ÕâÑù¿ÉÄÜ»áÒıÈë·´À¡
+//            RECEIVE_END:if(receive_ack)next_state=IDLE;       //ä¸èƒ½å¯¹è¾“å‡ºä¿¡å·åšåˆ¤æ–­ï¼Œè¿™æ ·å¯èƒ½ä¼šå¼•å…¥åé¦ˆ
             RECEIVE_END: next_state = IDLE;
             default: next_state = IDLE;
         endcase    

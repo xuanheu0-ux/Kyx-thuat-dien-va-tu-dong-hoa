@@ -2,9 +2,9 @@ clc;
 clear;
 close all;
 
-data1 = xlsread('µç»úÑ§ÊµÑéÊı¾İ4.xlsx','Sheet1');
-data2 = xlsread('µç»úÑ§ÊµÑéÊı¾İ4.xlsx','Sheet2');
-data3 = xlsread('µç»úÑ§ÊµÑéÊı¾İ4.xlsx','Sheet3');
+data1 = xlsread('ç”µæœºå­¦å®éªŒæ•°æ®4.xlsx','Sheet1');
+data2 = xlsread('ç”µæœºå­¦å®éªŒæ•°æ®4.xlsx','Sheet2');
+data3 = xlsread('ç”µæœºå­¦å®éªŒæ•°æ®4.xlsx','Sheet3');
 
 % % experiment1
 % data check

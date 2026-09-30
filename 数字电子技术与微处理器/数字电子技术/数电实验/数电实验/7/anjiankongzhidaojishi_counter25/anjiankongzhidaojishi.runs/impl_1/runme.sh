@@ -24,7 +24,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='F:/◊¿√Ê/anjiankongzhidaojishi_counter25/anjiankongzhidaojishi.runs/impl_1'
+HD_PWD='F:/Ê°åÈù¢/anjiankongzhidaojishi_counter25/anjiankongzhidaojishi.runs/impl_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log

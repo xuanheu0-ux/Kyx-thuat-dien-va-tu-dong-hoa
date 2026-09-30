@@ -9,9 +9,9 @@ function [fitresult, gof] = createFit1(D, delta_uC, delta_uC_cal)
 %      fitresult : a fit object representing the fit.
 %      gof : structure with goodness-of fit info.
 %
-%  ÁíÇë²ÎÔÄ FIT, CFIT, SFIT.
+%  å¦è¯·å‚é˜… FIT, CFIT, SFIT.
 
-%  ÓÉ MATLAB ÓÚ 22-Nov-2020 12:01:16 ×Ô¶¯Éú³É
+%  ç”± MATLAB äº 22-Nov-2020 12:01:16 è‡ªåŠ¨ç”Ÿæˆ
 
 
 %% Fit: 'untitled fit 1'.
@@ -29,18 +29,18 @@ opts.StartPoint = [188.632179365306 4.19747074498863];
 % Plot fit with data.
 figure( 'Name', 'untitled fit 1' );
 hold on
-% »­Í¼Êı¾İÀ´Ô´
+% ç”»å›¾æ•°æ®æ¥æº
 plot( fitresult, xData, yData );
 plot();
 hold off
-xlabel('Duty Ratio') % ºá×ø±ê
-ylabel('capacitor voltage ripple (V)') % ×İ×ø±ê
+xlabel('Duty Ratio') % æ¨ªåæ ‡
+ylabel('capacitor voltage ripple (V)') % çºµåæ ‡
 axis([-inf,inf,-inf,inf]);
 set(gca,'FontName','Times New Roman');
 set(findobj('Type','line'),'LineWidth',1.5)
-legend('simulation result','result fit','the theoretical result'); % Í¼Àı
-title('the relationships between duty ratio and capacitor voltage ripple') % ±êÌâ
+legend('simulation result','result fit','the theoretical result'); % å›¾ä¾‹
+title('the relationships between duty ratio and capacitor voltage ripple') % æ ‡é¢˜
 grid on
-save(gca,'1.jpg'); % ±£´æÍ¼Æ¬
+save(gca,'1.jpg'); % ä¿å­˜å›¾ç‰‡
 
 
