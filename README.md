@@ -1,5 +1,29 @@
 # 西安交通大学电气工程自动化专业课程资料分享
 
+## 🚀 Chạy nhanh (Antigravity / AI agent) — 快速运行
+
+Repo này là **kho tài liệu môn học** (không phải 1 app) + **5 thứ chạy được ngay**,
+không cần build, không cần cài dependency:
+
+| Chạy gì | Lệnh (từ gốc repo) | Mở URL |
+|---|---|---|
+| Hub 4 project web + mô phỏng | `python3 run.py serve 8000` (hoặc `npm run serve`) | http://localhost:8000/ |
+| **Mô phỏng PLC hòa máy phát** (theo sơ đồ P&A SJC-E-GSP-2021) | chỉ cần mở file `选修课/web程序设计/mo-phong-gsp/index.html` bằng Chrome/Edge | — |
+| Kiểm tra liên kết/charset/JS các project web | `python3 run.py check` (hoặc `npm run check`) | exit 0 = sạch |
+| Regression test mô phỏng (22 assertion) | `python3 run.py test` (hoặc `npm run test:sim`) | `ALL GROUPS PASS` |
+| Liệt kê project + đường dẫn | `python3 run.py paths` | — |
+
+Yêu cầu tối thiểu: **không gì cả** với trang web (HTML thuần, chạy cả `file://`).
+`run.py` cần Python ≥3.9 (stdlib thuần); `check/test/octave` cần thêm Node ≥14
+/Octave (tuỳ chọn). Có `requirements.txt` + `pyproject.toml` sẵn để IDE tự nhận
+diện môi trường — `pip install -e .` (tuỳ chọn) biến `run.py` thành lệnh `kyx`.
+
+- Quy trình thao tác + giải thích mô hình: `选修课/web程序设计/mo-phong-gsp/README.md`
+- Luật sửa repo cho agent (encoding UTF-8, cấm đụng file nhị phân, không nâng
+  cấp game cũ…): **`AGENTS.md`** ở gốc — agent nên đọc file này trước.
+- Script MATLAB `信号与系统/实验/*.m`: chạy bằng Octave, xem `信号与系统/实验/README.md`.
+
+
 ## 简介
 
 本项目为西安交通大学**电气工程及其自动化专业**课程资料。

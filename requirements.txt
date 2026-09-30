@@ -1,0 +1,13 @@
+# Không có dependency bắt buộc.
+#
+# Toàn bộ project web trong repo (Tank-master, 植物大战僵尸, 贪吃蛇, 小游戏,
+# mo-phong-gsp) là HTML/JS/CSS thuần → mở trực tiếp bằng trình duyệt là chạy.
+#
+# `python run.py serve` / `python run.py paths`  → chỉ dùng stdlib Python ≥3.9.
+# `python run.py check` / `run.py test`           → gọi Node.js (>=14), đã có sẵn.
+#
+# Muốn cài thành lệnh `kyx`:  pip install -e .
+#
+# Tuỳ chọn — chỉ khi cần export ảnh từ script Octave .m:
+#   sudo apt-get install -y octave octave-control octave-signal   (Linux/WSL)
+# hoặc pip install matplotlib  (rồi dùng 信号与系统/实验/ 里的脚本)

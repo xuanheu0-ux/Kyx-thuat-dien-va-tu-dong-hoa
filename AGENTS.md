@@ -11,6 +11,17 @@
 npm run serve        # = node tools/serve.js  → http://localhost:8000  (HUB trang chủ)
 npm run check        # = node tools/check_web.js → tự kiểm tra lỗi web project
 ```
+Không có Node? Mọi lệnh giống hệt chạy bằng Python stdlib (≥3.9):
+
+```bash
+python3 run.py serve 8000   # cùng server tĩnh, cùng gốc phục vụ
+python3 run.py check        # 2 lệnh này gọi lại tools/*.js qua Node nếu có
+python3 run.py paths        # liệt kê 6 mục chạy được + trạng thái file
+```
+
+(`pip install -e .` tuỳ chọn → lệnh `kyx serve|check|test|paths`; package nhỏ
+`python/kyxwebdev/`, stdlib thuần — file này và `requirements.txt`,
+`pyproject.toml` tồn tại chỉ để IDE/AI-agent tự nhận diện, KHÔNG cần để chạy.)
 
 Gốc phục vụ là `选修课/web程序设计`; trang `index.html` ở gốc đó là **hub** với menu
 4 project: 坦克大战 (`大作业/Tank-master/`), 植物大战僵尸 (`大作业/植物大战僵尸/`),
