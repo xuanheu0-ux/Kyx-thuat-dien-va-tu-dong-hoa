@@ -9,6 +9,11 @@ lưới → mang tải → tách, kèm các lỗi kinh điển.
 
 ## Chạy
 
+**Nút `▶▶ DEMO tự động`** trên toolbar: tủ tự chạy trọn quy trình
+(FCR → FLASH → dựng áp → đồng tốc → NETWORK MODE → rơ-le tự hòa → mang tải
+→ giảm tải → tách → khử từ → dừng máy) — mọi bước đi qua đúng interlock như
+người bấm; thao tác bất kỳ sẽ dừng demo.
+
 Không cần cài gì, không cần mạng — file đứng một mình:
 
 ```bash
@@ -58,7 +63,7 @@ Nút bấm sai thứ tự **bị chặn kèm lý do** trong log (DE-EXCITATE khi
 ## Test
 
 ```bash
-python3 run.py test            # hoặc: node tools/test_gsp_sim.js
+python3 run.py test            # hoặc: node tools/test_gsp_sim.js / npm test
 ```
 Driver DOM-giả-lập trong Node chạy **22 assertion**: dựng áp, watchdog
 BUILD UP (fail khi mất từ dư), sync-relay chờ điểm trùng pha, mang tải,

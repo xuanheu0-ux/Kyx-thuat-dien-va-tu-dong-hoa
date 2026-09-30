@@ -23,6 +23,7 @@ button:hover{border-color:var(--cyan)}
 button:active{transform:translateY(1px)}
 button.on{border-color:var(--cyan);box-shadow:0 0 0 1px var(--cyan) inset;color:var(--cyan)}
 button.danger{border-color:#7f1d1d;background:#3b1212;color:#fca5a5}
+  button.gold{border-color:#7a5b12;background:#2e2409;color:var(--amber)}
 button:disabled{opacity:.4;cursor:not-allowed}
 main{display:grid;grid-template-columns:minmax(340px,5fr) minmax(300px,4fr) minmax(280px,3.2fr);gap:12px;padding:12px 18px 26px;align-items:start}
 @media (max-width:1280px){main{grid-template-columns:1fr 1fr}}
@@ -77,6 +78,7 @@ summary{cursor:pointer;font-size:12px;color:var(--mut)}
     <button id="bP">⏸ Tạm dừng</button>
     <button id="bS1" class="on">×1</button><button id="bS2">×2</button><button id="bS4">×4</button>
     <button id="bReset">↺ Đặt lại</button>
+    <button id="bDemo" class="gold" title="Tủ tự chạy hết quy trình: FCR → FLASH → dựng áp → đồng tốc → NETWORK MODE → rơ-le tự hòa → mang tải → tách → khử từ. Bấm lại (hoặc thao tác bất kỳ) để dừng.">▶▶ DEMO tự động</button>
   </div>
 </header>
 
@@ -462,6 +464,36 @@ $('fAvrStuck').onchange=e=>{S.avrStuck=e.target.checked;ev('FAULT: AVR kẹt the
 $('bP').onclick=()=>{S.paused=!S.paused;$('bP').textContent=S.paused?'▶ Chạy tiếp':'⏸ Tạm dừng';};
 $('bS1').onclick=()=>setSpeed(1);$('bS2').onclick=()=>setSpeed(2);$('bS4').onclick=()=>setSpeed(4);
 $('bReset').onclick=reset;
+/* ---- DEMO tự động: mọi bước đi qua đúng hàm điều khiển + interlock như người bấm ---- */
+let demo=null;
+function demoStop(msg){if(!demo)return;demo=null;S.inc=false;S.dec=false;
+  const b=$('bDemo');if(b)b.textContent='▶▶ DEMO tự động';
+  ev('Demo dừng'+(msg?' — '+msg:''),'info');}
+function demoStart(){if(demo){demoStop('theo yêu cầu');return;}
+  reset();demo={phase:0,t:0};const b=$('bDemo');if(b)b.textContent='⏹ Đang demo — bấm để dừng';
+  ev('▶ DEMO tự động bắt đầu. Mẹo: chọn ×4 cho nhanh; thao tác bất kỳ sẽ dừng demo','ok');}
+function demoTick(dt){if(!demo)return;demo.t+=dt;const P=demo.phase;
+  if(P===0){ if(demo.t>0.2){setLocal(true);fcrClose();demo.phase=1;demo.t=0;} }
+  else if(P===1){ if(demo.t>0.4){flash();demo.phase=2;demo.t=0;} }
+  else if(P===2){ S.inc=(S.w*50<49.97);S.dec=(S.w*50>50.05);
+    if(demo.t>1.5&&S.Ug>0.97&&Math.abs(S.w*50-50)<0.04){S.inc=S.dec=false;demo.phase=3;demo.t=0;}
+    else if(demo.t>30)demoStop('30s không dựng áp được'); }
+  else if(P===3){ setLocal(false); if(!S.net){S.net=true;ev('DEMO: bật NETWORK MODE','info');} demo.phase=4;demo.t=0; }
+  else if(P===4){ S.inc=(S.pos<0.519);S.dec=(S.pos>0.523);
+    if(!S.GCB&&!S.syncPend)closeGCB();
+    if(S.GCB){S.inc=S.dec=false;demo.phase=5;demo.t=0;}
+    else if(demo.t>50)demoStop('50s rơ-le không tìm được điểm trùng pha'); }
+  else if(P===5){ S.inc=true; if(S.pos>=0.85||demo.t>10){S.inc=false;demo.phase=6;demo.t=0;} }
+  else if(P===6){ if(demo.t>2.5){demo.phase=7;demo.t=0;} }
+  else if(P===7){ S.dec=true; if(S.pos<=0.507){S.dec=false;demo.phase=8;demo.t=0;}
+    else if(demo.t>25)demoStop('giảm tải quá lâu'); }
+  else if(P===8){ if(demo.t>0.5){openGCB();demo.phase=9;demo.t=0;} }
+  else if(P===9){ if(demo.t>0.8){setLocal(true);fcrOpen();S.dec=true;demo.phase=10;demo.t=0;} }
+  else if(P===10){ if(S.pos<=0.02||demo.t>4){S.dec=false;demo=null;const b=$('bDemo');if(b)b.textContent='▶▶ DEMO tự động';
+    ev('✔ DEMO hoàn tất: khởi động → hòa đồng bộ → mang tải → giảm tải → tách → khử từ → dừng máy','ok'); } }
+}
+document.addEventListener('pointerdown',(e)=>{if(demo&&!(e.target&&e.target.closest&&e.target.closest('#bDemo')))demoStop('có thao tác từ người dùng');},true);
+$('bDemo').onclick=demoStart;
 function setSpeed(x){S.speed=x;[[$('bS1'),1],[$('bS2'),2],[$('bS4'),4]].forEach(([b,v])=>b.classList.toggle('on',v===x));}
 /* ---- render ---- */
 function setLed(id,cls){const e=$(id);e.className='';if(cls)e.className=cls;}
@@ -541,7 +573,7 @@ function frame(now){
   const realDt=Math.min(0.05,(now-last)/1000);last=now;
   if(!S.paused){
     let dt=realDt*S.speed;
-    while(dt>0){const h=Math.min(dt,0.004);step(h);dt-=h;}
+    while(dt>0){const h=Math.min(dt,0.004);demoTick(h);step(h);dt-=h;}
   }
   render();renderLog();drawChart();
   requestAnimationFrame(frame);

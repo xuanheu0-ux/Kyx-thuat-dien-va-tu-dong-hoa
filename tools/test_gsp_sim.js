@@ -74,6 +74,17 @@ reset(); S.local=true; S.FCB=true;
 const l0=S.log.length;
 $('hFlash').onclick();
 ok(S.log.length===l0+1&&/\u0111ang b\u1ecb kh\u00f3a/.test(S.log[l0].msg),'HMI FIELD FLASHING bi khoa khi LOCAL');
+/* T9 DEMO tu dong chay tron quy trinh */
+demoStart();
+let demoClosedAt=-1, demoMaxPos=0;
+for(let g=0; g<9000 && demo; g++){ demoTick(0.01); step(0.01);
+  if(demoClosedAt<0 && S.GCB) demoClosedAt=g;
+  if(S.pos>demoMaxPos) demoMaxPos=S.pos; }
+ok(demo===null,'demo tu ket thuc (khong treo)');
+ok(demoClosedAt>0,'demo hoa duoc GCB bang ro-le tu dong (tick '+demoClosedAt+')');
+ok(demoMaxPos>0.8,'demo co mang tai (pos max '+(demoMaxPos*100).toFixed(0)+'%)');
+ok(!S.GCB&&!S.FCB&&S.If<0.05&&S.Ug<0.05,'demo ket: may dung hoan toan, If='+S.If.toFixed(2)+' Ug='+S.Ug.toFixed(2));
+ok(/DEMO ho\\u00e0n t\\u1ea5t/.test(S.log.slice(-1)[0].msg),'log cuoi: '+S.log.slice(-1)[0].msg.slice(0,48));
 console.log(fails?('FAILED '+fails):'ALL GROUPS PASS');
 process.exit(fails?1:0);
 })();
