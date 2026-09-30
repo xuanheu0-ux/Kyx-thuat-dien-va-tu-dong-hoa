@@ -85,6 +85,17 @@ ok(demoClosedAt>0,'demo hoa duoc GCB bang ro-le tu dong (tick '+demoClosedAt+')'
 ok(demoMaxPos>0.8,'demo co mang tai (pos max '+(demoMaxPos*100).toFixed(0)+'%)');
 ok(!S.GCB&&!S.FCB&&S.If<0.05&&S.Ug<0.05,'demo ket: may dung hoan toan, If='+S.If.toFixed(2)+' Ug='+S.Ug.toFixed(2));
 ok(/DEMO ho\\u00e0n t\\u1ea5t/.test(S.log.slice(-1)[0].msg),'log cuoi: '+S.log.slice(-1)[0].msg.slice(0,48));
+/* T10 quiz ly thuyet + nut coi */
+ok(Array.isArray(QUIZ)&&QUIZ.length===8,'quiz co 8 cau');
+ok(QUIZ.every(x=>x.q&&x.o&&x.o.length===4&&x.a>=0&&x.a<4&&x.w),'quiz: moi cau 4 lua chon + giai thich hop le');
+QUIZ.forEach((x,i)=>quizChoose(i,x.a));
+ok(quizScore()===8,'chọn đáp án đúng hết → 8/8');
+quizChoose(0,(QUIZ[0].a+1)%4);
+ok(quizScore()===8,'đã trả lời không đổi được đáp án');
+renderQuiz();
+$('bSnd').onclick(); ok(sndOn===false,'nút còi tắt được (localStorage nhớ)');
+$('bSnd').onclick(); ok(sndOn===true,'nút còi bật lại, tone không crash khi chưa có gesture');
+quizReset(); ok(quizScore()===0,'quizReset → 0');
 console.log(fails?('FAILED '+fails):'ALL GROUPS PASS');
 process.exit(fails?1:0);
 })();

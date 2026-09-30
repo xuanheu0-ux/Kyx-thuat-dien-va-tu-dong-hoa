@@ -65,6 +65,14 @@ input[type=range]{accent-color:var(--cyan);width:110px}
 details{margin-top:6px}
 summary{cursor:pointer;font-size:12px;color:var(--mut)}
 .kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 5px;font:11px monospace;background:#0b0e1a}
+.qq{margin:8px 0;padding-bottom:6px;border-bottom:1px dashed var(--line)}
+.qq p.q{font-size:12px;margin:0 0 4px}
+.qq .opts{display:flex;flex-direction:column;gap:4px}
+.qq .opts button{text-align:left;font-size:11.5px;padding:4px 8px}
+.qq .opts button:hover{border-color:var(--cyan)}
+.qq .opts button.good{border-color:var(--green);color:var(--green)}
+.qq .opts button.bad{border-color:var(--red);color:#fca5a5}
+.qq .why{font-size:11px;color:var(--mut);margin:4px 0 0;background:#0b0e1a;border-left:2px solid var(--cyan);padding:4px 8px;border-radius:0 6px 6px 0}
 </style>
 </head>
 <body>
@@ -78,6 +86,7 @@ summary{cursor:pointer;font-size:12px;color:var(--mut)}
     <button id="bP">⏸ Tạm dừng</button>
     <button id="bS1" class="on">×1</button><button id="bS2">×2</button><button id="bS4">×4</button>
     <button id="bReset">↺ Đặt lại</button>
+    <button id="bSnd" title="Còi WebAudio khi PLC/BV tác động — tự nhớ lựa chọn">🔔 Còi</button>
     <button id="bDemo" class="gold" title="Tủ tự chạy hết quy trình: FCR → FLASH → dựng áp → đồng tốc → NETWORK MODE → rơ-le tự hòa → mang tải → tách → khử từ. Bấm lại (hoặc thao tác bất kỳ) để dừng.">▶▶ DEMO tự động</button>
   </div>
 </header>
@@ -284,6 +293,11 @@ summary{cursor:pointer;font-size:12px;color:var(--mut)}
     NETWORK MODE; =GEN_VT/=BUS_VT → FX3U-4AD; PLC ↔ HMI (MT6071P) và ↔ STEP MOTOR DRIVER cùng bus RS422; trip của QRP đi bằng <b>mạch cứng</b> (không qua PLC).</p>
   </details>
 </div>
+<div class="card">
+  <h2><b>🎓 Kiểm tra lý thuyết</b> <span class="badge" id="qScoreBadge">chưa làm</span></h2>
+  <div id="quiz"></div>
+  <p class="hint">Mẹo: hãy thao tác / chạy DEMO / bật fault trước rồi trả lời — giải thích hiện ra sau mỗi câu, đáp án không đổi được sau khi chọn.</p>
+</div>
 </main>
 
 <script>
@@ -299,7 +313,24 @@ const S={ t:0, paused:false, speed:1,
   P:0, Q:0, shock:0, ocT:0, rpT:0, leT:0,
   log:[], hist:[], seq:0,
   tGcClose:-99 };
-function ev(msg,cls){S.log.push({t:S.t,msg,cls:cls||'info',id:++S.seq});if(S.log.length>400)S.log.shift();}
+let sndOn=(()=>{try{return localStorage.getItem('gspSnd')!=='0';}catch(e){return true;}})();
+let actx=null;
+function audioCtx(){
+  if(!actx){const W=(typeof window!=='undefined')?window:{};const AC=W.AudioContext||W.webkitAudioContext;if(!AC)return null;try{actx=new AC();}catch(e){return null;}}
+  if(actx.state==='suspended')actx.resume().catch(()=>{});
+  return (actx.state==='running')?actx:null;   // chưa có user gesture → im lặng, không xếp hàng tiếng
+}
+function tone(f,d,when,type,gain){const a=audioCtx();if(!a)return;try{
+  const o=a.createOscillator(),g=a.createGain();o.type=type||'square';o.frequency.value=f;
+  o.connect(g);g.connect(a.destination);const t=a.currentTime+(when||0);
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(gain||0.05,t+0.012);
+  g.gain.exponentialRampToValueAtTime(0.0001,t+d);o.start(t);o.stop(t+d+0.03);}catch(e){}}
+function klaxon(){tone(680,0.14,0,'square',0.06);tone(540,0.16,0.15,'square',0.06);}   // TRIP
+function buzz()   {tone(415,0.09,0,'triangle',0.045);}                                    // warn
+function chime()  {tone(660,0.09,0,'sine',0.05);tone(880,0.14,0.1,'sine',0.05);}         // thành công
+function sound(msg,cls){if(!sndOn)return;
+  if(cls==='err')klaxon(); else if(cls==='warn')buzz(); else if(cls==='ok')chime();}
+function ev(msg,cls){S.log.push({t:S.t,msg,cls:cls||'info',id:++S.seq});if(S.log.length>400)S.log.shift();sound(msg,cls);}
 function clamp0(v,a,b){return Math.max(a,Math.min(b,v));}
 function sat(If){return 1.35*If/(1+0.35*If*If);}   // bão hòa từ mạch từ
 function syncOK(){
@@ -494,6 +525,56 @@ function demoTick(dt){if(!demo)return;demo.t+=dt;const P=demo.phase;
 }
 document.addEventListener('pointerdown',(e)=>{if(demo&&!(e.target&&e.target.closest&&e.target.closest('#bDemo')))demoStop('có thao tác từ người dùng');},true);
 $('bDemo').onclick=demoStart;
+$('bSnd').onclick=()=>{sndOn=!sndOn;try{localStorage.setItem('gspSnd',sndOn?'1':'0');}catch(e){}
+  $('bSnd').textContent=sndOn?'🔔 Còi':'🔕 Còi tắt';
+  ev('Còi báo '+(sndOn?'BẬT':'TẮT')+' (mô phỏng), demo tone:','info'); if(sndOn)chime();};
+$('bSnd').textContent=sndOn?'🔔 Còi':'🔕 Còi tắt';
+/* ================= QUIZ lý thuyết (theo đúng logic sơ đồ + mô hình) ================= */
+const QUIZ=[
+{q:"Vì sao bản vẽ dùng RƠ-LE ĐỒNG BỘ chuyên dụng, khi FX3U-4AD đã đọc được Ug(U,V) và Ub(U,V)?",
+ o:["Rơ-le luôn nhanh hơn PLC","AI chỉ cho trị hiệu dụng → so được ΔU, khó có Δφ/Δf tin cậy; rơ-le chuyên dụng mới bắt đúng điểm trùng pha và tự chỉnh thời gian đóng máy cắt","Chỉ để dự phòng khi PLC hỏng","Vì 4AD thiếu kênh"],a:1,
+ w:"Đây đúng là điểm cần review của bản vẽ: 4 kênh AI 12-bit chỉ đủ giám sát ΔU; đồng bộ thật sự nhờ rơ-le ngoài — PLC chỉ nhận 'cho phép đóng'."},
+{q:'Chữ "(10s)" sau GCB CLOSED / FCR CLOSED trong bản vẽ mang ý nghĩa gì?',
+ o:["Cuộn cấp chỉ được phép cấp 10s","Tiếp điểm phụ phải ĐÓNG liên tục ≥10s tín hiệu mới được PLC xác nhận (chống rung tiếp điểm/báo giả)","PLC tự cắt sau 10s nếu không có lệnh mới","Thời gian sạc bộ tạo xung"],a:1,
+ w:"Ở demo rút còn 1s (nhìn thấy LED đếm) — nguyên tắc debounce/latch giữ đúng."},
+{q:"Trình tự DE-EXCITATION (mở FCR) đúng kỹ thuật?",
+ o:["Vừa cắt GCB xong mở FCR ngay cho nhanh","Giảm P,Q về ~0 → CẮT GCB → mới mở FCR (khử từ)","Mở FCR trước khi cắt GCB để máy 'mềm' dần","Rút cầu chì mạch kích"],a:1,
+ w:"Mở FCR khi GCB còn đóng → máy mất kích từ ngay trên lưới → hút Q âm lớn, quay máy bằng lưới, bảo vệ tác động. Mô phỏng CHẶN đúng như PLC thật."},
+{q:"Vì sao MẤT TỪ DƯ dẫn tới BUILD UP FAILURE (tự kích không lên)?",
+ o:["Cuộn kích tự đứt khi mất từ dư","U tự kích tăng theo vòng lặp E→If→E; không có từ dư (hoặc nạp flash thay thế đủ sâu) thì vòng lặp không khởi động được","AVR sẽ hỏng ngay lập tức","Tốc độ máy phát tăng quá cao"],a:1,
+ w:"Trong sim: tick 'Mất từ dư', không FLASH → sau 14s watchdog BUILD UP FAILURE + PLC tự trip FCR — đúng logic bản vẽ."},
+{q:"Đóng GCB KHÔNG đồng bộ (lệch pha lớn) nguy hiểm nhất ở đâu?",
+ o:["Tốn thêm nhiên liệu","Xung dòng tới vài lần định mức + mô-men xung kích: lực điện động phá đầu nối cuộn dây, nóng stator/rô-to — relay quá dòng phải cắt ngay","Mất tần số lưới","Gây ngược công suất nhẹ"],a:1,
+ w:'Sim có nút bypass rơ-le để bạn thấy chính cảnh này: shock 3–4pu → QUÁ DÒNG cắt GCB + PLC tự de-excite để an toàn.'
+ },
+{q:"Lệnh TRIP cắt GCB của GEN PROTECTION (=QRP) trong bản vẽ đi qua đường nào?",
+ o:["Qua DO của PLC","Bằng MẠCH CỨNG trực tiếp từ rơ-le tới cuộn cắt — không phụ thuộc scan/ERR của PLC","Qua HMI Weintek","Qua module 4AD"],a:1,
+ w:"Nguyên tắc an toàn: bảo vệ không 'gửi' lệnh tử sinh cho bộ điều khiển chung. PLC chỉ giám sát tiếp điểm phụ."},
+{q:"Đang mang tải, MẤT KÍCH TỪ — dấu hiệu trên đồng hồ?",
+ o:["P tăng, Q=0","P dao động/về âm, Q âm lớn (máy hút Q từ lưới để từ hóa), Ug tụt nhẹ, stator nóng","Ug tăng vọt","Không thấy gì"],a:1,
+ w:"Sim: tick 'Mất nguồn kích từ' khi đang hòa → Iƒ sụp, P đảo chiều → bảo vệ MẤT KÍCH TỪ của QRP cắt GCB + de-excite."},
+{q:"Sau khi HÒA vào lưới vô cùng lớn, cái gì quyết định P của máy phát (đặc tính dốc tĩnh δ=4%)?",
+ o:["Vị trí AVR/Uset","TAY GA: P ≈ (f₀(tay ga) − f lưới)/δ","Điện áp thanh cái","Tần số lưới 50Hz"],a:1,
+ w:"Vì vậy 'giữ ga cao rồi mới hòa' → vừa hòa đã ăn full tải — sim tái hiện đúng; muốn non tải phải hạ ga về ~50% ngay điểm 50.00Hz."}
+];
+let qState={};
+function quizScore(){return QUIZ.reduce((n,x,i)=>n+(qState[i]===x.a?1:0),0);}
+function quizChoose(i,j){if(qState[i]!==undefined)return;qState[i]=j;renderQuiz();qState[i]===QUIZ[i].a?tone(880,0.12,0,'sine',0.05):tone(220,0.18,0,'sawtooth',0.05);}
+function quizReset(){qState={};renderQuiz();}
+function renderQuiz(){
+  const box=document.getElementById('quiz');if(!box)return;
+  box.innerHTML=QUIZ.map((x,i)=>{
+    const chosen=qState[i];
+    return '<div class="qq"><p class="q"><b>'+(i+1)+'.</b> '+x.q+'</p><div class="opts">'+
+      x.o.map((o,j)=>'<button class="'+(chosen===undefined?'':(j===x.a?'good':(j===chosen?'bad':'')))+'"'+(chosen===undefined?' onclick="quizChoose('+i+','+j+')"':' disabled')+'>'+(String.fromCharCode(65+j))+'. '+o+'</button>').join('')+
+      '</div>'+(chosen!==undefined?'<p class="why">'+(chosen===x.a?'✔ ':'✘ ')+x.w+'</p>':'')+'</div>';
+  }).join('')+'<p style="margin:6px 0 0"><button onclick="quizReset()">↺ Làm lại</button></p>';
+  const b=document.getElementById('qScoreBadge');
+  if(b){const done=Object.keys(qState).length;b.textContent=done?('Điểm '+quizScore()+'/'+QUIZ.length):'chưa làm';
+    b.style.color=done===QUIZ.length&&quizScore()===QUIZ.length?'var(--green)':(done?'var(--amber)':'');}
+}
+if(typeof window!=='undefined'){window.quizChoose=quizChoose;window.quizReset=quizReset;}
+renderQuiz();
 function setSpeed(x){S.speed=x;[[$('bS1'),1],[$('bS2'),2],[$('bS4'),4]].forEach(([b,v])=>b.classList.toggle('on',v===x));}
 /* ---- render ---- */
 function setLed(id,cls){const e=$(id);e.className='';if(cls)e.className=cls;}

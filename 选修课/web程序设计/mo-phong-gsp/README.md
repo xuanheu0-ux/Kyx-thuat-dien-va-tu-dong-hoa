@@ -60,6 +60,18 @@ Nút bấm sai thứ tự **bị chặn kèm lý do** trong log (DE-EXCITATE khi
   phỏng ×1/×2/×4, chart canvas 7 series, log sự kiện.
 - Ngắt/bấm đều đi qua **interlock mô phỏng PLC**, không phải chỉ animation.
 
+## 🔔 Còi báo & 🎓 Quiz lý thuyết
+
+- **Còi (WebAudio, không cần file)**: tiếng klaxon khi bảo vệ TRIP, "bíp"
+  vàng khi cảnh báo, chuông khi hòa thành công/DEMO xong. Nút `🔔 Còi` trên
+  header bật/tắt, nhớ lựa chọn qua `localStorage`; tự im lặng cho tới khi
+  người dùng tương tác đầu tiên (đúng chính sách autoplay của trình duyệt).
+- **Quiz 8 câu** cuối cột phải: hỏi đúng các điểm nghiệp vụ của bản vẽ
+  (vì sao cần rơ-le đồng bộ riêng, ý nghĩa "(10s)", trình tự DE-EXCITATION,
+  bản chất BUILD UP FAILURE, hại của hòa ẩu, trip mạch cứng của QRP, dấu hiệu
+  mất kích từ, độ dốc tĩnh 4%). Chọn sai/đúng có ✔/✘ + giải thích; đáp án
+  khóa sau khi chọn; nút `↺ Làm lại`.
+
 ## Test
 
 ```bash

@@ -10,7 +10,7 @@ không cần build, không cần cài dependency:
 | Hub 4 project web + mô phỏng | `python3 run.py serve 8000` (hoặc `npm run serve`) | http://localhost:8000/ |
 | **Mô phỏng PLC hòa máy phát** (theo sơ đồ P&A SJC-E-GSP-2021) | chỉ cần mở file `选修课/web程序设计/mo-phong-gsp/index.html` bằng Chrome/Edge | — |
 | Kiểm tra liên kết/charset/JS các project web | `python3 run.py check` (hoặc `npm run check`) | exit 0 = sạch |
-| Regression test mô phỏng (22 assertion) | `python3 run.py test` (hoặc `npm run test:sim`) | `ALL GROUPS PASS` |
+| Regression test mô phỏng (34 assertion) | `python3 run.py test` (hoặc `npm run test:sim`) | `ALL GROUPS PASS` |
 | Liệt kê project + đường dẫn | `python3 run.py paths` | — |
 
 Yêu cầu tối thiểu: **không gì cả** với trang web (HTML thuần, chạy cả `file://`).
