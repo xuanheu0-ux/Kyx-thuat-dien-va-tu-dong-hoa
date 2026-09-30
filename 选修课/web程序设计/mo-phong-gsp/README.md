@@ -72,6 +72,16 @@ Nút bấm sai thứ tự **bị chặn kèm lý do** trong log (DE-EXCITATE khi
   mất kích từ, độ dốc tĩnh 4%). Chọn sai/đúng có ✔/✘ + giải thích; đáp án
   khóa sau khi chọn; nút `↺ Làm lại`.
 
+## 📄 Bảng đối chiếu & 🌐 song ngữ
+
+- Card **"Đối chiếu mô phỏng ↔ bản vẽ"**: 9 dòng ánh xạ từng khối bản vẽ
+  (PLC, HMI, VT→4AD, rơ-le đồng bộ, trip mạch cứng QRP, debounce 10s, step
+  motor, bộ tín hiệu, quy trình) sang đúng chỗ trong sim + cách demo; nút
+  **🖨 In / PDF** trình bày riêng bảng đó ra A4 ngang (Ctrl+P cũng được —
+  trang tự ẩn phần còn lại khi in).
+- Quiz có nút **中文 · 用中文学习 / Học bằng tiếng Việt** — 8 câu song ngữ,
+  chấm điểm y hệt nhau ở cả hai ngôn ngữ, nhớ lựa chọn qua localStorage.
+
 ## Test
 
 ```bash

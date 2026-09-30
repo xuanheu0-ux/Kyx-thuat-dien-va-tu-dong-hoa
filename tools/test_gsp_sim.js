@@ -96,6 +96,15 @@ renderQuiz();
 $('bSnd').onclick(); ok(sndOn===false,'nút còi tắt được (localStorage nhớ)');
 $('bSnd').onclick(); ok(sndOn===true,'nút còi bật lại, tone không crash khi chưa có gesture');
 quizReset(); ok(quizScore()===0,'quizReset → 0');
+/* T11 quiz tieng Trung + in PDF */
+ok(QUIZ.every(x=>x.cn&&x.cn.q&&x.cn.o.length===4&&x.cn.w),'quiz: 8/8 cau co ban dich CN day du 4 lua chon + giai thich');
+quizReset();
+qLang='cn'; renderQuiz();
+QUIZ.forEach((x,i)=>quizChoose(i,x.a));
+ok(quizScore()===8,'lam quiz bang tieng Trung van cham diem dung (8/8)');
+qLang='vi'; renderQuiz();
+$('bPrint')&&$('bPrint').onclick();
+ok(true,'nut In/PDF khong crash trong moi truong khong co window.print');
 console.log(fails?('FAILED '+fails):'ALL GROUPS PASS');
 process.exit(fails?1:0);
 })();

@@ -61,6 +61,26 @@ canvas{width:100%;height:150px;background:#0b0e1c;border:1px solid var(--line);b
 .badge{display:inline-block;font-size:10px;border:1px solid var(--line);border-radius:999px;padding:1px 8px;color:var(--mut)}
 .sync-ok{color:var(--green)} .sync-bad{color:var(--amber)}
 input[type=checkbox]{accent-color:var(--cyan)}
+.cmp{width:100%;border-collapse:collapse;font-size:11.5px;margin-top:4px}
+.cmp th,.cmp td{border:1px solid var(--line);padding:4px 7px;text-align:left;vertical-align:top}
+.cmp th{background:#0b0e1a;color:var(--cyan);font-weight:600;white-space:nowrap}
+.cmp td:first-child{color:#e6edf7}
+body.printing header,body.printing .card:not(#sheetCard){display:none!important}
+body.printing{background:#fff;color:#000}
+body.printing #sheetCard{border:none;padding:0}
+body.printing .cmp th,body.printing .cmp td{color:#000;border-color:#999}
+@media print{
+  body{background:#fff;color:#000}
+  header .row,header .badge,header .spacer{display:none!important}
+  header h1 small{display:none}
+  main .card:not(#sheetCard), main .grid2 > div:not(:last-child) .card:not(#sheetCard){}
+  .nocell{display:none!important}
+  .card{border:none;box-shadow:none;margin:0;padding:0}
+  .cmp th,.cmp td{border-color:#999;color:#000}
+  .cmp th{background:#eee}
+  @page{size:A4 landscape;margin:12mm}
+  #sheetCard{break-inside:avoid}
+}
 input[type=range]{accent-color:var(--cyan);width:110px}
 details{margin-top:6px}
 summary{cursor:pointer;font-size:12px;color:var(--mut)}
@@ -293,8 +313,27 @@ summary{cursor:pointer;font-size:12px;color:var(--mut)}
     NETWORK MODE; =GEN_VT/=BUS_VT → FX3U-4AD; PLC ↔ HMI (MT6071P) và ↔ STEP MOTOR DRIVER cùng bus RS422; trip của QRP đi bằng <b>mạch cứng</b> (không qua PLC).</p>
   </details>
 </div>
+<div class="card" id="sheetCard">
+  <h2><b>📄 Đối chiếu mô phỏng ↔ bản vẽ SJC-E-GSP</b>
+    <button id="bPrint" title="In trang / Lưu PDF bằng hộp thoại in của trình duyệt">🖨 In / PDF</button></h2>
+  <table class="cmp">
+    <tr><th>Trên bản vẽ</th><th>Ý nghĩa gốc</th><th>Trong mô phỏng</th><th>Cách demo</th></tr>
+    <tr><td>PLC FX3U-16MT/ES</td><td>Trung tâm sequence, interlock, nhận DI/ra DO</td><td>Khối "PLC" + bảng LED I/O, mọi lệnh đi qua guard</td><td>Bấm sai thứ tự → log giải thích vì sao bị chặn</td></tr>
+    <tr><td>HMI Weintek MT6071P (RS422)</td><td>Màn hình vận hành, quyền khi REMOTE</td><td>Card "HMI — chế độ REMOTE"</td><td>Đang LOCAL bấm nút HMI → bị khóa kèm cảnh báo</td></tr>
+    <tr><td>=GEN_VT / =BUS_VT → FX3U-4AD (Ug-U,V; Ub-U,V)</td><td>So sánh độ lớn điện áp (trị hiệu dụng)</td><td>2 VT trên mimic, đồng hồ Ug/Ub, ΔU</td><td>Hòa khi Ug chưa vào ±5% → chặn ΔU</td></tr>
+    <tr><td>Rơ-le đồng bộ (ngoài PLC)</td><td>Cấp "cho phép đóng" đúng điểm Δφ≈0, có trượt cho phép</td><td>Đèn quay + ΔU/Δf/Δφ + trạng thái CHỜ TRÙNG PHA tự đóng</td><td>NETWORK MODE rồi ĐÓNG GCB: rơ-le tự canh pha</td></tr>
+    <tr><td>QRP — GEN PROTECTION, trip bằng mạch cứng</td><td>Bảo vệ tác động thẳng cuộn cắt, không qua scan PLC</td><td>Đường trip đỏ QRP→QCB + ô QRP OK/TRIP</td><td>Chèn sự cố: mất kích từ / bypass hòa ẩu</td></tr>
+    <tr><td>GCB =QCB · FCB — "CLOSED (10s)"</td><td>Xác nhận phụ trợ có trễ chống rung tiếp điểm</td><td>Breaker đỏ=đóng + LED DI đếm debounce 1s (demo)</td><td>Theo dõi cột ✔ quy trình t1, t7</td></tr>
+    <tr><td>STEP MOTOR DRIVER → STEP MOTOR (INCREASE/DECREASE)</td><td>Chỉnh tốc bằng động cơ bước, đặc tính dốc tĩnh</td><td>Icon stepper + thanh pos + nút giữ TĂNG/GIẢM TỐC (×2)</td><td>Giữ ga cao rồi hòa → P nhảy full tải</td></tr>
+    <tr><td>Tín hiệu: FIELD FLASHING · BUILD UP (FAILURE) · DE-EXCITATION · RUNNING/STOPPING · TRIP FCB · GCB/FCR CLOSED · LOCAL/REMOTE · ALARM RESET · NETWORK MODE</td><td>Bộ DI/DO khởi động – hòa – tách</td><td>Bảng LED dùng nguyên tên tín hiệu</td><td>Mỗi tín hiệu sáng/cờ đúng lúc tương ứng</td></tr>
+    <tr><td>Quy trình khởi động (sheet 2/3)</td><td>FCR → flash → dựng áp → tăng tốc → network mode → hòa → mang tải; tách thì giảm tải → cắt GCB → de-excite</td><td>Đủ 6 bước tự tick ✔ + nút DEMO tự chạy</td><td>Bấm ▶▶ DEMO tự động (×4 cho nhanh)</td></tr>
+    <tr><td>Điểm cần review (bàn thêm khi thiết kế thật)</td><td>4AI chỉ so được ΔU — cần rơ-le đồng bộ chuyên dụng; DO transistor phải qua relay trung gian; FX3U/MT6071P đã hết vòng đời khuyến nghị; cần watchdog RS422</td><td>Thể hiện bằng chính giới hạn của mô hình</td><td>Quiz 8 câu kiểm tra hiểu các điểm này</td></tr>
+  </table>
+  <p class="hint">Bấm <b>🖨 In / PDF</b> → "Lưu as PDF" trong hộp thoại in: chỉ trang bảng này được trình bày cho khổ A4 ngang.</p>
+</div>
 <div class="card">
   <h2><b>🎓 Kiểm tra lý thuyết</b> <span class="badge" id="qScoreBadge">chưa làm</span></h2>
+  <div class="row" style="margin-bottom:4px"><button id="qLang" title="Đổi ngôn ngữ bộ câu hỏi">中文 · Học bằng tiếng Việt</button></div>
   <div id="quiz"></div>
   <p class="hint">Mẹo: hãy thao tác / chạy DEMO / bật fault trước rồi trả lời — giải thích hiện ra sau mỗi câu, đáp án không đổi được sau khi chọn.</p>
 </div>
@@ -558,21 +597,61 @@ const QUIZ=[
  w:"Vì vậy 'giữ ga cao rồi mới hòa' → vừa hòa đã ăn full tải — sim tái hiện đúng; muốn non tải phải hạ ga về ~50% ngay điểm 50.00Hz."}
 ];
 let qState={};
+let qLang=(()=>{try{return localStorage.getItem('gspLang')==='cn'?'cn':'vi';}catch(e){return 'vi';}})();
+const QUIZ_CN=[
+{q:"图纸已用 FX3U-4AD 采集 Ug(U,V)、Ub(U,V)，为什么还要专用同步继电器？",
+ o:["继电器总比 PLC 快","模拟量只给有效值 → 只能比 ΔU，Δφ/Δf 不可靠；专用继电器才能捕捉同期合闸点","仅作 PLC 故障备用","4AD 通道不够"],
+ w:"4 路 12 位 AI 只能做电压幅值比较；真正同步靠外部继电器，PLC 只接收“允许合闸”。"},
+{q:"图纸上 GCB CLOSED / FCR CLOSED 后的 (10s) 是什么含义？",
+ o:["合闸线圈只允许通电 10s","辅助触点须连续闭合 ≥10s 才被 PLC 确认（防抖动、防误报）","10s 后 PLC 自动跳闸","电容充电时间"],
+ w:"演示里缩短为 1s（能看到 LED 计时），去抖/锁存原理不变。"},
+{q:"正确的 DE-EXCITATION（灭磁）顺序？",
+ o:["断开 GCB 后立即灭磁","先把 P、Q 降到 ≈0 → 断开 GCB → 再灭磁","先灭磁再断 GCB","拔掉励磁保险"],
+ w:"GCB 合着就灭磁 = 失磁运行，从电网吸收大量无功并被拖为电动机工况，保护必动。仿真与真实 PLC 一样闭锁该操作。"},
+{q:"为什么失去剩磁会导致 BUILD UP FAILURE（自励不起压）？",
+ o:["励磁绕组自己断开","自励靠 E→If→E 正反馈建立；没有剩磁（也没有足够深的 FLASH 注入）就无法起励","AVR 立即损坏","转速过高"],
+ w:"仿真：勾选'失去剩磁'且不 FLASH → 14s 看门狗 BUILD UP FAILURE 并跳开 FCR，与图纸信号一致。"},
+{q:"非同期合闸（旁路同步继电器、大相角差合闸）最危险的后果？",
+ o:["多耗燃料","冲击电流达额定数倍 + 扭矩冲击：电动力损坏端部绕组、定转子过热，速断必须跳闸","电网失频","轻微逆功率"],
+ w:"仿真提供'旁路同步继电器'开关让你亲眼看到：冲击 3–4pu → 过流跳 GCB 并自动灭磁。"},
+{q:"图纸中 QRP（发变组保护）跳 GCB 的命令走哪条回路？",
+ o:["经 PLC 的 DO","继电器直接跳闸的硬回路——不依赖 PLC 扫描/故障","经 Weintek HMI","经 4AD 模块"],
+ w:"安全原则：保护出口绝不借用共用控制器；PLC 只监视辅助触点。"},
+{q:"带负荷运行中失去励磁，表计特征？",
+ o:["P 增大、Q=0","P 摆动/变负，Q 大幅为负（从系统吸收无功建立磁场），端电压略降","Ug 剧增","无明显现象"],
+ w:"仿真：合闸状态下勾选'失去励磁电源' → If 塌陷、P 反送 → 失磁保护跳闸并灭磁。"},
+{q:"并入无穷大电网后，什么决定发电机 P（调差系数 δ=4%）？",
+ o:["AVR/Uset","油门（手柄）：P ≈ (f₀(给定) − f电网)/δ","母线电压","电网 50Hz 频率"],
+ w:"所以'油门开满再准同期合闸'一合即满负荷——仿真如实再现；空载并网需把手柄收到 50.00Hz 附近。"}
+];
+QUIZ.forEach((x,i)=>{if(QUIZ_CN[i])x.cn=QUIZ_CN[i];});
+function quizT(x){return (qLang==='cn'&&x.cn)?{q:x.cn.q,o:x.cn.o,w:x.cn.w,a:x.a}:x;}
 function quizScore(){return QUIZ.reduce((n,x,i)=>n+(qState[i]===x.a?1:0),0);}
 function quizChoose(i,j){if(qState[i]!==undefined)return;qState[i]=j;renderQuiz();qState[i]===QUIZ[i].a?tone(880,0.12,0,'sine',0.05):tone(220,0.18,0,'sawtooth',0.05);}
 function quizReset(){qState={};renderQuiz();}
 function renderQuiz(){
   const box=document.getElementById('quiz');if(!box)return;
   box.innerHTML=QUIZ.map((x,i)=>{
-    const chosen=qState[i];
-    return '<div class="qq"><p class="q"><b>'+(i+1)+'.</b> '+x.q+'</p><div class="opts">'+
-      x.o.map((o,j)=>'<button class="'+(chosen===undefined?'':(j===x.a?'good':(j===chosen?'bad':'')))+'"'+(chosen===undefined?' onclick="quizChoose('+i+','+j+')"':' disabled')+'>'+(String.fromCharCode(65+j))+'. '+o+'</button>').join('')+
-      '</div>'+(chosen!==undefined?'<p class="why">'+(chosen===x.a?'✔ ':'✘ ')+x.w+'</p>':'')+'</div>';
+    const chosen=qState[i], t=quizT(x);
+    return '<div class="qq"><p class="q"><b>'+(i+1)+'.</b> '+t.q+'</p><div class="opts">'+
+      t.o.map((o,j)=>'<button class="'+(chosen===undefined?'':(j===x.a?'good':(j===chosen?'bad':'')))+'"'+(chosen===undefined?' onclick="quizChoose('+i+','+j+')"':' disabled')+'>'+(String.fromCharCode(65+j))+'. '+o+'</button>').join('')+
+      '</div>'+(chosen!==undefined?'<p class="why">'+(chosen===x.a?'✔ ':'✘ ')+t.w+'</p>':'')+'</div>';
   }).join('')+'<p style="margin:6px 0 0"><button onclick="quizReset()">↺ Làm lại</button></p>';
   const b=document.getElementById('qScoreBadge');
   if(b){const done=Object.keys(qState).length;b.textContent=done?('Điểm '+quizScore()+'/'+QUIZ.length):'chưa làm';
     b.style.color=done===QUIZ.length&&quizScore()===QUIZ.length?'var(--green)':(done?'var(--amber)':'');}
 }
+$('qLang').onclick=()=>{qLang=(qLang==='cn'?'vi':'cn');try{localStorage.setItem('gspLang',qLang);}catch(e){}
+  $('qLang').textContent=qLang==='cn'?'🇻🇳 Học bằng tiếng Việt':'中文 · 用中文学习';renderQuiz();};
+$('qLang').textContent=qLang==='cn'?'🇻🇳 Học bằng tiếng Việt':'中文 · 用中文学习';
+$('bPrint').onclick=()=>{const W=(typeof window!=='undefined')?window:null;
+  if(W&&W.print){document.body.classList.add('printing');
+    if(W.addEventListener)W.addEventListener('afterprint',()=>document.body.classList.remove('printing'),{once:true});
+    setTimeout(()=>document.body.classList.remove('printing'),1500);
+    W.print();
+  } else ev('Trình duyệt không hỗ trợ in — hãy dùng Ctrl+P','warn');};
+(function(){const W=(typeof window!=='undefined')?window:null;if(W&&W.addEventListener)
+  W.addEventListener('beforeprint',()=>document.body.classList.add('printing'));})();
 if(typeof window!=='undefined'){window.quizChoose=quizChoose;window.quizReset=quizReset;}
 renderQuiz();
 function setSpeed(x){S.speed=x;[[$('bS1'),1],[$('bS2'),2],[$('bS4'),4]].forEach(([b,v])=>b.classList.toggle('on',v===x));}
